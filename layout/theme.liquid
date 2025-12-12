@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>{{ page_title }}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {{ 'theme.css' | asset_url | stylesheet_tag }}
+        {{ content_for_header }}
+        <script>
+             tailwind.config = {
+             prefix: 'tw-',
+             corePlugins: { preflight: false },
+                };
+        </script>
+        <script src="https://cdn.tailwindcss.com?min" defer></script>
+    </head>
+    <body>
+        {% section 'header-menu' %}
+        {{ content_for_layout }}
+        <script defer src="{{ 'theme.js' | asset_url }}"></script>
+    </body>
+</html>

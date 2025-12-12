@@ -1,0 +1,43 @@
+<div class="section_header">
+    {% assign menu = linklists[section.settings.header_menu].links %}
+
+<div class="section_header">
+
+  {% if section.settings.menu_title != blank %}
+    <h2 class="text-lg font-medium mb-3">
+      {{ section.settings.menu_title }}
+    </h2>
+  {% endif %}
+
+  <nav>
+    <ul class="flex items-center gap-6">
+      {% for link in menu %}
+        <li>
+          <a href="{{ link.url }}" class="hover:underline">
+            {{ link.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</div>
+</div>
+
+{% schema %}
+{
+  "name": "Header Menu",
+  "settings": [
+    {
+      "type": "text",
+      "id": "menu_title",
+      "label": "Menu title",
+      "default": "Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "header_menu",
+      "label": "Select menu"
+    }
+  ]
+}
+{% endschema %}

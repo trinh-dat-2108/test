@@ -1,0 +1,82 @@
+<div class="flex items-center justify-between w-full">
+
+    <div class="relative w-full h-0.5 bg-gray-200 mr-6">
+        <div 
+            id="scrollThumb"
+            class="absolute top-0 left-0 h-0.5 bg-black transition-all duration-300"
+            style="width: {{ progress | default: '0%' }};">
+        </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+
+        <button 
+             class="btn-slide-hover w-12 h-12 flex items-center justify-center rounded-full border border-gray-300 bg-white transition"
+    aria-label="Previous"
+    onclick="{{ prev_action | default: '' }}"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                 viewBox="0 0 24 24" 
+                 class="w-5 h-5">
+                <path fill="none" stroke="currentColor" stroke-width="2" d="M15 6l-6 6 6 6"/>
+            </svg>
+        </button>
+
+        <button 
+            class="btn-slide-hover w-12 h-12 flex items-center justify-center rounded-full border border-gray-300 bg-white transition"
+    aria-label="Next"
+    onclick="{{ next_action | default: '' }}"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" 
+                 viewBox="0 0 24 24" 
+                 class="w-5 h-5">
+                <path fill="none" stroke="currentColor" stroke-width="2" d="M9 6l6 6-6 6"/>
+            </svg>
+        </button>
+
+    </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const scroller = document.querySelector(".product_scroller");
+    const thumb = document.getElementById("scrollThumb");
+
+    const leftBtn = document.getElementById("scrollLeft");
+    const rightBtn = document.getElementById("scrollRight");
+
+    if (!scroller || !thumb) return; 
+
+    function updateThumb() {
+        const maxScroll = scroller.scrollWidth - scroller.clientWidth;
+
+        if (maxScroll <= 0) {
+            thumb.style.width = "100%";
+            return;
+        }
+
+        const percent = scroller.scrollLeft / maxScroll;
+
+       
+        const thumbWidth = scroller.clientWidth / scroller.scrollWidth;
+
+        thumb.style.width = (thumbWidth * 100) + "%";
+        thumb.style.left = (percent * (100 - thumbWidth * 100)) + "%";
+    }
+
+    if (leftBtn) {
+        leftBtn.addEventListener("click", () => {
+            scroller.scrollBy({ left: -300, behavior: "smooth" });
+        });
+    }
+
+    if (rightBtn) {
+        rightBtn.addEventListener("click", () => {
+            scroller.scrollBy({ left: 300, behavior: "smooth" });
+        });
+    }
+
+    scroller.addEventListener("scroll", updateThumb);
+
+    updateThumb();
+});
+</script>
