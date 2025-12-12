@@ -13,7 +13,7 @@
       "header-menu": {
         "type": "header-menu",
         "settings": {
-          "menu_title": "Menu",
+          "menu_title": "",
           "header_menu": "customer-account-main-menu"
         }
       }
