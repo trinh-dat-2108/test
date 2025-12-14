@@ -1,7 +1,5 @@
-<div class="section_header">
-    {% assign menu = linklists[section.settings.header_menu].links %}
-
-<div class="section_header">
+<div class="section_header py-12">
+  {% assign menu = linklists[section.settings.header_menu].links %}
 
   {% if section.settings.menu_title != blank %}
     <h2 class="text-lg font-medium mb-3">
@@ -10,17 +8,42 @@
   {% endif %}
 
   <nav>
-    <ul class="flex items-center gap-6">
+    <ul class="flex items-center justify-center gap-6">
       {% for link in menu %}
-        <li>
-          <a href="{{ link.url }}" class="hover:underline">
+        <li class="relative group">
+          <a href="{{ link.url }}" class="no-underline hover:no-underline">
             {{ link.title }}
           </a>
+
+          {% if link.links.size > 0 %}
+            <!-- LEVEL 2 -->
+            <ul class="absolute left-0 top-full hidden group-hover:block bg-white shadow-md mt-2 min-w-[180px]">
+              {% for child in link.links %}
+                <li class="relative group/child">
+                  <a href="{{ child.url }}" class="block px-4 py-2 hover:bg-gray-100">
+                    {{ child.title }}
+                  </a>
+
+                  {% if child.links.size > 0 %}
+                    <!-- LEVEL 3 -->
+                    <ul class="absolute left-full top-0 hidden group-hover/child:block bg-white shadow-md min-w-[180px]">
+                      {% for grandchild in child.links %}
+                        <li>
+                          <a href="{{ grandchild.url }}" class="block px-4 py-2 hover:bg-gray-100">
+                            {{ grandchild.title }}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
         </li>
       {% endfor %}
     </ul>
   </nav>
-</div>
 </div>
 
 {% schema %}
