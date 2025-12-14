@@ -1,114 +1,151 @@
 <div class="product-tabs">
-    <div class="section_product_collection px-10 md:px-40">
+  <div class="section_product_collection px-10 md:px-40">
     <div class="section_product py-20">
       <div class="section_product_wapper">
         <div class="section_content tabs_panels">
           <div class="tabs_panels_collection">
-            <featured-collection class="block relative">
-              <div class="grid grid-flow-col auto-cols-max gap-0 overflow-x-auto scroll-smooth snap-x snap-mandatory product-collection py-3">
 
-                <!-- Banner card -->
-                <div class="snap-start flex-shrink-0 w-[240px] baner-card m-0 p-0">
-                  {% render 'banner-card',
-                     image: 'assets/garden-of-wellness-shop-season-of-renewal-desktop-banner.png',
-                     title: 'Healthy Lifestyle',
-                     button_label: 'Shop Now',
-                     button_url: '/collections/all'
-                  %}
+            {% for block in section.blocks %}
+              <featured-collection class="block relative" {{ block.shopify_attributes }}>
+                {% if block.settings.collection != blank %}
+               <div class="flex justify-end mb-3">
+                  <a
+                    href="{{ collections[block.settings.collection].url }}"
+                    class="text-sm font-medium hover:underline"
+                  >
+                   View all
+                 </a>
+               </div>
+            {% endif %}
+                <div class="grid grid-flow-col auto-cols-max gap-0 overflow-x-auto scroll-smooth snap-x snap-mandatory product-collection py-3">
+
+                  <!-- Banner card -->
+                  <div class="snap-start flex-shrink-0 w-[240px] baner-card m-0 p-0">
+                    {% render 'banner-card',
+                      image: block.settings.banner_image,
+                      title: block.settings.banner_heading,
+                      button_label: block.settings.button_label,
+                      button_url: block.settings.button_url
+                    %}
+                  </div>
+
+                  <!-- Product list -->
+                  <div class="flex gap-0 f-column">
+                    {% if block.settings.collection != blank %}
+                      {% for product in collections[block.settings.collection].products
+                        limit: block.settings.products_to_show %}
+                        <div class="snap-start flex-shrink-0 w-[240px] h-[470px] rounded-none f-column product-card m-0 p-0 border-0 shadow-none bg-transparent">
+                          {% render 'card-product', product: product %}
+                        </div>
+                      {% endfor %}
+                    {% else %}
+                      <p class="text-center text-gray-500 flex-shrink-0 w-[350px] h-[300px] flex items-center justify-center">
+                        Please select a collection.
+                      </p>
+                    {% endif %}
+                  </div>
+
                 </div>
 
-                <!-- Product list -->
-                <div class="flex gap-0 f-column">
-                  {% if section.settings.collection != blank %}
-                    {% for product in collections[section.settings.collection].products limit: section.settings.products_to_show %}
-                      <div class="snap-start flex-shrink-0 w-[240px] h-[470px] rounded-none f-column product-card m-0 p-0 border-0 shadow-none bg-transparent">
-                        {% render 'card-product', product: product %}
-                      </div>
-                    {% endfor %}
-                  {% else %}
-                    <p class="text-center text-gray-500 flex-shrink-0 w-[350px] h-[300px] flex items-center justify-center f-column m-0 p-0">
-                      Please select a collection to display products.
-                    </p>
-                  {% endif %}
-                </div>
-              </div>
-              {% render 'scroll',
-                 prev_action: 'scrollProductsLeft()',
-                 next_action: 'scrollProductsRight()'
-              %}
-            </featured-collection>
+                {% render 'scroll',
+                  prev_action: 'scrollProductsLeft()',
+                  next_action: 'scrollProductsRight()'
+                %}
+              </featured-collection>
+            {% endfor %}
+
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 {% schema %}
 {
   "name": "Product Tabs",
-  "settings": [
-    {
-      "type": "collection",
-      "id": "collection",
-      "label": "Select collection"
-    },
-    {
-      "type": "image_picker",
-      "id": "banner_image",
-      "label": "Banner image"
-    },
-    {
-      "type": "text",
-      "id": "banner_heading",
-      "label": "Banner heading",
-      "default": "Healthy Lifestyle"
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Button text",
-      "default": "Shop Now"
-    },
-    {
-      "type": "url",
-      "id": "button_url",
-      "label": "Button link"
-    },
+  "max_blocks": 3,
 
+  "blocks": [
     {
-      "type": "select",
-      "id": "content_position",
-      "label": "Content position",
-      "default": "center",
-      "options": [
-        { "label": "Top", "value": "top" },
-        { "label": "Bottom", "value": "bottom" },
-        { "label": "Left", "value": "left" },
-        { "label": "Right", "value": "right" },
-        { "label": "Center", "value": "center" }
+      "type": "collection_block",
+      "name": "Collection block",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select collection"
+        },
+
+        {
+          "type": "checkbox",
+          "id": "show_banner",
+          "label": "Show banner",
+          "default": true
+        },
+
+        {
+          "type": "image_picker",
+          "id": "banner_image",
+          "label": "Banner image"
+        },
+
+        {
+          "type": "text",
+          "id": "banner_heading",
+          "label": "Banner heading",
+          "default": "Healthy Lifestyle"
+        },
+
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button text",
+          "default": "Shop Now"
+        },
+
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button link"
+        },
+
+        {
+          "type": "select",
+          "id": "content_position",
+          "label": "Content position",
+          "default": "center",
+          "options": [
+            { "label": "Top", "value": "top" },
+            { "label": "Bottom", "value": "bottom" },
+            { "label": "Left", "value": "left" },
+            { "label": "Right", "value": "right" },
+            { "label": "Center", "value": "center" }
+          ]
+        },
+
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "default": "normal",
+          "options": [
+            { "label": "Normal", "value": "normal" },
+            { "label": "Underline", "value": "underline" },
+            { "label": "Hover effect", "value": "hover" }
+          ]
+        },
+
+        {
+          "type": "range",
+          "id": "products_to_show",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "label": "Number of products to show",
+          "default": 8
+        }
       ]
-    },
-
-    {
-      "type": "select",
-      "id": "button_style",
-      "label": "Button style",
-      "default": "normal",
-      "options": [
-        { "label": "Normal", "value": "normal" },
-        { "label": "Underline", "value": "underline" },
-        { "label": "Hover effect", "value": "hover" }
-      ]
-    },
-
-    {
-      "type": "range",
-      "id": "products_to_show",
-      "min": 1,
-      "max": 20,
-      "step": 1,
-      "label": "Number of products to show",
-      "default": 8
     }
   ],
 
@@ -119,6 +156,8 @@
   ]
 }
 {% endschema %}
+
+
 
 
 <style>
