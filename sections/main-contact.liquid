@@ -1,0 +1,83 @@
+<section class="page-contact section-{{ section.id }}">
+  <div class="page-width">
+
+    <!-- Title -->
+    <h1>{{ section.settings.heading }}</h1>
+
+    <!-- Page content -->
+    {% if page.content != blank %}
+      <div class="page-content rte">
+        {{ page.content }}
+      </div>
+    {% endif %}
+
+    <!-- Contact form -->
+    <div class="contact-form-wrapper">
+      {% form 'contact', id: 'ContactForm', class: 'contact-form' %}
+
+        {% if form.posted_successfully? %}
+          <p class="form-success">
+            Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm!
+          </p>
+        {% endif %}
+
+        {{ form.errors | default_errors }}
+
+        <div class="field">
+          <input
+            type="text"
+            name="contact[name]"
+            placeholder="Họ và tên"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <input
+            type="email"
+            name="contact[email]"
+            placeholder="Email"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <input
+            type="tel"
+            name="contact[phone]"
+            placeholder="Số điện thoại"
+          >
+        </div>
+
+        <div class="field">
+          <textarea
+            name="contact[body]"
+            placeholder="Nội dung liên hệ"
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="button">
+          Gửi liên hệ
+        </button>
+
+      {% endform %}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Tiêu đề",
+      "default": "Liên hệ với chúng tôi"
+    }
+  ]
+}
+{% endschema %}
+
