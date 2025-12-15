@@ -25,6 +25,7 @@
             "settings": {
               "collection": "thuốc-1",
               "show_banner": true,
+              "banner_image": "shopify://shop_images/Garden-of-wellness-shop-max-biocare-1000x1000-Maxucosa.webp",
               "banner_heading": "Healthy Lifestyle",
               "button_label": "Shop Now",
               "button_url": "",
@@ -38,6 +39,7 @@
             "settings": {
               "collection": "thuốc",
               "show_banner": true,
+              "banner_image": "shopify://shop_images/Garden-of-wellness-shop-little-etoile-1000x1000-MilkFormula4_6b771696-c014-452c-a257-4029ee1fefa0.webp",
               "banner_heading": "Healthy Lifestyle",
               "button_label": "Shop Now",
               "button_url": "",
