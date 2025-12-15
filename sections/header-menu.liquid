@@ -17,7 +17,7 @@
 
           {% if link.links.size > 0 %}
             <!-- LEVEL 2 -->
-            <ul class="absolute left-0 top-full hidden group-hover:block bg-white shadow-md mt-2 min-w-[180px]">
+            <ul class="absolute left-0 top-full hidden group-hover:block bg-white shadow-md min-w-[180px]">
               {% for child in link.links %}
                 <li class="relative group/child">
                   <a href="{{ child.url }}" class="block px-4 py-2 hover:bg-gray-100">
