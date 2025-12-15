@@ -16,6 +16,44 @@
           "menu_title": "",
           "header_menu": "customer-account-main-menu"
         }
+      },
+      "product-tabs": {
+        "type": "product-tabs",
+        "blocks": {
+          "collection_block_YjGxiG": {
+            "type": "collection_block",
+            "settings": {
+              "collection": "thuốc-1",
+              "show_banner": true,
+              "banner_image": "shopify://shop_images/Garden-of-wellness-shop-max-biocare-1000x1000-Maxucosa.webp",
+              "banner_heading": "Healthy Lifestyle",
+              "button_label": "Shop Now",
+              "button_url": "",
+              "content_position": "center",
+              "button_style": "normal",
+              "products_to_show": 8
+            }
+          },
+          "collection_block_CwtJcA": {
+            "type": "collection_block",
+            "settings": {
+              "collection": "thuốc",
+              "show_banner": true,
+              "banner_image": "shopify://shop_images/Garden-of-wellness-shop-little-etoile-1000x1000-MilkFormula4_6b771696-c014-452c-a257-4029ee1fefa0.webp",
+              "banner_heading": "Healthy Lifestyle",
+              "button_label": "Shop Now",
+              "button_url": "",
+              "content_position": "center",
+              "button_style": "normal",
+              "products_to_show": 8
+            }
+          }
+        },
+        "block_order": [
+          "collection_block_YjGxiG",
+          "collection_block_CwtJcA"
+        ],
+        "settings": {}
       }
     },
     "content_for_index": []
