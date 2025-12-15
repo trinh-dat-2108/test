@@ -45,9 +45,9 @@
     </div>
 
     <div class="card-product__price text-[18px] font-bold text-[#d10000] min-h-[24px]">
-      <span>${{ price | money }}</span>
+      <span>{{ price | money }}</span>
       {% if compare_at_price and compare_at_price > price %}
-        <span class="line-through text-gray-400 ml-2">${{ compare_at_price | money }}</span>
+        <span class="line-through text-gray-400 ml-2">{{ compare_at_price | money }}</span>
       {% endif %}
     </div>
 
