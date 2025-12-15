@@ -1,4 +1,4 @@
-<div class="card-product bg-white rounded-xl shadow p-4 flex flex-col text-left relative {{ extra_class | default: '' }}">
+<div class="card-product bg-white shadow p-3 flex flex-col text-left relative {{ extra_class | default: '' }}">
 
   {% assign price = product.selected_or_first_available_variant.price %}
   {% assign compare_at_price = product.selected_or_first_available_variant.compare_at_price %}
