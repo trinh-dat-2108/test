@@ -16,7 +16,7 @@
     <ul class="flex items-center justify-center gap-20">
       {% for link in menu %}
         <li class="relative group" {% if link.links.size > 0 %}data-has-children{% endif %}>
-          <a href="{{ link.url }}" class="menu-level-1">
+          <a href="{{ link.url }}" class="menu-level-1 uppercase">
             <span class="menu-text">{{ link.title }}</span>
            {% if link.links.size > 0 %}
              <svg class="menu-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none"
@@ -29,10 +29,10 @@
 
           {% if link.links.size > 0 %}
             <!-- LEVEL 2 -->
-            <ul class="absolute left-0 top-full hidden group-hover:block bg-white shadow-md min-w-[180px]">
+            <ul class="absolute left-0 top-full hidden group-hover:block bg-white shadow-md min-w-[260px]">
               {% for child in link.links %}
                 <li class="relative group/child" {% if child.links.size > 0 %}data-has-children{% endif %}>
-                  <a href="{{ child.url }}" class="block px-4 py-2">
+                  <a href="{{ child.url }}" class="block px-4 py-2 uppercase">
                     {{ child.title }}
                   </a>
 
@@ -41,7 +41,7 @@
                     <ul class="absolute left-full top-0 hidden group-hover/child:block bg-white shadow-md min-w-[180px]">
                       {% for grandchild in child.links %}
                         <li>
-                          <a href="{{ grandchild.url }}" class="block px-4 py-2 hover:bg-gray-100">
+                          <a href="{{ grandchild.url }}" class="block px-4 py-2 hover:bg-gray-100 uppercase">
                             {{ grandchild.title }}
                           </a>
                         </li>
@@ -59,7 +59,6 @@
 </div>
 
 <style>
- /* menu cấp 1 */
 .menu-level-1 {
   display: flex;
   align-items: center;
@@ -67,22 +66,22 @@
   font-weight: 700;
 }
 
-/* mũi tên SVG */
+
 .menu-arrow {
   width: 14px;
   height: 14px;
-  transform: rotate(180deg); /* mặc định: chỉ xuống */
+  transform: rotate(180deg); 
   transition: transform .25s ease;
 }
 
-/* DESKTOP: hover mở submenu */
+
 @media (min-width: 769px) {
   li[data-has-children]:hover > .menu-level-1 .menu-arrow {
-    transform: rotate(0deg); /* xuống -> lên */
+    transform: rotate(0deg);
   }
 }
 
-/* MOBILE: click mở submenu */
+
 @media (max-width: 768px) {
   li.active > .menu-level-1 .menu-arrow {
     transform: rotate(0deg);
@@ -90,9 +89,9 @@
 }
 
 
-  /* ===== FORCE SHOW FOR ANIMATION ===== */
+
 .section_header nav ul > li > ul {
-  display: block !important;      /* override hidden */
+  display: block !important;      
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -103,7 +102,7 @@
     visibility 0s linear 0.25s;
 }
 
-/* hover menu cấp 1 */
+
 .section_header nav ul > li:hover > ul {
   opacity: 1;
   visibility: visible;
@@ -112,7 +111,7 @@
   transition-delay: 0s;
 }
 
-  /* Căn bản font chữ menu */
+  
 nav ul li a {
   font-family: 'Arial', sans-serif;
   font-weight: 700;
@@ -124,10 +123,10 @@ nav ul li a {
 }
 ul ul a {
   position: relative;
-  display: block; /* giữ đúng block dropdown */
+  display: block; 
 }
 
-/* wrapper text */
+
 .flip-text-wrapper {
   position: relative;
   display: block;

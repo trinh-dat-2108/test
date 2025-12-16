@@ -176,6 +176,20 @@
 .product-collection {
   scrollbar-width: none; 
 }
+/* ===== Scroll buttons hover ===== */
+.section_product_collection .btn-slide-hover {
+  transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+}
+
+.section_product_collection .btn-slide-hover:hover {
+  background-color: #000;
+  border-color: #000;
+}
+
+.section_product_collection .btn-slide-hover:hover svg {
+  color: #fff;
+}
+
 </style>
 
 <script>
@@ -205,17 +219,41 @@
 
 
 <script>
-function scrollProductsLeft() {
-    document.querySelector('.product-collection').scrollBy({
-        left: -300,
-        behavior: 'smooth'
-    });
-}
+document.addEventListener("DOMContentLoaded", function () {
 
-function scrollProductsRight() {
-    document.querySelector('.product-collection').scrollBy({
-        left: 300,
-        behavior: 'smooth'
+  document.querySelectorAll("featured-collection").forEach(block => {
+
+    const scroller = block.querySelector(".product-collection");
+    const thumb = block.querySelector(".scrollThumb");
+    const leftBtn = block.querySelector(".scrollLeft");
+    const rightBtn = block.querySelector(".scrollRight");
+
+    if (!scroller) return;
+
+    function updateThumb() {
+      if (!thumb) return;
+
+      const maxScroll = scroller.scrollWidth - scroller.clientWidth;
+      if (maxScroll <= 0) {
+        thumb.style.width = "100%";
+        return;
+      }
+
+      const percent = scroller.scrollLeft / maxScroll;
+      thumb.style.width = (percent * 100) + "%";
+    }
+
+    leftBtn?.addEventListener("click", () => {
+      scroller.scrollBy({ left: -300, behavior: "smooth" });
     });
-}
+
+    rightBtn?.addEventListener("click", () => {
+      scroller.scrollBy({ left: 300, behavior: "smooth" });
+    });
+
+    scroller.addEventListener("scroll", updateThumb);
+    updateThumb();
+  });
+
+});
 </script>
