@@ -1,71 +1,102 @@
 <section class="page-contact section-{{ section.id }}">
-  <div class="page-width">
+  <div class="page-width md:px-40">
 
-    <!-- Title -->
-    <h1>{{ section.settings.heading }}</h1>
+    <h1 class="tw-mb-8">
+      {{ section.settings.heading }}
+    </h1>
 
-    <!-- Page content -->
-    {% if page.content != blank %}
-      <div class="page-content rte">
-        {{ page.content }}
-      </div>
-    {% endif %}
+    <div class="tw-flex md:tw-flex-row tw-flex-col">
 
-    <!-- Contact form -->
-    <div class="contact-form-wrapper">
-      {% form 'contact', id: 'ContactForm', class: 'contact-form' %}
+      <div class="contact-left tw-w-1/2 tw-min-w-0">
 
-        {% if form.posted_successfully? %}
-          <p class="form-success">
-            Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm!
-          </p>
+        {% if page.content != blank %}
+          <div class="page-content rte tw-mb-8">
+            {{ page.content }}
+          </div>
         {% endif %}
 
-        {{ form.errors | default_errors }}
+        {% if section.settings.map_embed != blank %}
+          <div class="contact-map-wrap">
+            {{ section.settings.map_embed }}
+          </div>
+        {% endif %}
 
-        <div class="field">
-          <input
-            type="text"
-            name="contact[name]"
-            placeholder="Họ và tên"
-            required
-          >
-        </div>
+      </div>
 
-        <div class="field">
-          <input
-            type="email"
-            name="contact[email]"
-            placeholder="Email"
-            required
-          >
-        </div>
+      <div class="contact-right tw-w-1/2 tw-min-w-0">
+        {% form 'contact', id: 'ContactForm', class: 'contact-form tw-w-full tw-max-w-none tw-m-0' %}
 
-        <div class="field">
-          <input
-            type="tel"
-            name="contact[phone]"
-            placeholder="Số điện thoại"
-          >
-        </div>
+          {% if form.posted_successfully? %}
+            <p class="form-success tw-mb-4">
+              Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm!
+            </p>
+          {% endif %}
 
-        <div class="field">
-          <textarea
-            name="contact[body]"
-            placeholder="Nội dung liên hệ"
-            required
-          ></textarea>
-        </div>
+          {{ form.errors | default_errors }}
 
-        <button type="submit" class="button">
-          Gửi liên hệ
-        </button>
+          <div class="field tw-mb-4">
+            <input
+              type="text"
+              name="contact[name]"
+              placeholder="Họ và tên"
+              required
+            >
+          </div>
 
-      {% endform %}
+          <div class="field tw-mb-4">
+            <input
+              type="email"
+              name="contact[email]"
+              placeholder="Email"
+              required
+            >
+          </div>
+
+          <div class="field tw-mb-4">
+            <input
+              type="tel"
+              name="contact[phone]"
+              placeholder="Số điện thoại"
+            >
+          </div>
+
+          <div class="field tw-mb-6">
+            <textarea
+              name="contact[body]"
+              placeholder="Nội dung liên hệ"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="button">
+            Gửi liên hệ
+          </button>
+
+        {% endform %}
+      </div>
+
     </div>
 
   </div>
 </section>
+
+
+<style>
+  .contact-map-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.contact-map-wrap iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 360px !important;
+  position: static !important;
+}
+
+</style>
 
 {% schema %}
 {
@@ -76,8 +107,13 @@
       "id": "heading",
       "label": "Tiêu đề",
       "default": "Liên hệ với chúng tôi"
+    },
+    {
+      "type": "textarea",
+      "id": "map_embed",
+      "label": "Google Map (Embed iframe)",
+      "info": "Dán iframe Google Maps vào đây"
     }
   ]
 }
 {% endschema %}
-
