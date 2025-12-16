@@ -5,96 +5,96 @@
       {{ section.settings.heading }}
     </h1>
 
-    <div class="tw-flex md:tw-flex-row tw-flex-col">
+    <div class="contact-wrapper">
 
-      <div class="contact-left tw-w-1/2 tw-min-w-0">
+      <div class="contact-row">
 
-        {% if page.content != blank %}
-          <div class="page-content rte tw-mb-8">
-            {{ page.content }}
+        <div class="contact-col contact-left">
+
+          <div class="contact-left-inner">
+            {% if page.content != blank %}
+              <div class="page-content rte tw-mb-8">
+                {{ page.content }}
+              </div>
+            {% endif %}
+
+            {% if section.settings.map_embed != blank %}
+              <div class="contact-map-wrap">
+                {{ section.settings.map_embed }}
+              </div>
+            {% endif %}
           </div>
-        {% endif %}
 
-        {% if section.settings.map_embed != blank %}
-          <div class="contact-map-wrap">
-            {{ section.settings.map_embed }}
+        </div>
+
+        <div class="contact-col contact-right">
+
+          <div class="contact-right-inner">
+            {% form 'contact', id: 'ContactForm', class: 'contact-form' %}
+
+              {% if form.posted_successfully? %}
+                <p class="form-success tw-mb-4">
+                  Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm!
+                </p>
+              {% endif %}
+
+              {{ form.errors | default_errors }}
+
+              <div class="field tw-mb-4">
+                <input type="text" name="contact[name]" placeholder="Họ và tên" required>
+              </div>
+
+              <div class="field tw-mb-4">
+                <input type="email" name="contact[email]" placeholder="Email" required>
+              </div>
+
+              <div class="field tw-mb-4">
+                <input type="tel" name="contact[phone]" placeholder="Số điện thoại">
+              </div>
+
+              <div class="field tw-mb-6">
+                <textarea name="contact[body]" placeholder="Nội dung liên hệ" required></textarea>
+              </div>
+
+              <button type="submit" class="button">
+                Gửi liên hệ
+              </button>
+
+            {% endform %}
           </div>
-        {% endif %}
+
+        </div>
 
       </div>
-
-      <div class="contact-right tw-w-1/2 tw-min-w-0">
-        {% form 'contact', id: 'ContactForm', class: 'contact-form tw-w-full tw-max-w-none tw-m-0' %}
-
-          {% if form.posted_successfully? %}
-            <p class="form-success tw-mb-4">
-              Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm!
-            </p>
-          {% endif %}
-
-          {{ form.errors | default_errors }}
-
-          <div class="field tw-mb-4">
-            <input
-              type="text"
-              name="contact[name]"
-              placeholder="Họ và tên"
-              required
-            >
-          </div>
-
-          <div class="field tw-mb-4">
-            <input
-              type="email"
-              name="contact[email]"
-              placeholder="Email"
-              required
-            >
-          </div>
-
-          <div class="field tw-mb-4">
-            <input
-              type="tel"
-              name="contact[phone]"
-              placeholder="Số điện thoại"
-            >
-          </div>
-
-          <div class="field tw-mb-6">
-            <textarea
-              name="contact[body]"
-              placeholder="Nội dung liên hệ"
-              required
-            ></textarea>
-          </div>
-
-          <button type="submit" class="button">
-            Gửi liên hệ
-          </button>
-
-        {% endform %}
-      </div>
-
     </div>
 
   </div>
 </section>
 
 
+
 <style>
-  .contact-map-wrap {
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-  position: relative;
+  .contact-row {
+  display: flex;
+  gap: 40px;
 }
 
-.contact-map-wrap iframe {
-  width: 100% !important;
-  max-width: 100% !important;
-  height: 360px !important;
-  position: static !important;
+.contact-col {
+  width: 50%;
+  min-width: 0;
 }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .contact-row {
+    flex-direction: column;
+  }
+
+  .contact-col {
+    width: 100%;
+  }
+}
+
 
 </style>
 
