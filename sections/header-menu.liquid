@@ -1,4 +1,4 @@
-<div class="section_header py-12">
+<div class="section_header py-12 bg-gray-50">
   {% assign menu = linklists[section.settings.header_menu].links %}
 
   {% if section.settings.menu_title != blank %}
@@ -13,19 +13,26 @@
   </button>
 
   <nav>
-    <ul class="flex items-center justify-center gap-6">
+    <ul class="flex items-center justify-center gap-20">
       {% for link in menu %}
         <li class="relative group" {% if link.links.size > 0 %}data-has-children{% endif %}>
-          <a href="{{ link.url }}" class="no-underline hover:no-underline">
-            {{ link.title }}
-          </a>
+          <a href="{{ link.url }}" class="menu-level-1">
+            <span class="menu-text">{{ link.title }}</span>
+           {% if link.links.size > 0 %}
+             <svg class="menu-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+               <path d="M6 14L12 8L18 14" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" />
+             </svg>
+             {% endif %}
+           </a>
 
           {% if link.links.size > 0 %}
             <!-- LEVEL 2 -->
             <ul class="absolute left-0 top-full hidden group-hover:block bg-white shadow-md min-w-[180px]">
               {% for child in link.links %}
                 <li class="relative group/child" {% if child.links.size > 0 %}data-has-children{% endif %}>
-                  <a href="{{ child.url }}" class="block px-4 py-2 hover:bg-gray-100">
+                  <a href="{{ child.url }}" class="block px-4 py-2">
                     {{ child.title }}
                   </a>
 
@@ -52,6 +59,97 @@
 </div>
 
 <style>
+ /* menu cấp 1 */
+.menu-level-1 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+}
+
+/* mũi tên SVG */
+.menu-arrow {
+  width: 14px;
+  height: 14px;
+  transform: rotate(180deg); /* mặc định: chỉ xuống */
+  transition: transform .25s ease;
+}
+
+/* DESKTOP: hover mở submenu */
+@media (min-width: 769px) {
+  li[data-has-children]:hover > .menu-level-1 .menu-arrow {
+    transform: rotate(0deg); /* xuống -> lên */
+  }
+}
+
+/* MOBILE: click mở submenu */
+@media (max-width: 768px) {
+  li.active > .menu-level-1 .menu-arrow {
+    transform: rotate(0deg);
+  }
+}
+
+
+  /* ===== FORCE SHOW FOR ANIMATION ===== */
+.section_header nav ul > li > ul {
+  display: block !important;      /* override hidden */
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: 
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0s linear 0.25s;
+}
+
+/* hover menu cấp 1 */
+.section_header nav ul > li:hover > ul {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+  /* Căn bản font chữ menu */
+nav ul li a {
+  font-family: 'Arial', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  color: #333;
+  display: inline-block;    
+  transition: transform 0.6s, color 0.3s;
+  transform-origin: center center;
+}
+ul ul a {
+  position: relative;
+  display: block; /* giữ đúng block dropdown */
+}
+
+/* wrapper text */
+.flip-text-wrapper {
+  position: relative;
+  display: block;
+  height: 1em;
+  line-height: 1em;
+  overflow: hidden;
+}
+
+
+}.menu-link {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  height: 1.2em;
+}
+
+.menu-link span {
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+
 /* ===== MOBILE ONLY ===== */
 @media (max-width: 768px) {
 
@@ -71,7 +169,6 @@
     display: block;
   }
 
-  /* menu xếp dọc */
   .section_header nav > ul {
     flex-direction: column;
     align-items: stretch;
@@ -83,7 +180,6 @@
     border-bottom: 1px solid #eee;
   }
 
-  /* reset dropdown absolute */
   .section_header nav ul ul {
     position: static;
     display: none;
@@ -93,7 +189,6 @@
     padding-left: 16px;
   }
 
-  /* mở submenu khi active */
   .section_header nav li.active > ul {
     display: block;
   }
@@ -145,3 +240,47 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+<script>
+document.querySelectorAll('ul ul a').forEach(link => {
+
+  const textNode = Array.from(link.childNodes)
+    .find(n => n.nodeType === Node.TEXT_NODE && n.textContent.trim());
+
+  if (!textNode) return;
+
+  const text = textNode.textContent.trim();
+  textNode.remove();
+
+  const wrapper = document.createElement('span');
+  wrapper.className = 'flip-text-wrapper';
+
+  const top = document.createElement('span');
+  top.textContent = text;
+  top.style.display = 'block';
+  top.style.transition = 'transform .35s ease';
+
+  const bottom = document.createElement('span');
+  bottom.textContent = text;
+  bottom.style.position = 'absolute';
+  bottom.style.top = '1em';
+  bottom.style.left = '0';
+  bottom.style.transition = 'transform .35s ease';
+
+  wrapper.appendChild(top);
+  wrapper.appendChild(bottom);
+  link.prepend(wrapper);
+
+  link.addEventListener('mouseenter', () => {
+    top.style.transform = 'translateY(-1em)';
+    bottom.style.transform = 'translateY(-1em)';
+  });
+
+  link.addEventListener('mouseleave', () => {
+    top.style.transform = 'translateY(0)';
+    bottom.style.transform = 'translateY(0)';
+  });
+});
+</script>
+
+
+
