@@ -7,10 +7,15 @@
     </h2>
   {% endif %}
 
+  <!-- MOBILE TOGGLE -->
+  <button class="mobile-menu-toggle md:hidden" aria-label="Toggle menu">
+    ☰
+  </button>
+
   <nav>
     <ul class="flex items-center justify-center gap-6">
       {% for link in menu %}
-        <li class="relative group">
+        <li class="relative group" {% if link.links.size > 0 %}data-has-children{% endif %}>
           <a href="{{ link.url }}" class="no-underline hover:no-underline">
             {{ link.title }}
           </a>
@@ -19,7 +24,7 @@
             <!-- LEVEL 2 -->
             <ul class="absolute left-0 top-full hidden group-hover:block bg-white shadow-md min-w-[180px]">
               {% for child in link.links %}
-                <li class="relative group/child">
+                <li class="relative group/child" {% if child.links.size > 0 %}data-has-children{% endif %}>
                   <a href="{{ child.url }}" class="block px-4 py-2 hover:bg-gray-100">
                     {{ child.title }}
                   </a>
@@ -46,6 +51,60 @@
   </nav>
 </div>
 
+<style>
+/* ===== MOBILE ONLY ===== */
+@media (max-width: 768px) {
+
+  .mobile-menu-toggle {
+    font-size: 24px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+
+  .section_header nav {
+    display: none;
+  }
+
+  .section_header nav.active {
+    display: block;
+  }
+
+  /* menu xếp dọc */
+  .section_header nav > ul {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .section_header nav > ul > li {
+    width: 100%;
+    border-bottom: 1px solid #eee;
+  }
+
+  /* reset dropdown absolute */
+  .section_header nav ul ul {
+    position: static;
+    display: none;
+    box-shadow: none;
+    background: transparent;
+    min-width: 100%;
+    padding-left: 16px;
+  }
+
+  /* mở submenu khi active */
+  .section_header nav li.active > ul {
+    display: block;
+  }
+
+  .section_header nav li[data-has-children] > a::after {
+    content: "▾";
+    float: right;
+  }
+}
+</style>
+
 {% schema %}
 {
   "name": "Header Menu",
@@ -64,3 +123,25 @@
   ]
 }
 {% endschema %}
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const toggle = document.querySelector('.mobile-menu-toggle');
+  const nav = document.querySelector('.section_header nav');
+
+  toggle?.addEventListener('click', () => {
+    nav.classList.toggle('active');
+  });
+
+  if (window.innerWidth > 768) return;
+
+  document.querySelectorAll(
+    '.section_header nav li[data-has-children] > a'
+  ).forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      link.parentElement.classList.toggle('active');
+    });
+  });
+});
+</script>
