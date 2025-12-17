@@ -30,8 +30,7 @@
               "button_label": "Shop Now",
               "button_url": "",
               "content_position": "center",
-              "button_style": "normal",
-              "products_to_show": 7
+              "button_style": "normal"
             }
           },
           "collection_block_CwtJcA": {
@@ -44,8 +43,7 @@
               "button_label": "Shop Now",
               "button_url": "",
               "content_position": "center",
-              "button_style": "normal",
-              "products_to_show": 8
+              "button_style": "normal"
             }
           }
         },
@@ -53,7 +51,15 @@
           "collection_block_YjGxiG",
           "collection_block_CwtJcA"
         ],
-        "settings": {}
+        "settings": {
+          "heading": "Sản phẩm nổi bật",
+          "subheading": "Các sản phẩm mới nhất",
+          "heading_color": "#111827",
+          "subheading_color": "#6b7280",
+          "heading_size": 32,
+          "subheading_size": 18,
+          "products_to_show": 3
+        }
       }
     },
     "content_for_index": []
