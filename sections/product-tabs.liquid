@@ -3,6 +3,19 @@
     <div class="section_product py-20">
       <div class="section_product_wapper">
         <div class="section_content tabs_panels">
+          <div class="section_header text-center mb-10">
+              {% if section.settings.heading %}
+                  <h2 style="color: {{ section.settings.heading_color }}; font-size: {{ section.settings.heading_size }}px;">
+                        {{ section.settings.heading }}
+                  </h2>
+              {% endif %}
+
+              {% if section.settings.subheading %}
+                <p style="color: {{ section.settings.subheading_color }}; font-size: {{ section.settings.subheading_size }}px;">
+                   {{ section.settings.subheading }}
+                </p>
+              {% endif %}
+          </div>
           <div class="tabs_panels_collection">
 
             {% for block in section.blocks %}
@@ -30,10 +43,13 @@
                   <!-- Banner card -->
                   <div class="snap-start flex-shrink-0 w-[240px] baner-card m-0 p-0">
                     {% render 'banner-card',
-                      image: block.settings.banner_image,
-                      title: block.settings.banner_heading,
-                      button_label: block.settings.button_label,
-                      button_url: block.settings.button_url
+                       image: block.settings.banner_image,
+                       show_banner: block.settings.show_banner,
+                       title: block.settings.banner_heading,
+                       button_label: block.settings.button_label,
+                       button_url: block.settings.button_url,
+                       content_position: block.settings.content_position,
+                       button_style: block.settings.button_style
                     %}
                   </div>
 
@@ -73,6 +89,60 @@
 {
   "name": "Product Tabs",
   "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Sản phẩm nổi bật"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Các sản phẩm mới nhất"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Màu chữ Heading",
+      "default": "#111827"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Màu chữ Subheading",
+      "default": "#6B7280"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Kích thước Heading (px)",
+      "min": 16,
+      "max": 80,
+      "step": 1,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Kích thước Subheading (px)",
+      "min": 12,
+      "max": 60,
+      "step": 1,
+      "default": 18
+    },
+
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Number of products to show (All tabs)",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 8
+    }
+  ],
 
   "blocks": [
     {
@@ -84,40 +154,34 @@
           "id": "collection",
           "label": "Select collection"
         },
-
         {
           "type": "checkbox",
           "id": "show_banner",
           "label": "Show banner",
           "default": true
         },
-
         {
           "type": "image_picker",
           "id": "banner_image",
           "label": "Banner image"
         },
-
         {
           "type": "text",
           "id": "banner_heading",
           "label": "Banner heading",
           "default": "Healthy Lifestyle"
         },
-
         {
           "type": "text",
           "id": "button_label",
           "label": "Button text",
           "default": "Shop Now"
         },
-
         {
           "type": "url",
           "id": "button_url",
           "label": "Button link"
         },
-
         {
           "type": "select",
           "id": "content_position",
@@ -131,7 +195,6 @@
             { "label": "Center", "value": "center" }
           ]
         },
-
         {
           "type": "select",
           "id": "button_style",
@@ -142,16 +205,6 @@
             { "label": "Underline", "value": "underline" },
             { "label": "Hover effect", "value": "hover" }
           ]
-        },
-
-        {
-          "type": "range",
-          "id": "products_to_show",
-          "min": 1,
-          "max": 20,
-          "step": 1,
-          "label": "Number of products to show",
-          "default": 8
         }
       ]
     }
@@ -164,7 +217,6 @@
   ]
 }
 {% endschema %}
-
 
 
 
