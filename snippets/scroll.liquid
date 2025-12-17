@@ -43,16 +43,13 @@
 </div>
 
 <style>
-#scrollThumb {
-  background: linear-gradient(
-    90deg,
-    #000 0%,
-    #000 60%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
+.scrollThumb {
+  height: 4px;
+  background: #000; /* hoặc màu bạn muốn */
+  width: 0%;
+  transition: width 0.3s ease;
 }
 </style>
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   const scroller = document.querySelector(".product_scroller");

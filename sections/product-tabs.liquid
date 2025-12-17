@@ -80,9 +80,6 @@
     </div>
   </div>
 </div>
-
-
-
 <style>
   /* Ẩn scrollbar */
   .product-collection {
@@ -122,16 +119,47 @@
     color: #fff;
   }
 
-  /* Responsive mobile - ví dụ giới hạn 3 sản phẩm */
-  @media (max-width: 768px) {
-    .product-collection,
-    .scroll-wrapper {
-      max-width: calc(240px + 3 * 240px);
-    }
-    .product-card {
-      width: 200px !important; /* tùy chỉnh nếu cần */
-    }
+  /* Ẩn hoàn toàn border, shadow và viền mờ của product card */
+.product-card {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  outline: none !important;
+}
+
+/* Nếu card-product là snippet riêng, đảm bảo override hết */
+.card-product,
+.product-card img,
+.product-card .card__inner,
+.product-card .card__content {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* Nếu theme dùng class khác (ví dụ .card, .product-item), thêm vào */
+.card,
+.product-item,
+.card__media,
+.card__information {
+  border: none !important;
+  box-shadow: none !important;
+}
+  /* Responsive mobile */
+@media (max-width: 768px) {
+  .product-collection,
+  .scroll-wrapper {
+    max-width: none;           /* bỏ giới hạn, để co giãn theo số sản phẩm thực tế */
+    width: 100%;               /* chiếm hết chiều ngang màn hình mobile */
   }
+  .product-card {
+    width: 280px !important;   /* card nhỏ lại cho vừa màn hình mobile */
+    height: auto !important;   /* chiều cao tự động */
+  }
+  .baner-card {
+    width: 280px !important;   /* banner cũng nhỏ lại cho khớp */
+  }
+}
 </style>
 
 <script>
@@ -157,38 +185,58 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll("featured-collection").forEach(block => {
-      const scroller = block.querySelector(".product-collection");
-      const thumb = block.querySelector(".scrollThumb");
-      const leftBtn = block.querySelector(".scrollLeft");
-      const rightBtn = block.querySelector(".scrollRight");
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("featured-collection").forEach(block => {
+    const scroller = block.querySelector(".product-collection");
+    const thumb = block.querySelector(".scrollThumb");
+    const leftBtn = block.querySelector(".scrollLeft");
+    const rightBtn = block.querySelector(".scrollRight");
 
-      if (!scroller) return;
+    if (!scroller || !thumb) return;
 
-      function updateThumb() {
-        if (!thumb) return;
-        const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-        if (maxScroll <= 0) {
-          thumb.style.width = "100%";
-          return;
-        }
-        const percent = scroller.scrollLeft / maxScroll;
-        thumb.style.width = (percent * 100) + "%";
+    // Hàm cập nhật thumb
+    function updateThumb() {
+      const maxScroll = scroller.scrollWidth - scroller.clientWidth;
+
+      if (maxScroll <= 0) {
+        // Không cần scroll → tô đầy 100%
+        thumb.style.width = "100%";
+        return;
       }
 
-      leftBtn?.addEventListener("click", () => {
-        scroller.scrollBy({ left: -300, behavior: "smooth" });
-      });
+      // Phần trăm đã scroll
+      const scrolledPercent = (scroller.scrollLeft / maxScroll) * 100;
 
-      rightBtn?.addEventListener("click", () => {
-        scroller.scrollBy({ left: 300, behavior: "smooth" });
-      });
+      // Tính phần trăm viewport ban đầu (sản phẩm hiển thị ngay từ đầu)
+      const viewportPercent = (scroller.clientWidth / scroller.scrollWidth) * 100;
 
-      scroller.addEventListener("scroll", updateThumb);
-      updateThumb();
+      // Tô thumb = phần đã scroll + phần viewport ban đầu
+      // Nhưng không vượt quá 100%
+      const filledPercent = Math.min(scrolledPercent + viewportPercent, 100);
+
+      thumb.style.width = `${filledPercent}%`;
+    }
+
+    // Nút Prev / Next
+    leftBtn?.addEventListener("click", () => {
+      scroller.scrollBy({ left: -300, behavior: "smooth" });
     });
+
+    rightBtn?.addEventListener("click", () => {
+      scroller.scrollBy({ left: 300, behavior: "smooth" });
+    });
+
+    // Cập nhật khi scroll
+    scroller.addEventListener("scroll", updateThumb);
+
+    // Khởi tạo: tô sẵn đoạn viewport ban đầu
+    scroller.scrollLeft = 0; // đảm bảo bắt đầu từ đầu
+    updateThumb();
+
+    // Cập nhật lại khi resize (mobile ↔ desktop)
+    window.addEventListener("resize", updateThumb);
   });
+});
 </script>
 
 {% schema %}
