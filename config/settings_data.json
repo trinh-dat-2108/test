@@ -69,8 +69,8 @@
           "topbar_facebook_link": "https://facebook.com",
           "topbar_instagram_link": "https://instagram.com",
           "topbar_show_social": true,
-          "topbar_background_color": "#ffffff",
-          "topbar_text_color": "#000000",
+          "topbar_background_color": "#2c4e2f",
+          "topbar_text_color": "#f4ebeb",
           "topbar_text_size": 16
         }
       }
