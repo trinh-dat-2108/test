@@ -17,22 +17,29 @@
               {% endif %}
           </div>
 
-          <div class="tabs_panels_collection">
+          <!-- Tabs navigation - ĐẸP HƠN, KHÔNG THANH NGANG -->
+          {% if section.blocks.size > 1 %}
+            <div class="tabs-navigation flex gap-10 justify-center mb-12 overflow-x-auto scrollbar-hidden">
+              {% for block in section.blocks %}
+                <button 
+                  class="tab-button relative px-5 py-3 text-xl font-medium whitespace-nowrap transition-all duration-300 {% if forloop.first %}active{% endif %}" 
+                  data-tab-index="{{ forloop.index0 }}"
+                >
+                  {{ collections[block.settings.collection].title | default: "Collection" }}
+                </button>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <!-- Wrapper cho hiệu ứng chuyển tab mượt -->
+          <div class="tabs_panels_collection relative">
             {% for block in section.blocks %}
               <featured-collection
-                 class="block relative {% if forloop.index > 1 %}hidden{% endif %}"
+                 class="tab-content absolute inset-0 transition-all duration-500 ease-in-out {% if forloop.first == false %}opacity-0 -translate-x-10 pointer-events-none{% else %}opacity-100 translate-x-0{% endif %}"
                  data-collection-block
+                 data-tab-index="{{ forloop.index0 }}"
                  {{ block.shopify_attributes }}
               >
-                {% if block.settings.collection and forloop.index == 1 %}
-                  <div class="flex justify-end mb-3">
-                    <button type="button" data-toggle-view class="text-sm font-medium hover:underline">
-                      View all
-                    </button>
-                  </div>
-                {% endif %}
-
-                <!-- Wrapper để co giãn và căn giữa cả carousel + thanh scroll -->
                 <div class="product-collection-wrapper py-3 flex flex-col items-center">
                   <div class="product-collection flex gap-0 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hidden">
                     <!-- Banner card -->
@@ -48,7 +55,7 @@
                       %}
                     </div>
 
-                    <!-- Product list - load tất cả sản phẩm (không limit) -->
+                    <!-- Product list -->
                     <div class="flex gap-0">
                       {% if block.settings.collection != blank %}
                         {% for product in collections[block.settings.collection].products %}
@@ -64,7 +71,7 @@
                     </div>
                   </div>
 
-                  <!-- Thanh scroll thumb - co theo width carousel -->
+                  <!-- Thanh scroll thumb -->
                   <div class="scroll-wrapper mt-4 w-full">
                     {% render 'scroll',
                       prev_action: 'scrollProductsLeft()',
@@ -80,16 +87,13 @@
     </div>
   </div>
 </div>
+
 <style>
   /* Ẩn scrollbar */
-  .product-collection {
-    scrollbar-width: none;
-  }
-  .product-collection::-webkit-scrollbar {
-    display: none;
-  }
+  .scrollbar-hidden { scrollbar-width: none; }
+  .scrollbar-hidden::-webkit-scrollbar { display: none; }
 
-  /* Carousel co giãn + giới hạn theo setting */
+  /* Carousel */
   .product-collection {
     display: flex;
     gap: 0;
@@ -100,7 +104,6 @@
     scroll-behavior: smooth;
   }
 
-  /* Thanh scroll thumb co theo width carousel */
   .scroll-wrapper {
     width: 100%;
     max-width: calc(240px + {{ section.settings.products_to_show | default: 8 }} * 240px);
@@ -109,118 +112,88 @@
     justify-content: center;
   }
 
-  /* Scroll buttons hover */
-  .section_product_collection .btn-slide-hover {
-    transition: background-color .25s ease, border-color .25s ease, color .25s ease;
+  /* Ẩn viền card */
+  .product-card, .card-product, .card, .product-item,
+  .card__media, .card__information, .card__inner, .card__content {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    outline: none !important;
   }
-  .section_product_collection .btn-slide-hover:hover {
+
+  featured-collection, .product-collection-wrapper {
+    overflow: hidden !important;
+  }
+
+  /* Responsive mobile */
+  @media (max-width: 768px) {
+    .product-collection, .scroll-wrapper { max-width: none; width: 100%; }
+    .product-card { width: 285px !important; height: auto !important; }
+    .baner-card { width: 285px !important; }
+    .scroll-wrapper, .scrollLeft, .scrollRight, .btn-slide-hover { display: none !important; }
+
+    /* Tab trên mobile nhỏ hơn chút */
+    .tab-button { font-size: 1.125rem /* 18px */; padding: 0.75rem 1rem; gap: 6px; }
+  }
+
+  @media (min-width: 769px) {
+    .scroll-wrapper, .scrollLeft, .scrollRight, .btn-slide-hover { display: flex !important; }
+  }
+
+  /* ==== STYLE TAB ĐẸP HƠN ==== */
+  .tabs-navigation {
+    /* Không border-bottom */
+  }
+
+  .tab-button {
+    color: #6B7280;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    overflow: hidden;
+  }
+
+  .tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
     background-color: #000;
-    border-color: #000;
-  }
-  .section_product_collection .btn-slide-hover:hover svg {
-    color: #fff;
+    transition: all 0.4s ease;
+    transform: translateX(-50%);
   }
 
-  /* Ẩn hoàn toàn border, shadow và viền mờ của product card */
-.product-card {
-  border: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
-  outline: none !important;
-}
+  .tab-button:hover {
+    color: #000;
+  }
 
-/* Nếu card-product là snippet riêng, đảm bảo override hết */
-.card-product,
-.product-card img,
-.product-card .card__inner,
-.product-card .card__content {
-  border: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-}
+  .tab-button:hover::after {
+    width: 80%;
+  }
 
-/* Nếu theme dùng class khác (ví dụ .card, .product-item), thêm vào */
-.card,
-.product-item,
-.card__media,
-.card__information {
-  border: none !important;
-  box-shadow: none !important;
-}
+  .tab-button.active {
+    color: #000;
+    font-weight: 400;
+  }
 
-/* Cắt phần tràn ra khỏi collection block */
-featured-collection {
-  overflow: hidden !important;
-}
-
-/* Đảm bảo wrapper không tràn */
-.product-collection-wrapper {
-  overflow: hidden !important;
-}
-
-/* Responsive mobile - ẨN button + thumb, chỉ vuốt ngang cảm ứng */
-@media (max-width: 768px) {
-  .product-collection,
-  .scroll-wrapper {
-    max-width: none;
+  .tab-button.active::after {
     width: 100%;
   }
 
-  .product-collection {
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch; /* vuốt mượt trên mobile */
+  /* Wrapper cho hiệu ứng fade + slide */
+  .tabs_panels_collection {
+    height: 600px; 
+    min-height: 500px;
   }
 
-  .product-card {
-    width: 285px !important;
-    height: auto !important;
+  .tab-content {
+    /* Đảm bảo content fill đầy wrapper */
   }
-  .baner-card {
-    width: 285px !important;
-  }
-
-  /* ẨN button scroll và thanh thumb trên mobile */
-  .scroll-wrapper,
-  .scrollLeft,
-  .scrollRight,
-  .btn-slide-hover {
-    display: none !important;
-  }
-}
-
-/* Desktop & màn hình lớn - ĐẢM BẢO button và thumb hoạt động bình thường (không ẩn) */
-@media (min-width: 769px) {
-  .scroll-wrapper,
-  .scrollLeft,
-  .scrollRight,
-  .btn-slide-hover {
-    display: flex !important; /* hoặc block tùy theo snippet của bạn */
-  }
-}
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const btn = document.querySelector('[data-toggle-view]');
-    const blocks = document.querySelectorAll('[data-collection-block]');
-    let expanded = false;
-
-    if (!btn) return;
-
-    btn.addEventListener('click', () => {
-      expanded = !expanded;
-      blocks.forEach((block, index) => {
-        if (!expanded && index > 0) {
-          block.classList.add('hidden');
-        } else {
-          block.classList.remove('hidden');
-        }
-      });
-      btn.textContent = expanded ? 'View less' : 'View all';
-    });
-  });
-</script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -232,46 +205,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!scroller || !thumb) return;
 
-    // Hàm cập nhật thumb
     function updateThumb() {
       const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-
-      if (maxScroll <= 0) {
-        // Không cần scroll → tô đầy 100%
-        thumb.style.width = "100%";
-        return;
-      }
-
-      // Phần trăm đã scroll
+      if (maxScroll <= 0) { thumb.style.width = "100%"; return; }
       const scrolledPercent = (scroller.scrollLeft / maxScroll) * 100;
-
-      // Tính phần trăm viewport ban đầu (sản phẩm hiển thị ngay từ đầu)
       const viewportPercent = (scroller.clientWidth / scroller.scrollWidth) * 100;
-
-      // Tô thumb = phần đã scroll + phần viewport ban đầu
-      // Nhưng không vượt quá 100%
       const filledPercent = Math.min(scrolledPercent + viewportPercent, 100);
-
       thumb.style.width = `${filledPercent}%`;
     }
 
-    // Nút Prev / Next
-    leftBtn?.addEventListener("click", () => {
-      scroller.scrollBy({ left: -300, behavior: "smooth" });
-    });
+    leftBtn?.addEventListener("click", () => scroller.scrollBy({ left: -300, behavior: "smooth" }));
+    rightBtn?.addEventListener("click", () => scroller.scrollBy({ left: 300, behavior: "smooth" }));
 
-    rightBtn?.addEventListener("click", () => {
-      scroller.scrollBy({ left: 300, behavior: "smooth" });
-    });
-
-    // Cập nhật khi scroll
     scroller.addEventListener("scroll", updateThumb);
-
-    // Khởi tạo: tô sẵn đoạn viewport ban đầu
-    scroller.scrollLeft = 0; // đảm bảo bắt đầu từ đầu
+    scroller.scrollLeft = 0;
     updateThumb();
-
-    // Cập nhật lại khi resize (mobile ↔ desktop)
     window.addEventListener("resize", updateThumb);
   });
 });
@@ -279,30 +227,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script>
 document.querySelectorAll('.product-collection').forEach(scroller => {
-  let isDown = false;
-  let startX;
-  let scrollLeft;
-
-  scroller.addEventListener('mousedown', (e) => {
-    isDown = true;
-    startX = e.pageX - scroller.offsetLeft;
-    scrollLeft = scroller.scrollLeft;
-  });
-
-  scroller.addEventListener('mouseleave', () => {
-    isDown = false;
-  });
-
-  scroller.addEventListener('mouseup', () => {
-    isDown = false;
-  });
-
-  scroller.addEventListener('mousemove', (e) => {
+  let isDown = false, startX, scrollLeft;
+  scroller.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - scroller.offsetLeft; scrollLeft = scroller.scrollLeft; });
+  scroller.addEventListener('mouseleave', () => isDown = false);
+  scroller.addEventListener('mouseup', () => isDown = false);
+  scroller.addEventListener('mousemove', e => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - scroller.offsetLeft;
-    const walk = (x - startX) * 2; // tốc độ kéo, chỉnh số 2 nếu muốn nhanh/chậm
+    const walk = (x - startX) * 2;
     scroller.scrollLeft = scrollLeft - walk;
+  });
+});
+</script>
+
+<!-- Script tab với hiệu ứng mượt -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  if (tabButtons.length === 0) return;
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const index = button.dataset.tabIndex;
+
+      // Active button
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      // Hiệu ứng chuyển content
+      tabContents.forEach((content, i) => {
+        if (i == index) {
+          content.classList.remove('opacity-0', '-translate-x-10', 'pointer-events-none');
+          content.classList.add('opacity-100', 'translate-x-0');
+        } else {
+          content.classList.remove('opacity-100', 'translate-x-0');
+          content.classList.add('opacity-0', '-translate-x-10', 'pointer-events-none');
+        }
+      });
+    });
   });
 });
 </script>
