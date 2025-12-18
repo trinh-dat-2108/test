@@ -96,6 +96,8 @@
     width: fit-content;
     max-width: calc(240px + {{ section.settings.products_to_show | default: 8 }} * 240px);
     margin: 0 auto;
+    overflow-x: auto;
+    scroll-behavior: smooth;
   }
 
   /* Thanh scroll thumb co theo width carousel */
@@ -145,19 +147,55 @@
   border: none !important;
   box-shadow: none !important;
 }
-  /* Responsive mobile */
+
+/* Cắt phần tràn ra khỏi collection block */
+featured-collection {
+  overflow: hidden !important;
+}
+
+/* Đảm bảo wrapper không tràn */
+.product-collection-wrapper {
+  overflow: hidden !important;
+}
+
+/* Responsive mobile - ẨN button + thumb, chỉ vuốt ngang cảm ứng */
 @media (max-width: 768px) {
   .product-collection,
   .scroll-wrapper {
-    max-width: none;      
-    width: 100%;              
+    max-width: none;
+    width: 100%;
   }
+
+  .product-collection {
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch; /* vuốt mượt trên mobile */
+  }
+
   .product-card {
-    width: 280px !important;   
-    height: auto !important;   
+    width: 285px !important;
+    height: auto !important;
   }
   .baner-card {
-    width: 280px !important;   
+    width: 285px !important;
+  }
+
+  /* ẨN button scroll và thanh thumb trên mobile */
+  .scroll-wrapper,
+  .scrollLeft,
+  .scrollRight,
+  .btn-slide-hover {
+    display: none !important;
+  }
+}
+
+/* Desktop & màn hình lớn - ĐẢM BẢO button và thumb hoạt động bình thường (không ẩn) */
+@media (min-width: 769px) {
+  .scroll-wrapper,
+  .scrollLeft,
+  .scrollRight,
+  .btn-slide-hover {
+    display: flex !important; /* hoặc block tùy theo snippet của bạn */
   }
 }
 </style>
@@ -235,6 +273,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Cập nhật lại khi resize (mobile ↔ desktop)
     window.addEventListener("resize", updateThumb);
+  });
+});
+</script>
+
+<script>
+document.querySelectorAll('.product-collection').forEach(scroller => {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  scroller.addEventListener('mousedown', (e) => {
+    isDown = true;
+    startX = e.pageX - scroller.offsetLeft;
+    scrollLeft = scroller.scrollLeft;
+  });
+
+  scroller.addEventListener('mouseleave', () => {
+    isDown = false;
+  });
+
+  scroller.addEventListener('mouseup', () => {
+    isDown = false;
+  });
+
+  scroller.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - scroller.offsetLeft;
+    const walk = (x - startX) * 2; // tốc độ kéo, chỉnh số 2 nếu muốn nhanh/chậm
+    scroller.scrollLeft = scrollLeft - walk;
   });
 });
 </script>
