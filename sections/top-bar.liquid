@@ -158,5 +158,38 @@
   .topbar__social-link svg {
     color: {{ section.settings.topbar_text_color }};
   }
+  /* ===== Mobile only ===== */
+@media (max-width: 767px) {
+
+  /* Ẩn text bên phải */
+  .topbar__right .topbar__text {
+    display: none;
+  }
+
+  /* Căn lại layout cho gọn */
+  .topbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* Center text luôn ở giữa */
+  .topbar__center {
+    flex: 1;
+    text-align: center;
+  }
+
+  /* Icon vẫn hiển thị bên phải */
+  .topbar__right {
+    display: flex;
+    align-items: center;
+  }
+
+  .topbar__social-list {
+    display: flex;
+    gap: 8px;
+  }
+}
+
 </style>
 

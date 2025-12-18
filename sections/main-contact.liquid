@@ -1,9 +1,17 @@
 <section class="page-contact section-{{ section.id }}">
-  <div class="page-width md:px-40">
+  <div class="page-width md:px-96">
 
-    <h1 class="tw-mb-8">
-      {{ section.settings.heading }}
-    </h1>
+    <h1
+  class="tw-mb-8"
+  style="
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    text-align: {{ section.settings.heading_align }};
+  "
+>
+  {{ section.settings.heading }}
+</h1>
+
 
     <div class="contact-wrapper">
 
@@ -13,7 +21,7 @@
 
           <div class="contact-left-inner">
             {% if page.content != blank %}
-              <div class="page-content rte tw-mb-8">
+              <div class="page-content rte tw-mb-12">
                 {{ page.content }}
               </div>
             {% endif %}
@@ -83,6 +91,83 @@
   width: 50%;
   min-width: 0;
 }
+/* ===== CONTACT FORM LAYOUT ===== */
+.contact-right-inner {
+  max-width: 420px;
+  margin-left: auto;
+}
+
+/* Field spacing */
+.contact-form .field {
+  margin-bottom: 16px;
+}
+
+/* Input & textarea */
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 15px;
+  font-weight: 400;
+
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+/* Textarea height */
+.contact-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Placeholder */
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #9ca3af;
+}
+
+/* Focus */
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #111;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.08);
+}
+/* ===== CONTACT BUTTON ===== */
+.contact-form .button {
+  margin-top: 8px;
+  width: 100%;
+  padding: 14px;
+
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .5px;
+
+  color: #fff;
+  background: #111;
+  border: none;
+  border-radius: 999px;
+
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+/* Hover */
+.contact-form .button:hover {
+  background: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.18);
+}
+
+/* Active */
+.contact-form .button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
 
 /* Mobile */
 @media (max-width: 768px) {
@@ -108,6 +193,37 @@
       "label": "Tiêu đề",
       "default": "Liên hệ với chúng tôi"
     },
+    {
+  "type": "header",
+  "content": "Heading style"
+},
+{
+  "type": "color",
+  "id": "heading_color",
+  "label": "Màu tiêu đề",
+  "default": "#111111"
+},
+{
+  "type": "range",
+  "id": "heading_size",
+  "label": "Cỡ chữ tiêu đề (px)",
+  "min": 18,
+  "max": 48,
+  "step": 1,
+  "default": 28
+},
+{
+  "type": "select",
+  "id": "heading_align",
+  "label": "Căn tiêu đề",
+  "default": "center",
+  "options": [
+    { "value": "left", "label": "Trái" },
+    { "value": "center", "label": "Giữa" },
+    { "value": "right", "label": "Phải" }
+  ]
+},
+
     {
       "type": "textarea",
       "id": "map_embed",

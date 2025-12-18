@@ -19,7 +19,7 @@
 
           <!-- Tabs navigation - ĐẸP HƠN, KHÔNG THANH NGANG -->
           {% if section.blocks.size > 1 %}
-            <div class="tabs-navigation flex gap-10 justify-center mb-12 overflow-x-auto scrollbar-hidden">
+            <div class="tabs-navigation flex gap-10 justify-center overflow-x-auto scrollbar-hidden">
               {% for block in section.blocks %}
                 <button 
                   class="tab-button relative px-5 py-3 text-xl font-medium whitespace-nowrap transition-all duration-300 {% if forloop.first %}active{% endif %}" 
@@ -192,6 +192,50 @@
   .tab-content {
     /* Đảm bảo content fill đầy wrapper */
   }
+  /* ===== Hover gradient cho nút Prev / Next ===== */
+.btn-slide-hover {
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  transition: color 0.35s ease;
+}
+
+/* lớp gradient chạy */
+.btn-slide-hover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgb(51, 121, 60) 0%,
+    rgb(51, 121, 60) 50%,
+    rgb(51, 121, 60) 100%
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s ease;
+  z-index: 0;
+}
+
+/* hover: gradient chạy từ trái sang phải */
+.btn-slide-hover:hover::before {
+  transform: scaleX(1);
+}
+
+/* đảm bảo icon / text nổi trên gradient */
+.btn-slide-hover svg,
+.btn-slide-hover span {
+  position: relative;
+  z-index: 1;
+  transition: color 0.35s ease;
+}
+
+/* đổi màu icon/text khi hover */
+.btn-slide-hover:hover svg,
+.btn-slide-hover:hover span {
+  color: #ffffff;
+}
+
 </style>
 
 
