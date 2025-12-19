@@ -1,0 +1,255 @@
+
+{% assign slider_blocks = section.blocks | where: 'type', 'slider' %}
+{% assign grid_blocks = section.blocks | where: 'type', 'grid' %}
+
+<section class="banner-combo-section py-8">
+  <div class="banner-combo-wrapper px-20">
+
+    <!-- LEFT: SLIDER -->
+    <div class="banner-combo-left">
+      {% if slider_blocks.size > 0 %}
+        <div class="banner-slider" {% if slider_blocks.size > 1 %}data-banner-slider{% endif %}>
+          <div class="banner-slider-track">
+            {% for block in slider_blocks %}
+              <div class="banner-slider-slide" {{ block.shopify_attributes }}>
+                {% render 'banner-card',
+                  image: block.settings.banner_image,
+                  show_banner: true,
+                  title: block.settings.banner_heading,
+                  button_label: block.settings.button_label,
+                  button_url: block.settings.button_url,
+                  content_position: block.settings.content_position,
+                  button_style: block.settings.button_style
+                %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- RIGHT: GRID (horizontal, auto height, no fixed) -->
+    <div class="banner-combo-right banner-grid">
+      {% for block in grid_blocks %}
+        <div class="banner-grid-item" {{ block.shopify_attributes }}>
+          {% render 'banner-card',
+            image: block.settings.banner_image,
+            show_banner: true,
+            title: block.settings.banner_heading,
+            button_label: block.settings.button_label,
+            button_url: block.settings.button_url,
+            content_position: block.settings.content_position,
+            button_style: block.settings.button_style
+          %}
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* ===== LAYOUT ===== */
+.banner-combo-section {
+  width: 100%;
+}
+
+.banner-combo-wrapper {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  align-items: stretch; /* Match height giữa left & right dựa trên content cao nhất */
+}
+
+.banner-combo-left,
+.banner-combo-right {
+  flex: 1 1 50%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* ===== SLIDER ===== */
+.banner-slider {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.banner-slider-track {
+  display: flex;
+  width: 100%;
+  transition: transform .6s ease;
+}
+
+.banner-slider-slide {
+  flex: 0 0 100%;
+  height: 100%;
+}
+
+/* ===== GRID RIGHT: Horizontal row, auto width/height ===== */
+.banner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); /* Horizontal, fit all in one row, chia đều width */
+  gap: 12px;
+  height: 100%; /* Match height wrapper */
+  align-items: stretch; /* Các item match height */
+}
+
+.banner-grid-item {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.banner-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ảnh fit mà không distort, height auto nhưng match container */
+}
+
+/* Mobile: stack vertical */
+@media (max-width: 768px) {
+  .banner-combo-wrapper {
+    flex-direction: column;
+  }
+
+  .banner-grid {
+    grid-template-columns: 1fr; /* Mobile: stack nếu cần, nhưng ưu tiên horizontal nếu space đủ */
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('[data-banner-slider]').forEach(slider => {
+    const track = slider.querySelector('.banner-slider-track');
+    const slides = slider.querySelectorAll('.banner-slider-slide');
+    if (slides.length <= 1) return;
+
+    let index = 0;
+    setInterval(() => {
+      index = (index + 1) % slides.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+    }, 4000);
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Banner Combo",
+  "blocks": [
+    {
+      "type": "slider",
+      "name": "Slider banner (Left)",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "banner_image",
+          "label": "Banner image"
+        },
+        {
+          "type": "text",
+          "id": "banner_heading",
+          "label": "Heading",
+          "default": "Healthy Lifestyle"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "content_position",
+          "label": "Content position",
+          "default": "center",
+          "options": [
+            { "value": "top", "label": "Top" },
+            { "value": "bottom", "label": "Bottom" },
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" },
+            { "value": "center", "label": "Center" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "default": "underline",
+          "options": [
+            { "value": "underline", "label": "Underline" },
+            { "value": "solid", "label": "Solid" },
+            { "value": "outline", "label": "Outline" }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "grid",
+      "name": "Grid banner (Right)",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "banner_image",
+          "label": "Banner image"
+        },
+        {
+          "type": "text",
+          "id": "banner_heading",
+          "label": "Heading",
+          "default": "Natural Products"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button text",
+          "default": "Explore"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "content_position",
+          "label": "Content position",
+          "default": "center",
+          "options": [
+            { "value": "top", "label": "Top" },
+            { "value": "bottom", "label": "Bottom" },
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" },
+            { "value": "center", "label": "Center" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "default": "underline",
+          "options": [
+            { "value": "underline", "label": "Underline" },
+            { "value": "solid", "label": "Solid" },
+            { "value": "outline", "label": "Outline" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Combo"
+    }
+  ]
+}
+{% endschema %}
