@@ -77,6 +77,17 @@
       "banner-combo": {
         "type": "banner-combo",
         "blocks": {
+          "slider_VQtQXe": {
+            "type": "slider",
+            "settings": {
+              "banner_image": "shopify://shop_images/Garden-of-wellness-shop-max-biocare-1000x1000-Maxucosa.webp",
+              "banner_heading": "",
+              "button_label": "",
+              "button_url": "",
+              "content_position": "center",
+              "button_style": "underline"
+            }
+          },
           "grid_9nbf7w": {
             "type": "grid",
             "settings": {
@@ -112,6 +123,7 @@
           }
         },
         "block_order": [
+          "slider_VQtQXe",
           "grid_9nbf7w",
           "grid_VRyCGE",
           "slider_mVwWww"
