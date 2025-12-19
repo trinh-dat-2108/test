@@ -77,6 +77,17 @@
       "banner-combo": {
         "type": "banner-combo",
         "blocks": {
+          "grid_VRyCGE": {
+            "type": "grid",
+            "settings": {
+              "banner_image": "shopify://shop_images/gow-shop-mid-age-couple.webp",
+              "banner_heading": "Natural Products",
+              "button_label": "Explore",
+              "button_url": "",
+              "content_position": "bottom",
+              "button_style": "underline"
+            }
+          },
           "slider_mVwWww": {
             "type": "slider",
             "settings": {
@@ -90,6 +101,7 @@
           }
         },
         "block_order": [
+          "grid_VRyCGE",
           "slider_mVwWww"
         ],
         "settings": {}
