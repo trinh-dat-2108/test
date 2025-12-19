@@ -73,6 +73,26 @@
           "topbar_text_color": "#f4ebeb",
           "topbar_text_size": 16
         }
+      },
+      "banner-combo": {
+        "type": "banner-combo",
+        "blocks": {
+          "slider_mVwWww": {
+            "type": "slider",
+            "settings": {
+              "banner_image": "shopify://shop_images/garden-of-wellness-shop-season-of-renewal-desktop-banner.webp",
+              "banner_heading": "",
+              "button_label": "",
+              "button_url": "",
+              "content_position": "center",
+              "button_style": "underline"
+            }
+          }
+        },
+        "block_order": [
+          "slider_mVwWww"
+        ],
+        "settings": {}
       }
     },
     "content_for_index": []
