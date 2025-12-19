@@ -77,6 +77,17 @@
       "banner-combo": {
         "type": "banner-combo",
         "blocks": {
+          "grid_9nbf7w": {
+            "type": "grid",
+            "settings": {
+              "banner_image": "shopify://shop_images/gow-shop-boy-in-his-bath-tub.webp",
+              "banner_heading": "Natural Products",
+              "button_label": "Explore",
+              "button_url": "",
+              "content_position": "bottom",
+              "button_style": "underline"
+            }
+          },
           "grid_VRyCGE": {
             "type": "grid",
             "settings": {
@@ -101,6 +112,7 @@
           }
         },
         "block_order": [
+          "grid_9nbf7w",
           "grid_VRyCGE",
           "slider_mVwWww"
         ],
