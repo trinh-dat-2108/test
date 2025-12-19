@@ -49,18 +49,78 @@
 </section>
 
 <style>
-/* ===== LAYOUT ===== */
+/* ===== LAYOUT CHUNG ===== */
 .banner-combo-section {
   width: 100%;
+  padding: 0;
 }
 
+/* Padding trên/dưới cho toàn section */
 .banner-combo-wrapper {
   display: flex;
   gap: 12px;
   width: 100%;
-  align-items: stretch; /* Match height giữa left & right dựa trên content cao nhất */
+  align-items: stretch;
 }
 
+/* Desktop & màn hình lớn: cách lề + padding trên/dưới */
+@media (min-width: 1024px) {
+  .banner-combo-section {
+    padding-top: 20px;     
+    padding-bottom: 20px;  
+  }
+
+  .banner-combo-wrapper {
+    max-width: 1400px;     /* Điều chỉnh theo theme nếu cần */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 40px;
+    padding-right: 40px;
+    box-sizing: border-box;
+  }
+}
+
+/* Tablet: padding nhỏ hơn */
+@media (max-width: 1023px) and (min-width: 769px) {
+  .banner-combo-section {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .banner-combo-wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 20px;
+    box-sizing: border-box;
+  }
+
+  .banner-grid {
+    gap: 20px;
+  }
+}
+
+/* Mobile: stack dọc + padding nhỏ + right grid dọc */
+@media (max-width: 768px) {
+  .banner-combo-section {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+
+  .banner-combo-wrapper {
+    flex-direction: column;
+    padding-left: 16px;
+    padding-right: 16px;
+    gap: 16px;
+  }
+
+  /* Right grid trên mobile: dọc (stack) */
+  .banner-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+}
+
+/* ===== HALF LEFT & RIGHT ===== */
 .banner-combo-left,
 .banner-combo-right {
   flex: 1 1 50%;
@@ -86,15 +146,16 @@
   height: 100%;
 }
 
-/* ===== GRID RIGHT: Horizontal row, auto width/height ===== */
+/* ===== GRID RIGHT: Desktop/Tablet - ngang, Mobile - dọc ===== */
 .banner-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); /* Horizontal, fit all in one row, chia đều width */
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   gap: 12px;
-  height: 100%; /* Match height wrapper */
-  align-items: stretch; /* Các item match height */
+  height: 100%;
+  align-items: stretch;
 }
 
+/* ===== GRID ITEM ===== */
 .banner-grid-item {
   display: flex;
   flex-direction: column;
@@ -105,21 +166,9 @@
 .banner-grid-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ảnh fit mà không distort, height auto nhưng match container */
-}
-
-/* Mobile: stack vertical */
-@media (max-width: 768px) {
-  .banner-combo-wrapper {
-    flex-direction: column;
-  }
-
-  .banner-grid {
-    grid-template-columns: 1fr; /* Mobile: stack nếu cần, nhưng ưu tiên horizontal nếu space đủ */
-  }
+  object-fit: cover;
 }
 </style>
-
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-banner-slider]').forEach(slider => {
