@@ -56,9 +56,9 @@
           "subheading": "Các sản phẩm mới nhất",
           "heading_color": "#47ba39",
           "subheading_color": "#6b7280",
-          "heading_size": 32,
+          "heading_size": 50,
           "subheading_size": 18,
-          "products_to_show": 3
+          "products_to_show": 4
         }
       },
       "top-bar": {
