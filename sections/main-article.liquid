@@ -1,0 +1,56 @@
+<div class="page-width page-width--narrow article-template">
+  <div class="article-template__content">
+    <h1 class="article-template__title h1">{{ article.title }}</h1>
+
+    <div class="article-template__meta" style="margin: 16px 0; color: #666; font-size: 14px;">
+      Đăng ngày {{ article.published_at | date: "%d/%m/%Y" }}
+      {% if article.author %} • Bởi {{ article.author }}{% endif %}
+    </div>
+
+    {% if article.image %}
+  {% assign img_width = article.image.width %}
+  {% assign img_height = article.image.height %}
+
+  <div class="article-template__image" style="margin-bottom: 32px; border-radius: 12px; overflow: hidden; aspect-ratio: {{ img_width }} / {{ img_height }};">
+    <img src="{{ article.image | img_url: 'master' }}"
+         alt="{{ article.image.alt | escape }}"
+         width="{{ img_width }}"
+         height="{{ img_height }}"
+         loading="lazy"
+         decoding="async"
+         style="width: 100%; height: auto; display: block; object-fit: cover;">
+  </div>
+{% endif %}
+
+    <div class="rte article-template__body">
+      {{ article.content }}
+    </div>
+
+    <div style="margin-top: 48px; text-align: center;">
+      <a href="/" style="color: #111; font-weight: 600; text-decoration: underline;">
+        ← Quay lại trang chủ
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .page-width--narrow {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+  }
+  @media (max-width: 768px) {
+    .page-width--narrow {
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Main article",
+  "settings": []
+}
+{% endschema %}
