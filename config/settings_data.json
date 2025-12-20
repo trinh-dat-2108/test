@@ -20,6 +20,19 @@
       "product-tabs": {
         "type": "product-tabs",
         "blocks": {
+          "collection_block_aaV8An": {
+            "type": "collection_block",
+            "settings": {
+              "collection": "all",
+              "show_banner": true,
+              "banner_image": "shopify://shop_images/garden-of-wellness-shop-season-of-renewal-desktop-banner.webp",
+              "banner_heading": "Healthy Lifestyle",
+              "button_label": "Shop Now",
+              "button_url": "",
+              "content_position": "center",
+              "button_style": "normal"
+            }
+          },
           "collection_block_YjGxiG": {
             "type": "collection_block",
             "settings": {
@@ -48,6 +61,7 @@
           }
         },
         "block_order": [
+          "collection_block_aaV8An",
           "collection_block_YjGxiG",
           "collection_block_CwtJcA"
         ],
