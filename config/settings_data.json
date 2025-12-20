@@ -58,7 +58,7 @@
           "subheading_color": "#6b7280",
           "heading_size": 50,
           "subheading_size": 18,
-          "products_to_show": 5
+          "products_to_show": 3
         }
       },
       "top-bar": {
@@ -77,50 +77,6 @@
       "banner-combo": {
         "type": "banner-combo",
         "blocks": {
-          "slider_AhcfdY": {
-            "type": "slider",
-            "settings": {
-              "banner_image": "shopify://shop_images/gow-shop-boy-in-his-bath-tub.webp",
-              "banner_heading": "",
-              "button_label": "",
-              "button_url": "",
-              "content_position": "center",
-              "button_style": "underline"
-            }
-          },
-          "slider_TiJt7E": {
-            "type": "slider",
-            "settings": {
-              "banner_image": "shopify://shop_images/Garden-of-wellness-shop-little-etoile-1000x1000-MilkFormula4_70a92c91-4035-4b69-9803-7741ab63fcc5.webp",
-              "banner_heading": "",
-              "button_label": "",
-              "button_url": "",
-              "content_position": "center",
-              "button_style": "underline"
-            }
-          },
-          "slider_aw7Wc8": {
-            "type": "slider",
-            "settings": {
-              "banner_image": "shopify://shop_images/gow-shop-mid-age-couple.webp",
-              "banner_heading": "",
-              "button_label": "",
-              "button_url": "",
-              "content_position": "center",
-              "button_style": "underline"
-            }
-          },
-          "slider_VQtQXe": {
-            "type": "slider",
-            "settings": {
-              "banner_image": "shopify://shop_images/Garden-of-wellness-shop-max-biocare-1000x1000-Maxucosa.webp",
-              "banner_heading": "",
-              "button_label": "",
-              "button_url": "",
-              "content_position": "center",
-              "button_style": "underline"
-            }
-          },
           "grid_9nbf7w": {
             "type": "grid",
             "settings": {
@@ -156,10 +112,6 @@
           }
         },
         "block_order": [
-          "slider_AhcfdY",
-          "slider_TiJt7E",
-          "slider_aw7Wc8",
-          "slider_VQtQXe",
           "grid_9nbf7w",
           "grid_VRyCGE",
           "slider_mVwWww"
