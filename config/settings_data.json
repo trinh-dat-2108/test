@@ -77,6 +77,17 @@
       "banner-combo": {
         "type": "banner-combo",
         "blocks": {
+          "slider_APTpUd": {
+            "type": "slider",
+            "settings": {
+              "banner_image": "shopify://shop_images/gow-shop-mid-age-couple.webp",
+              "banner_heading": "",
+              "button_label": "",
+              "button_url": "",
+              "content_position": "center",
+              "button_style": "underline"
+            }
+          },
           "grid_9nbf7w": {
             "type": "grid",
             "settings": {
@@ -112,6 +123,7 @@
           }
         },
         "block_order": [
+          "slider_APTpUd",
           "grid_9nbf7w",
           "grid_VRyCGE",
           "slider_mVwWww"
