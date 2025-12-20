@@ -80,8 +80,9 @@
           "slider_AhcfdY": {
             "type": "slider",
             "settings": {
-              "banner_heading": "Healthy Lifestyle",
-              "button_label": "Shop now",
+              "banner_image": "shopify://shop_images/gow-shop-boy-in-his-bath-tub.webp",
+              "banner_heading": "",
+              "button_label": "",
               "button_url": "",
               "content_position": "center",
               "button_style": "underline"
