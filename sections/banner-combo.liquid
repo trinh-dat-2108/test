@@ -174,17 +174,47 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-banner-slider]').forEach(slider => {
     const track = slider.querySelector('.banner-slider-track');
     const slides = slider.querySelectorAll('.banner-slider-slide');
+    
     if (slides.length <= 1) return;
 
+    const totalSlides = slides.length;
     let index = 0;
+
+    // Clone slide đầu tiên và thêm vào cuối track (chỉ 1 lần)
+    const firstClone = slides[0].cloneNode(true);
+    firstClone.classList.add('slide-clone'); // Để dễ debug nếu cần
+    track.appendChild(firstClone);
+
+    // Hàm chuyển slide
+    const goToSlide = (newIndex) => {
+      track.style.transition = 'transform 0.6s ease';
+      track.style.transform = `translateX(-${newIndex * 100}%)`;
+      index = newIndex;
+    };
+
+    // Khi transition kết thúc → nếu đang ở clone thì reset về slide đầu thật (không animation)
+    track.addEventListener('transitionend', () => {
+      if (index === totalSlides) {
+        track.style.transition = 'none';
+        track.style.transform = 'translateX(0%)';
+        index = 0;
+        // Force reflow
+        void track.offsetHeight;
+        track.style.transition = 'transform 0.6s ease';
+      }
+    });
+
+    // Auto play
     setInterval(() => {
-      index = (index + 1) % slides.length;
-      track.style.transform = `translateX(-${index * 100}%)`;
+      index++;
+      goToSlide(index);
     }, 4000);
+
+    // Khởi động ở slide đầu
+    goToSlide(0);
   });
 });
 </script>
-
 {% schema %}
 {
   "name": "Banner Combo",
