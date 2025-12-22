@@ -235,6 +235,38 @@
       },
       "footer-marquee-text": {
         "type": "footer-marquee-text",
+        "blocks": {
+          "text_item_8C9Vin": {
+            "type": "text_item",
+            "settings": {
+              "text": "Free Standard Delivery"
+            }
+          },
+          "text_item_GMtmJW": {
+            "type": "text_item",
+            "settings": {
+              "text": "30-day Returns"
+            }
+          },
+          "text_item_L7fajY": {
+            "type": "text_item",
+            "settings": {
+              "text": "Free shipping on orders over $50"
+            }
+          },
+          "text_item_GR7YNQ": {
+            "type": "text_item",
+            "settings": {
+              "text": "Free shipping on orders over $50"
+            }
+          }
+        },
+        "block_order": [
+          "text_item_8C9Vin",
+          "text_item_GMtmJW",
+          "text_item_L7fajY",
+          "text_item_GR7YNQ"
+        ],
         "settings": {
           "bg_color": "#000000",
           "text_color": "#ffffff",
