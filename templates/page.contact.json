@@ -8,6 +8,7 @@
  * ------------------------------------------------------------
  */
 {
+  "layout": "page-only",
   "sections": {
     "main": {
       "type": "main-contact",
@@ -20,7 +21,5 @@
       }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }
