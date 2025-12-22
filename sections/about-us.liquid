@@ -1,0 +1,199 @@
+<section class="about-us-section" style="padding: 80px 20px; background: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+  <div class="page-width page-width--narrow">
+    <!-- Tiêu đề -->
+    {% if section.settings.show_title %}
+      <h1 class="about-title" style="font-size: {{ section.settings.title_size }}px; text-align: center; margin-bottom: 40px; color: {{ section.settings.heading_color }};">
+        {{ section.settings.title }}
+      </h1>
+    {% endif %}
+
+    <!-- Tagline 1 -->
+    {% if section.settings.tagline_1 != blank %}
+      <h2 class="tagline" style="font-size: 28px; font-weight: bold; text-align: center; margin-bottom: 32px; color: {{ section.settings.tagline_color }};">
+        {{ section.settings.tagline_1 }}
+      </h2>
+    {% endif %}
+
+    <!-- Nội dung giới thiệu -->
+    <div class="rte about-content" style="font-size: {{ section.settings.text_size }}px; line-height: 1.8; margin-bottom: 48px;">
+      {{ section.settings.content_intro }}
+    </div>
+
+    <!-- Core Principles -->
+    <div class="principles">
+      <h3 class="section-heading" style="font-size: 24px; margin-bottom: 24px; color: {{ section.settings.heading_color }};">Our Core Principles</h3>
+      <div class="rte">
+        {{ section.settings.content_principles }}
+      </div>
+    </div>
+
+    <!-- Origin & Inspiration -->
+    <div class="origin">
+      <h3 class="section-heading" style="font-size: 24px; margin-bottom: 24px; color: {{ section.settings.heading_color }};">Our Origin & Inspiration</h3>
+      <div class="rte">
+        {{ section.settings.content_origin }}
+      </div>
+    </div>
+
+    <!-- Mission & Ambitions -->
+    <div class="mission">
+      <h3 class="section-heading" style="font-size: 24px; margin-bottom: 24px; color: {{ section.settings.heading_color }};">Our Mission & Ambitions</h3>
+      <div class="rte">
+        {{ section.settings.content_mission }}
+      </div>
+    </div>
+
+    <!-- Team -->
+    <div class="team">
+      <h3 class="section-heading" style="font-size: 24px; margin-bottom: 32px; text-align: center; color: {{ section.settings.heading_color }};">Meet Our Team</h3>
+      <div class="team-grid">
+        {% for block in section.blocks %}
+          <div class="team-member" {{ block.shopify_attributes }}>
+            <h4 class="member-name" style="font-size: 20px; margin-bottom: 8px;">
+              {{ block.settings.name }}
+            </h4>
+            <p class="member-qual" style="font-style: italic; color: #666; margin-bottom: 12px;">
+              {{ block.settings.qualification }}
+            </p>
+            <p class="member-desc" style="font-size: 15px; line-height: 1.6;">
+              {{ block.settings.description }}
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-title, .tagline, .section-heading {
+    font-weight: 700;
+    color: {{ section.settings.heading_color }};
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px 24px;
+  }
+
+  .team-member {
+    background: #f9f9f9;
+    padding: 24px;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .about-title { font-size: calc({{ section.settings.title_size }}px * 0.8); }
+    .section-heading { font-size: 20px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "About Us",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Hiển thị tiêu đề chính",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Tiêu đề chính",
+      "default": "About Salvarity – Science Backed Australian Skincare Brand"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 24,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Cỡ chữ tiêu đề",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Màu heading",
+      "default": "#111"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Màu nội dung",
+      "default": "#333"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Màu nền",
+      "default": "#fff"
+    },
+    {
+      "type": "richtext",
+      "id": "content_intro",
+      "label": "Nội dung giới thiệu",
+      "default": "<p>Salvarity is a high-performance, science-backed skincare brand focused on young, breakout-prone skin...</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "content_principles",
+      "label": "Core Principles",
+      "default": "<p><strong>Science First, Always</strong> ... </p>"
+    },
+    {
+      "type": "richtext",
+      "id": "content_origin",
+      "label": "Our Origin",
+      "default": "<p>Salvarity is the child of Max Biocare...</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "content_mission",
+      "label": "Mission & Ambitions",
+      "default": "<p>Celebrating Teens’ Natural Beauty...</p>"
+    },
+    {
+      "type": "text",
+      "id": "tagline_1",
+      "label": "Tagline 1 (bold)",
+      "default": "Science First, Always"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "team_member",
+      "name": "Thành viên đội ngũ",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Tên",
+          "default": "Prof. Julian Hill"
+        },
+        {
+          "type": "text",
+          "id": "qualification",
+          "label": "Trình độ",
+          "default": "BSc, PhD"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Mô tả",
+          "default": "Expert in skin health..."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Us"
+    }
+  ]
+}
+{% endschema %}

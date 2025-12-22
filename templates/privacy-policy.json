@@ -1,0 +1,13 @@
+{
+  "layout": "page-only",
+  "name": "Privacy Policy",
+  "sections": {
+    "main": {
+      "type": "page",
+      "settings": {
+        "show_heading": true
+      }
+    }
+  },
+  "order": ["main"]
+}

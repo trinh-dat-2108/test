@@ -1,0 +1,101 @@
+<section class="privacy-policy-section" style="padding: 80px 20px; background: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};">
+  <div class="page-width page-width--narrow">
+    <!-- Tiêu đề -->
+    {% if section.settings.show_title %}
+      <h1 class="policy-title" style="font-size: {{ section.settings.title_size }}px; text-align: center; margin-bottom: 40px; color: {{ section.settings.heading_color }};">
+        {{ section.settings.title }}
+      </h1>
+    {% endif %}
+
+    <!-- Nội dung rich text -->
+    <div class="rte policy-content" style="font-size: {{ section.settings.text_size }}px; line-height: 1.8;">
+      {{ section.settings.content }}
+    </div>
+  </div>
+</section>
+
+<style>
+  .policy-title {
+    font-weight: 700;
+  }
+  .policy-content h2, .policy-content h3 {
+    font-weight: 600;
+    margin: 32px 0 16px;
+  }
+  .policy-content p {
+    margin-bottom: 20px;
+  }
+  .policy-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Privacy Policy",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Hiển thị tiêu đề",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Tiêu đề",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 28,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Cỡ chữ tiêu đề",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Màu heading",
+      "default": "#111"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Màu nội dung",
+      "default": "#333"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Màu nền",
+      "default": "#fff"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 14,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Cỡ chữ nội dung",
+      "default": 16
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Nội dung chính sách bảo mật",
+      "default": "<h2>1. Thông tin chúng tôi thu thập</h2><p>Chúng tôi thu thập thông tin khi bạn...</p><h2>2. Cách sử dụng thông tin</h2><p>Thông tin được sử dụng để...</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Privacy Policy"
+    }
+  ]
+}
+{% endschema %}
