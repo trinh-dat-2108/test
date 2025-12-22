@@ -8,14 +8,11 @@
  * ------------------------------------------------------------
  */
 {
+  "layout": "page-only",
   "sections": {
     "main": {
-      "type": "main-article",
-      "settings": {
-      }
+      "type": "main-article"
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }
