@@ -4,12 +4,20 @@
     <title>{{ page_title }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    {{ content_for_header }}
-    {{ 'theme.css' | asset_url | stylesheet_tag }}
+        {{ 'theme.css' | asset_url | stylesheet_tag }}
+        {{ 'top-bar.css' | asset_url | stylesheet_tag }}
+        {{ content_for_header }}
+        <script>
+             tailwind.config = {
+             prefix: 'tw-',
+             corePlugins: { preflight: false },
+                };
+        </script>
+        <script src="https://cdn.tailwindcss.com?min" defer></script>
   </head>
 
   <body>
+    {% section 'top-bar' %}
     {% section 'header-menu' %}
     <main>
       {{ content_for_layout }}
