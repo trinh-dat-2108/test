@@ -1,0 +1,12 @@
+{
+  "layout": "page-only",
+  "sections": {
+    "main": {
+      "type": "privacy-policy",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

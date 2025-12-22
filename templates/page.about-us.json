@@ -1,6 +1,5 @@
 {
   "layout": "page-only",
-  "name": "About Us",
   "sections": {
     "main": {
       "type": "about-us",
