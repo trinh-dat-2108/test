@@ -1,0 +1,209 @@
+<section class="footer-icons-section" style="padding: 40px 20px; background: {{ section.settings.bg_color }};">
+  <div class="page-width">
+    <div class="icons-grid">
+      {% for block in section.blocks %}
+        <div class="icon-item" {{ block.shopify_attributes }}>
+          {% if block.settings.icon_svg != blank %}
+            <div class="icon-svg" style="margin-bottom: 16px;">
+              {{ block.settings.icon_svg }}
+            </div>
+          {% endif %}
+
+          <div class="icon-text">
+            <div class="line-1" style="font-weight: 600; color: {{ block.settings.text_color }};">
+              {{ block.settings.line_1 }}
+            </div>
+            <div class="line-2" style="color: {{ block.settings.text_color }}; opacity: 0.8; margin-top: 4px;">
+              {{ block.settings.line_2 }}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .footer-icons-section {
+    width: 100%;
+  }
+
+  .icons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 32px 24px;
+    justify-items: center;
+    align-items: start;
+  }
+
+  .icon-item {
+    text-align: center;
+    max-width: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-svg {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Kích thước icon */
+  .icon-svg svg {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
+    fill: currentColor;
+  }
+
+  /* Kích thước text */
+  .line-1 {
+    font-size: {{ section.settings.text_size_line1 }}px;
+    font-weight: 600;
+  }
+
+  .line-2 {
+    font-size: {{ section.settings.text_size_line2 }}px;
+  }
+
+ @media (max-width: 768px) {
+    .icons-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .icon-item {
+      max-width: 100%; /* Full width trên mobile */
+      width: 100%;
+    }
+
+    .icon-svg svg {
+      width: calc({{ section.settings.icon_size }}px * 0.8);
+      height: calc({{ section.settings.icon_size }}px * 0.8);
+    }
+
+    .line-1 {
+      font-size: calc({{ section.settings.text_size_line1 }}px * 0.9);
+    }
+
+    .line-2 {
+      font-size: calc({{ section.settings.text_size_line2 }}px * 0.9);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Footer Icons",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Màu nền section",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 40,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Kích thước icon SVG",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "text_size_line1",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Cỡ chữ dòng 1 (tiêu đề)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "text_size_line2",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Cỡ chữ dòng 2 (mô tả)",
+      "default": 14
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "Icon Item",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "icon_svg",
+          "label": "Icon SVG (dán code SVG)",
+          "info": "Paste mã SVG đầy đủ vào đây"
+        },
+        {
+          "type": "text",
+          "id": "line_1",
+          "label": "Dòng 1 (tiêu đề)",
+          "default": "Miễn phí vận chuyển"
+        },
+        {
+          "type": "text",
+          "id": "line_2",
+          "label": "Dòng 2 (mô tả)",
+          "default": "Cho đơn từ 500k"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Màu chữ",
+          "default": "#111"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer Icons",
+      "blocks": [
+        {
+          "type": "icon",
+          "settings": {
+            "line_1": "Miễn phí vận chuyển",
+            "line_2": "Cho đơn từ 500k"
+          }
+        },
+        {
+          "type": "icon",
+          "settings": {
+            "line_1": "Đổi trả dễ dàng",
+            "line_2": "Trong 14 ngày"
+          }
+        },
+        {
+          "type": "icon",
+          "settings": {
+            "line_1": "Hỗ trợ 24/7",
+            "line_2": "Chat & Hotline"
+          }
+        },
+        {
+          "type": "icon",
+          "settings": {
+            "line_1": "Thanh toán đa dạng",
+            "line_2": "COD & Thẻ"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

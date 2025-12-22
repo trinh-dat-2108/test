@@ -1,0 +1,150 @@
+<section class="footer-marquee-section" style="background: {{ section.settings.bg_color }}; padding: 12px 0; overflow: hidden;">
+  <div class="marquee-wrapper">
+    <div class="marquee-track" data-marquee>
+      <!-- Lặp nhiều lần để tạo loop mượt, không thấy reset -->
+      {% for i in (1..10) %}
+        {% for block in section.blocks %}
+          <span class="marquee-item" {{ block.shopify_attributes }}>
+            {{ block.settings.text }}
+          </span>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .footer-marquee-section {
+    width: 100%;
+  }
+
+  .marquee-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .marquee-track {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee {{ section.settings.speed }}s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-item {
+    display: inline-block;
+    padding-right: 40px; /* Khoảng cách giữa các đoạn text */
+    font-size: {{ section.settings.text_size }}px;
+    color: {{ section.settings.text_color }};
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  /* Animation chạy từ phải sang trái, vô tận */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  /* Hover: Dừng animation */
+  .marquee-wrapper:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Mobile: Giảm kích thước chữ */
+  @media (max-width: 768px) {
+    .marquee-item {
+      font-size: calc({{ section.settings.text_size }}px * 0.9);
+      padding-right: 24px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Footer Marquee Text",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Màu nền",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Màu chữ",
+      "default": "#fff"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Kích thước chữ",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 15,
+      "max": 120,
+      "step": 5,
+      "unit": "s",
+      "label": "Tốc độ chạy (giây)",
+      "info": "Thời gian để text chạy hết một vòng (càng lớn càng chậm)",
+      "default": 120
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_item",
+      "name": "Text Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Nội dung text",
+          "default": "Free shipping on orders over $50"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer Marquee Text",
+      "blocks": [
+        {
+          "type": "text_item",
+          "settings": {
+            "text": "Free shipping on orders over $50"
+          }
+        },
+        {
+          "type": "text_item",
+          "settings": {
+            "text": "30-day returns"
+          }
+        },
+        {
+          "type": "text_item",
+          "settings": {
+            "text": "Secure payment"
+          }
+        },
+        {
+          "type": "text_item",
+          "settings": {
+            "text": "Shop with confidence"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
