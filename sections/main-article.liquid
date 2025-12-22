@@ -11,30 +11,52 @@
 >
   <div class="article-template__content">
 
-    <!-- TITLE -->
-    <h1 class="article-template__title h1">
-      {{ article.title }}
-    </h1>
+    <!-- TITLE + META CÙNG DÒNG -->
+    <div class="article-header">
+      {% if section.settings.show_title %}
+        <h1 class="article-template__title h1">
+          {{ article.title }}
+        </h1>
+      {% endif %}
 
-    <!-- META -->
-    {% if section.settings.show_meta %}
-    <div class="article-template__meta">
-      {{ article.published_at | date: "%d/%m/%Y" }}
-      {% if article.author and section.settings.show_author %}
-        • {{ article.author }}
+      {% if section.settings.show_meta %}
+        <div class="article-meta">
+          {{ article.published_at | date: "%d/%m/%Y" }}
+          {% if article.author and section.settings.show_author %}
+            • {{ article.author }}
+          {% endif %}
+        </div>
       {% endif %}
     </div>
-    {% endif %}
 
     <!-- IMAGE -->
     {% if article.image and section.settings.show_image %}
-      <div class="article-template__image">
+      {% assign img_w = article.image.width %}
+      {% assign img_h = article.image.height %}
+
+      <div
+        class="article-template__image
+          {% if section.settings.image_width == 'full' %}article-template__image--full{% endif %}
+        "
+        style="
+          border-radius: {{ section.settings.image_radius }}px;
+          overflow: hidden;
+          {% if section.settings.image_height > 0 %}
+            aspect-ratio: {{ img_w }} / {{ section.settings.image_height }};
+          {% else %}
+            aspect-ratio: {{ img_w }} / {{ img_h }};
+          {% endif %}
+        "
+      >
         <img
           src="{{ article.image | img_url: 'master' }}"
+          srcset="{{ article.image | img_url: 'master' }} 1x, {{ article.image | image_url: '1024x' }} 2x"
           alt="{{ article.image.alt | escape }}"
+          width="{{ img_w }}"
+          height="{% if section.settings.image_height > 0 %}{{ section.settings.image_height }}{% else %}{{ img_h }}{% endif %}"
           loading="lazy"
-          width="auto"
-          height="auto"
+          decoding="async"
+          style="width: 100%; height: 100%; object-fit: cover; display: block;"
         >
       </div>
     {% endif %}
@@ -44,7 +66,7 @@
       {{ article.content }}
     </div>
 
-    <!-- ========== CUSTOM PREV / NEXT (KHÔNG THEO NGÀY) ========== -->
+    <!-- ========== CUSTOM PREV / NEXT ========== -->
     {% if section.settings.show_navigation %}
 
       {% assign articles = blog.articles %}
@@ -104,29 +126,43 @@
   padding: 0 20px;
 }
 
-/* TITLE */
-.article-template__title {
-  color: var(--title-color);
-  margin-bottom: 16px;
+/* TITLE + META CÙNG DÒNG */
+.article-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 32px;
 }
 
-/* META */
-.article-template__meta {
+.article-template__title {
+  margin: 0;
+  color: var(--title-color);
+}
+
+.article-meta {
   color: var(--meta-color);
   font-size: 14px;
-  margin-bottom: 32px;
+  white-space: nowrap;
 }
 
 /* IMAGE */
 .article-template__image {
   margin-bottom: 32px;
-  border-radius: {{ section.settings.image_radius }}px;
   overflow: hidden;
 }
 
 .article-template__image img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
+}
+
+/* FULL WIDTH */
+.article-template__image--full {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
 }
 
 /* CONTENT */
@@ -136,12 +172,11 @@
   line-height: 1.7;
 }
 
-/* ===== NAVIGATION ===== */
+/* NAVIGATION */
 .article-nav {
   margin-top: 80px;
   padding-top: 40px;
   border-top: 1px solid #eee;
-
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   gap: 20px;
@@ -172,35 +207,22 @@
 
 /* MOBILE */
 @media (max-width: 768px) {
+  .article-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
   .article-nav {
     grid-template-columns: 1fr;
     text-align: center;
   }
 }
-/* ===== RICH TEXT TYPOGRAPHY ===== */
-.article-template__body h1 {
-  font-size: 32px;
-  margin: 48px 0 20px;
-}
 
-.article-template__body h2 {
-  font-size: 26px;
-  margin: 40px 0 18px;
-}
-
-.article-template__body h3 {
-  font-size: 22px;
-  margin: 32px 0 16px;
-}
-
-.article-template__body p {
-  margin: 0 0 18px;
-}
-
-.article-template__body strong {
-  font-weight: 600;
-}
-
+/* RICH TEXT TYPOGRAPHY */
+.article-template__body h1 { font-size: 32px; margin: 48px 0 20px; }
+.article-template__body h2 { font-size: 26px; margin: 40px 0 18px; }
+.article-template__body h3 { font-size: 22px; margin: 32px 0 16px; }
+.article-template__body p { margin: 0 0 18px; }
+.article-template__body strong { font-weight: 600; }
 .article-template__body blockquote {
   margin: 32px 0;
   padding-left: 20px;
@@ -208,24 +230,19 @@
   font-style: italic;
   color: #555;
 }
-/* ===== ARTICLE LINKS ===== */
+
+/* ARTICLE LINKS */
 .article-template__body a {
   color: var(--article-link-color);
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
-
   transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .article-template__body a:hover {
   color: var(--article-link-hover-color);
   background-color: var(--article-link-bg-hover);
-}
-
-/* Optional: link trong đoạn highlight */
-.article-template__body .text-highlight a {
-  font-weight: 600;
 }
 </style>
 <script>
@@ -254,10 +271,18 @@
       "step": 50,
       "default": 800
     },
+
+    /* ===== TITLE & META ===== */
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Hiển thị tiêu đề bài viết",
+      "default": true
+    },
     {
       "type": "checkbox",
       "id": "show_meta",
-      "label": "Hiển thị ngày đăng",
+      "label": "Hiển thị ngày đăng & tác giả",
       "default": true
     },
     {
@@ -266,6 +291,12 @@
       "label": "Hiển thị tác giả",
       "default": true
     },
+
+    /* ===== IMAGE SETTINGS ===== */
+    {
+      "type": "header",
+      "content": "Ảnh bài viết"
+    },
     {
       "type": "checkbox",
       "id": "show_image",
@@ -273,13 +304,36 @@
       "default": true
     },
     {
+      "type": "select",
+      "id": "image_width",
+      "label": "Chiều rộng ảnh",
+      "options": [
+        { "value": "content", "label": "Theo chiều rộng nội dung" },
+        { "value": "full", "label": "Full chiều ngang màn hình" }
+      ],
+      "default": "content"
+    },
+    {
+      "type": "range",
+      "id": "image_height",
+      "label": "Chiều cao ảnh (px)",
+      "min": 0,
+      "max": 900,
+      "step": 20,
+      "default": 0,
+      "info": "0 = giữ tỷ lệ gốc của ảnh"
+    },
+    {
       "type": "range",
       "id": "image_radius",
       "label": "Bo góc ảnh",
       "min": 0,
       "max": 40,
+      "step": 2,
       "default": 12
     },
+
+    /* ===== TYPOGRAPHY ===== */
     {
       "type": "color",
       "id": "title_color",
@@ -308,7 +362,6 @@
     },
 
     /* ===== LINK SETTINGS ===== */
-
     {
       "type": "color",
       "id": "link_color",
@@ -343,7 +396,6 @@
     },
 
     /* ===== NAVIGATION ===== */
-
     {
       "type": "checkbox",
       "id": "show_navigation",
