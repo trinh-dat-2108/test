@@ -3,7 +3,7 @@
   "name": "About Us",
   "sections": {
     "main": {
-      "type": "page",
+      "type": "about-us",
       "settings": {
         "show_heading": true
       }

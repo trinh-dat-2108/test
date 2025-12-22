@@ -3,7 +3,7 @@
   "name": "Privacy Policy",
   "sections": {
     "main": {
-      "type": "page",
+      "type": "privacy-policy",
       "settings": {
         "show_heading": true
       }
