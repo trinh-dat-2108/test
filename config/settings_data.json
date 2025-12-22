@@ -228,7 +228,7 @@
         ],
         "settings": {
           "bg_color": "#f8f8f8",
-          "icon_size": 60,
+          "icon_size": 48,
           "text_size_line1": 16,
           "text_size_line2": 14
         }
