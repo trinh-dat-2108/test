@@ -11,24 +11,6 @@
 >
   <div class="article-template__content">
 
-    <!-- TITLE + META CÙNG DÒNG -->
-    <div class="article-header">
-      {% if section.settings.show_title %}
-        <h1 class="article-template__title h1">
-          {{ article.title }}
-        </h1>
-      {% endif %}
-
-      {% if section.settings.show_meta %}
-        <div class="article-meta">
-          {{ article.published_at | date: "%d/%m/%Y" }}
-          {% if article.author and section.settings.show_author %}
-            • {{ article.author }}
-          {% endif %}
-        </div>
-      {% endif %}
-    </div>
-
     <!-- IMAGE -->
     {% if article.image and section.settings.show_image %}
       {% assign img_w = article.image.width %}
@@ -60,6 +42,24 @@
         >
       </div>
     {% endif %}
+
+    <!-- TITLE + META (Ngày + Tác giả) DƯỚI ẢNH -->
+    <div class="article-header">
+      {% if section.settings.show_title %}
+        <h1 class="article-template__title h1" style="font-size: {{ section.settings.title_size }}px; color: var(--title-color);">
+          {{ article.title }}
+        </h1>
+      {% endif %}
+
+      {% if section.settings.show_meta %}
+        <div class="article-meta">
+          {{ article.published_at | date: "%d/%m/%Y" }}
+          {% if article.author and section.settings.show_author %}
+            • {{ article.author }}
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
 
     <!-- CONTENT -->
     <div class="rte article-template__body">
@@ -126,17 +126,14 @@
   padding: 0 20px;
 }
 
-/* TITLE + META CÙNG DÒNG */
+/* TITLE + META DƯỚI ẢNH */
 .article-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 16px;
+  margin-top: 32px; /* Khoảng cách từ ảnh xuống title */
   margin-bottom: 32px;
 }
 
 .article-template__title {
-  margin: 0;
+  margin: 0 0 8px 0; /* Khoảng cách giữa title và meta */
   color: var(--title-color);
 }
 
@@ -148,7 +145,7 @@
 
 /* IMAGE */
 .article-template__image {
-  margin-bottom: 32px;
+  margin-bottom: 0; /* Không khoảng cách dưới ảnh vì title ở dưới */
   overflow: hidden;
 }
 
@@ -208,8 +205,8 @@
 /* MOBILE */
 @media (max-width: 768px) {
   .article-header {
-    flex-direction: column;
-    align-items: flex-start;
+    margin-top: 24px;
+    margin-bottom: 24px;
   }
   .article-nav {
     grid-template-columns: 1fr;
@@ -280,6 +277,21 @@
       "default": true
     },
     {
+      "type": "range",
+      "id": "title_size",
+      "label": "Cỡ chữ tiêu đề (px)",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Màu tiêu đề",
+      "default": "#111111"
+    },
+    {
       "type": "checkbox",
       "id": "show_meta",
       "label": "Hiển thị ngày đăng & tác giả",
@@ -336,14 +348,8 @@
     /* ===== TYPOGRAPHY ===== */
     {
       "type": "color",
-      "id": "title_color",
-      "label": "Màu tiêu đề",
-      "default": "#111111"
-    },
-    {
-      "type": "color",
       "id": "meta_color",
-      "label": "Màu meta",
+      "label": "Màu meta (ngày & tác giả)",
       "default": "#666666"
     },
     {
