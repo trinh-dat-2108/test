@@ -229,8 +229,8 @@
         "settings": {
           "bg_color": "#f8f8f8",
           "icon_size": 48,
-          "text_size_line1": 16,
-          "text_size_line2": 14
+          "text_size_line1": 15,
+          "text_size_line2": 11
         }
       },
       "footer-marquee-text": {
