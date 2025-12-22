@@ -1,4 +1,60 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "sections": {},
-  "order": []
+  "sections": {
+    "product_tabs_PfPPwb": {
+      "type": "product-tabs",
+      "blocks": {
+        "collection_block_LVUhqD": {
+          "type": "collection_block",
+          "settings": {
+            "collection": "sữa-trẻ-em",
+            "show_banner": true,
+            "banner_heading": "Healthy Lifestyle",
+            "button_label": "Shop Now",
+            "button_url": "",
+            "content_position": "center",
+            "button_style": "normal"
+          }
+        },
+        "collection_block_VYTQQQ": {
+          "type": "collection_block",
+          "settings": {
+            "collection": "thuốc",
+            "show_banner": true,
+            "banner_heading": "Healthy Lifestyle",
+            "button_label": "Shop Now",
+            "button_url": "",
+            "content_position": "center",
+            "button_style": "normal"
+          }
+        }
+      },
+      "block_order": [
+        "collection_block_LVUhqD",
+        "collection_block_VYTQQQ"
+      ],
+      "disabled": true,
+      "name": "Product Tabs Section",
+      "settings": {
+        "heading": "Sản phẩm nổi bật",
+        "subheading": "Các sản phẩm mới nhất",
+        "heading_color": "#111827",
+        "subheading_color": "#6B7280",
+        "heading_size": 32,
+        "subheading_size": 18,
+        "products_to_show": 4
+      }
+    }
+  },
+  "order": [
+    "product_tabs_PfPPwb"
+  ]
 }
