@@ -1,190 +1,379 @@
-<div class="page-width page-width--narrow article-template">
+<div class="page-width page-width--narrow article-template"
+     style="
+      --title-color: {{ section.settings.title_color }};
+      --meta-color: {{ section.settings.meta_color }};
+      --body-color: {{ section.settings.body_color }};
+      --body-size: {{ section.settings.body_size }}px;
+      --article-link-color: {{ section.settings.link_color }};
+      --article-link-hover-color: {{ section.settings.link_hover_color }};
+      --article-link-bg-hover: {{ section.settings.link_bg_hover }};
+     "
+>
   <div class="article-template__content">
 
-    <h1 class="article-template__title h1">{{ article.title }}</h1>
+    <!-- TITLE -->
+    <h1 class="article-template__title h1">
+      {{ article.title }}
+    </h1>
 
-    <div class="article-template__meta" style="margin: 16px 0; color: #666; font-size: 14px;">
-      Đăng ngày {{ article.published_at | date: "%d/%m/%Y" }}
-      {% if article.author %} • Bởi {{ article.author }}{% endif %}
+    <!-- META -->
+    {% if section.settings.show_meta %}
+    <div class="article-template__meta">
+      {{ article.published_at | date: "%d/%m/%Y" }}
+      {% if article.author and section.settings.show_author %}
+        • {{ article.author }}
+      {% endif %}
     </div>
+    {% endif %}
 
-    {% if article.image %}
-      {% assign img_width = article.image.width %}
-      {% assign img_height = article.image.height %}
-
-      <div
-        class="article-template__image"
-        style="margin-bottom: 32px; border-radius: 12px; overflow: hidden; aspect-ratio: {{ img_width }} / {{ img_height }};"
-      >
+    <!-- IMAGE -->
+    {% if article.image and section.settings.show_image %}
+      <div class="article-template__image">
         <img
           src="{{ article.image | img_url: 'master' }}"
           alt="{{ article.image.alt | escape }}"
-          width="{{ img_width }}"
-          height="{{ img_height }}"
           loading="lazy"
-          decoding="async"
-          style="width: 100%; height: auto; display: block; object-fit: cover;"
+          width="auto"
+          height="auto"
         >
       </div>
     {% endif %}
 
+    <!-- CONTENT -->
     <div class="rte article-template__body">
       {{ article.content }}
     </div>
 
-    {%- if article.previous or article.next -%}
-  <div class="article-nav">
+    <!-- ========== CUSTOM PREV / NEXT (KHÔNG THEO NGÀY) ========== -->
+    {% if section.settings.show_navigation %}
 
-    <div class="article-nav__prev">
-      {% if article.previous %}
-        <a href="{{ article.previous.url }}">
-          <span class="article-nav__label">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2"/>
-            </svg>
-            Bài trước
-          </span>
-          <span class="article-nav__title">
-            {{ article.previous.title }}
-          </span>
-        </a>
+      {% assign articles = blog.articles %}
+      {% assign current_index = -1 %}
+
+      {% for a in articles %}
+        {% if a.handle == article.handle %}
+          {% assign current_index = forloop.index0 %}
+        {% endif %}
+      {% endfor %}
+
+      {% assign prev_index = current_index | minus: 1 %}
+      {% assign next_index = current_index | plus: 1 %}
+
+      {% if prev_index >= 0 or next_index < articles.size %}
+      <div class="article-nav">
+
+        <!-- PREVIOUS -->
+        <div class="article-nav__col article-nav__prev">
+          {% if prev_index >= 0 %}
+            {% assign prev_article = articles[prev_index] %}
+            <a href="{{ prev_article.url }}">
+              <span class="article-nav__label">← {{ section.settings.prev_label }}</span>
+            </a>
+          {% endif %}
+        </div>
+
+        <!-- CENTER -->
+        <div class="article-nav__col article-nav__center">
+          <a href="{{ blog.url }}" class="article-nav__blog">
+            {{ section.settings.blog_button_text }}
+          </a>
+        </div>
+
+        <!-- NEXT -->
+        <div class="article-nav__col article-nav__next">
+          {% if next_index < articles.size %}
+            {% assign next_article = articles[next_index] %}
+            <a href="{{ next_article.url }}">
+              <span class="article-nav__label">{{ section.settings.next_label }} →</span>
+            </a>
+          {% endif %}
+        </div>
+
+      </div>
       {% endif %}
-    </div>
-
-    <div class="article-nav__center">
-      <a href="{{ blog.url }}" class="article-nav__blog">
-        Về blog
-      </a>
-    </div>
-
-    <div class="article-nav__next">
-      {% if article.next %}
-        <a href="{{ article.next.url }}">
-          <span class="article-nav__label">
-            Bài tiếp theo
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/>
-            </svg>
-          </span>
-          <span class="article-nav__title">
-            {{ article.next.title }}
-          </span>
-        </a>
-      {% endif %}
-    </div>
-
-  </div>
-{%- endif -%}
-
+    {% endif %}
 
   </div>
 </div>
 
 <style>
-  .page-width--narrow {
-    max-width: 800px;
-    margin: 60px auto;
-    padding: 0 20px;
-  }
+/* LAYOUT */
+.page-width--narrow {
+  max-width: {{ section.settings.max_width }}px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
 
-  @media (max-width: 768px) {
-    .page-width--narrow {
-      margin: 40px auto;
-      padding: 0 16px;
-    }
-  }
+/* TITLE */
+.article-template__title {
+  color: var(--title-color);
+  margin-bottom: 16px;
+}
 
-  /* ===== Article navigation ===== */
-  .article-nav {
+/* META */
+.article-template__meta {
+  color: var(--meta-color);
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+/* IMAGE */
+.article-template__image {
+  margin-bottom: 32px;
+  border-radius: {{ section.settings.image_radius }}px;
+  overflow: hidden;
+}
+
+.article-template__image img {
+  width: 100%;
+  display: block;
+}
+
+/* CONTENT */
+.article-template__body {
+  color: var(--body-color);
+  font-size: var(--body-size);
+  line-height: 1.7;
+}
+
+/* ===== NAVIGATION ===== */
+.article-nav {
   margin-top: 80px;
   padding-top: 40px;
   border-top: 1px solid #eee;
 
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  align-items: center;
+  gap: 20px;
 }
 
-.article-nav a {
-  text-decoration: none;
-  color: #111;
-}
+.article-nav__prev { text-align: left; }
+.article-nav__next { text-align: right; }
+.article-nav__center { text-align: center; }
 
 .article-nav__label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #e60023;
+  color: {{ section.settings.nav_color }};
 }
-
-.article-nav__label svg {
-  width: 16px;
-  height: 16px;
-}
-
-.article-nav__title {
-  display: block;
-  margin-top: 6px;
-
-  font-size: 15px;
-  font-weight: 500;
-  color: #111;
-}
-
-.article-nav__prev {
-  text-align: left;
-}
-
-.article-nav__next {
-  text-align: right;
-}
-
-.article-nav__center {
-  text-align: center;
-}
-
 .article-nav__blog {
   padding: 10px 28px;
-  border: 2px solid #e60023;
+  border: 2px solid {{ section.settings.nav_color }};
   border-radius: 999px;
-
-  font-size: 14px;
+  color: {{ section.settings.nav_color }};
   font-weight: 600;
-  text-transform: uppercase;
-  color: #e60023;
-
-  transition: all 0.25s ease;
 }
 
 .article-nav__blog:hover {
-  background: #e60023;
+  background: {{ section.settings.nav_color }};
   color: #fff;
 }
 
-/* Mobile */
+/* MOBILE */
 @media (max-width: 768px) {
   .article-nav {
     grid-template-columns: 1fr;
-    gap: 24px;
-    text-align: center;
-  }
-
-  .article-nav__prev,
-  .article-nav__next {
     text-align: center;
   }
 }
+/* ===== RICH TEXT TYPOGRAPHY ===== */
+.article-template__body h1 {
+  font-size: 32px;
+  margin: 48px 0 20px;
+}
 
+.article-template__body h2 {
+  font-size: 26px;
+  margin: 40px 0 18px;
+}
+
+.article-template__body h3 {
+  font-size: 22px;
+  margin: 32px 0 16px;
+}
+
+.article-template__body p {
+  margin: 0 0 18px;
+}
+
+.article-template__body strong {
+  font-weight: 600;
+}
+
+.article-template__body blockquote {
+  margin: 32px 0;
+  padding-left: 20px;
+  border-left: 4px solid #e60023;
+  font-style: italic;
+  color: #555;
+}
+/* ===== ARTICLE LINKS ===== */
+.article-template__body a {
+  color: var(--article-link-color);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.article-template__body a:hover {
+  color: var(--article-link-hover-color);
+  background-color: var(--article-link-bg-hover);
+}
+
+/* Optional: link trong đoạn highlight */
+.article-template__body .text-highlight a {
+  font-weight: 600;
+}
 </style>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const articleBody = document.querySelector('.article-template__body')
+    if (!articleBody) return
+
+    articleBody.querySelectorAll('a').forEach(link => {
+      link.style.color = getComputedStyle(document.documentElement)
+        .getPropertyValue('--article-link-color')
+      link.style.textDecoration = 'underline'
+    })
+  })
+</script>
 
 {% schema %}
 {
-  "name": "Main article",
-  "settings": []
+  "name": "Main Article (Custom)",
+  "settings": [
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Chiều rộng nội dung",
+      "min": 600,
+      "max": 1200,
+      "step": 50,
+      "default": 800
+    },
+    {
+      "type": "checkbox",
+      "id": "show_meta",
+      "label": "Hiển thị ngày đăng",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author",
+      "label": "Hiển thị tác giả",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_image",
+      "label": "Hiển thị ảnh bài viết",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Bo góc ảnh",
+      "min": 0,
+      "max": 40,
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Màu tiêu đề",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "meta_color",
+      "label": "Màu meta",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Màu nội dung",
+      "default": "#222222"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Cỡ chữ nội dung",
+      "min": 14,
+      "max": 22,
+      "default": 16
+    },
+
+    /* ===== LINK SETTINGS ===== */
+
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Màu link trong nội dung",
+      "default": "#e60023"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Màu link khi hover",
+      "default": "#b8001b"
+    },
+    {
+      "type": "checkbox",
+      "id": "link_underline",
+      "label": "Gạch chân link",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "link_underline_thickness",
+      "label": "Độ dày gạch chân",
+      "min": 1,
+      "max": 4,
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "link_hover_bg",
+      "label": "Nền link khi hover",
+      "default": "rgba(230,0,35,0.08)"
+    },
+
+    /* ===== NAVIGATION ===== */
+
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Hiển thị Next / Previous",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "prev_label",
+      "label": "Text bài trước",
+      "default": "Bài trước"
+    },
+    {
+      "type": "text",
+      "id": "next_label",
+      "label": "Text bài tiếp theo",
+      "default": "Bài tiếp theo"
+    },
+    {
+      "type": "text",
+      "id": "blog_button_text",
+      "label": "Text nút về blog",
+      "default": "Về blog"
+    },
+    {
+      "type": "color",
+      "id": "nav_color",
+      "label": "Màu navigation",
+      "default": "#e60023"
+    }
+  ]
 }
 {% endschema %}
