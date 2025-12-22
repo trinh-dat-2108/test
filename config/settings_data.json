@@ -268,9 +268,9 @@
           "text_item_GR7YNQ"
         ],
         "settings": {
-          "bg_color": "#000000",
+          "bg_color": "#d75d99",
           "text_color": "#ffffff",
-          "text_size": 16,
+          "text_size": 14,
           "speed": 120
         }
       }
