@@ -70,9 +70,10 @@
         "tab_QiyJjq": {
           "type": "tab",
           "settings": {
-            "tab_number": "1.",
-            "tab_title": "OUR ORIGIN",
-            "content": "<p>Content here</p>"
+            "tab_number": "3.",
+            "tab_title": "Inspired by Salvias​",
+            "image": "shopify://shop_images/Salvarity_About-us_750x750_0d9051a4-096a-4ff5-8bfc-b96a9782e792.webp",
+            "content": "<p>Our name comes from the Latin ‘Salvare’ — to heal and save — a perfect reflection of what we stand for. ​</p><p>We’re inspired by Salvias: a family of resilient, resourceful plants known for their healing properties, natural beauty, remarkable diversity and role in supporting ecosystems. ​</p><p>Their powerful botanical extracts lie at the heart of our formulas, caring for young skin while keeping our environmental footprint light​</p>"
           }
         }
       },
