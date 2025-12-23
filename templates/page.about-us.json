@@ -101,8 +101,8 @@
         "image_radius": 12,
         "image_opacity": 100,
         "divider_color": "#000000",
-        "divider_thickness": 2,
-        "divider_width": 80,
+        "divider_thickness": 1,
+        "divider_width": 100,
         "divider_margin": 40
       }
     },
