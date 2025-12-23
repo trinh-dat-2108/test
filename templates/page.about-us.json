@@ -1,12 +1,275 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "layout": "page-only",
   "sections": {
     "main": {
       "type": "about-us",
       "settings": {
-        "show_heading": true
+        "bg_color": "#ffffff",
+        "text_color": "#333333",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "about_us_hero_jrp6gj": {
+      "type": "about-us-hero",
+      "name": "About Us Hero Text",
+      "settings": {
+        "heading": "ABOUT SALVARITY®",
+        "heading_align": "center",
+        "heading_size": 64,
+        "subheading_1": "SCIENCE BACKED",
+        "show_subheading_1": true,
+        "subheading_2": "AUSTRALIAN SKINCARE",
+        "show_subheading_2": true,
+        "subheading_3": "abc",
+        "show_subheading_3": false,
+        "subheading_color": "#d32f2f",
+        "subheading_size": 40,
+        "subheading_letter_spacing": 2,
+        "tagline": "Clean by Nature - Proven by Science",
+        "description": "<p>At Salvariety®, we're redefining what it means to care for your skin — with high-performance, science-backed formulas that <strong>support, not strip</strong>.</p><p>Rooted in Australian skincare innovation, our clean, effective products are made for real life and real skin — especially <em>young, breakout-prone skin</em>.</p><ul><li>Science First, Always</li><li>Clean by Nature</li><li>Proven Results</li></ul>",
+        "description_align": "center",
+        "description_size": 18,
+        "description_max_width": 800,
+        "text_color": "#000000",
+        "background_color": "#ffffff",
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "our_origin_tabs_NyNDmR": {
+      "type": "our-origin-tabs",
+      "blocks": {
+        "tab_VqfTyr": {
+          "type": "tab",
+          "settings": {
+            "tab_number": "1.",
+            "tab_title": "OUR ORIGIN",
+            "content": "<p>Content here</p>"
+          }
+        },
+        "tab_J6gwXR": {
+          "type": "tab",
+          "settings": {
+            "tab_number": "1.",
+            "tab_title": "OUR ORIGIN",
+            "content": "<p>Content here</p>"
+          }
+        },
+        "tab_QiyJjq": {
+          "type": "tab",
+          "settings": {
+            "tab_number": "1.",
+            "tab_title": "OUR ORIGIN",
+            "content": "<p>Content here</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tab_VqfTyr",
+        "tab_J6gwXR",
+        "tab_QiyJjq"
+      ],
+      "name": "Our Origin Tabs",
+      "settings": {
+        "section_title": "ABC",
+        "bg_color": "#ffffff",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "tab_number_size": 48,
+        "tab_title_size": 48,
+        "tab_number_color": "#000000",
+        "tab_title_color": "#000000",
+        "tab_active_color": "#000000",
+        "tab_hover_color": "#777777",
+        "content_color": "#555555",
+        "content_font_size": 16,
+        "content_line_height": 1.7,
+        "image_fit": "cover",
+        "image_radius": 12,
+        "image_opacity": 100,
+        "divider_color": "#000000",
+        "divider_thickness": 2,
+        "divider_width": 80,
+        "divider_margin": 40
+      }
+    },
+    "about_us_marquee_kDbpFi": {
+      "type": "about-us-marquee",
+      "blocks": {
+        "item_438JPW": {
+          "type": "item",
+          "settings": {
+            "text": "SAFE ON THE SKIN"
+          }
+        },
+        "item_fLaVjR": {
+          "type": "item",
+          "settings": {
+            "text": "UNIQUE EKS ETHOS"
+          }
+        },
+        "item_FbL8Yf": {
+          "type": "item",
+          "settings": {
+            "text": "EFFECTIVE FOR YOU"
+          }
+        }
+      },
+      "block_order": [
+        "item_438JPW",
+        "item_fLaVjR",
+        "item_FbL8Yf"
+      ],
+      "name": "About-Us-Marquee",
+      "settings": {
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "text_size": 28,
+        "icon_size": 32,
+        "speed": 60
+      }
+    },
+    "about_mission_jXwEQf": {
+      "type": "about-mission",
+      "name": "About-mission",
+      "settings": {
+        "title": "CELEBRATING TEENS' NATURAL BEAUTY",
+        "description": "<p>We have a simple but personal mission: to create proven safe, effective, planet-conscious products that target teenage specific conditions and nurture skin naturally. We want to empower teens with confidence and resilience to navigate life's challenges and celebrate their natural beauty.</p>",
+        "image_position": "right",
+        "image_radius": 12,
+        "text_color": "#000000",
+        "title_size": 48,
+        "desc_size": 18,
+        "bg_color": "#ffffff",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "our_ambitions_xpKYNf": {
+      "type": "our-ambitions",
+      "name": "Tham Vọng Của Chúng Tôi",
+      "settings": {
+        "title": "OUR AMBITIONS",
+        "description": "<p>Our vision goes beyond skincare, with products that nurture teenage skin while protecting the planet for future generations.</p><p>Our Research Park bees play a vital role in supporting plant biodiversity of our local ecosystems. These bees produce our unique MBC Herbal Honey, a key ingredient in Salvarity® products, rich in skin restoring properties. Through the harmony of innovation and nature, we're creating a future where skincare supports both your skin and the planet.</p>",
+        "image_position": "left",
+        "image_radius": 0,
+        "text_color": "#000000",
+        "title_size": 52,
+        "desc_size": 18,
+        "bg_color": "#f8f8f8",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "about_mission_rKdUBe": {
+      "type": "about-mission",
+      "name": "About-mission",
+      "settings": {
+        "title": "CELEBRATING TEENS' NATURAL BEAUTY",
+        "description": "<p>We have a simple but personal mission: to create proven safe, effective, planet-conscious products that target teenage specific conditions and nurture skin naturally. We want to empower teens with confidence and resilience to navigate life's challenges and celebrate their natural beauty.</p>",
+        "image_position": "right",
+        "image_radius": 12,
+        "text_color": "#000000",
+        "title_size": 48,
+        "desc_size": 18,
+        "bg_color": "#ffffff",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "meet_our_team_eHzeJJ": {
+      "type": "meet-our-team",
+      "blocks": {
+        "member_C7nw4W": {
+          "type": "member",
+          "settings": {
+            "name": "PROF. JULIAN HILL",
+            "title": "BSc, PhD",
+            "description": "<p>Leading expert in dermatology with over 20 years of experience...</p>"
+          }
+        },
+        "member_n6QAPR": {
+          "type": "member",
+          "settings": {
+            "name": "PROF. JULIAN HILL",
+            "title": "BSc, PhD",
+            "description": "<p>Leading expert in dermatology with over 20 years of experience...</p>"
+          }
+        },
+        "member_RGXWET": {
+          "type": "member",
+          "settings": {
+            "name": "PROF. JULIAN HILL",
+            "title": "BSc, PhD",
+            "description": "<p>Leading expert in dermatology with over 20 years of experience...</p>"
+          }
+        },
+        "member_6Uygph": {
+          "type": "member",
+          "settings": {
+            "name": "PROF. JULIAN HILL",
+            "title": "BSc, PhD",
+            "description": "<p>Leading expert in dermatology with over 20 years of experience...</p>"
+          }
+        },
+        "member_jXWJ7m": {
+          "type": "member",
+          "settings": {
+            "name": "PROF. JULIAN HILL",
+            "title": "BSc, PhD",
+            "description": "<p>Leading expert in dermatology with over 20 years of experience...</p>"
+          }
+        },
+        "member_QULjyN": {
+          "type": "member",
+          "settings": {
+            "name": "PROF. JULIAN HILL",
+            "title": "BSc, PhD",
+            "description": "<p>Leading expert in dermatology with over 20 years of experience...</p>"
+          }
+        }
+      },
+      "block_order": [
+        "member_C7nw4W",
+        "member_n6QAPR",
+        "member_RGXWET",
+        "member_6Uygph",
+        "member_jXWJ7m",
+        "member_QULjyN"
+      ],
+      "name": "Meet Our Team",
+      "settings": {
+        "pre_title": "INSPIRED BY TEENS. DEVELOPED BY EXPERTS. VALIDATED BY SCIENCE.",
+        "main_title": "MEET OUR TEAM",
+        "description": "<p>Our team of scientists, researchers, and formulators bring decades of expertise to every product.</p>",
+        "logo_size": 160,
+        "bg_color": "#ffffff",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "top_divider_color": "#000000",
+        "top_divider_thickness": 2,
+        "top_divider_width": 60
       }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "about_us_hero_jrp6gj",
+    "our_origin_tabs_NyNDmR",
+    "about_us_marquee_kDbpFi",
+    "about_mission_jXwEQf",
+    "our_ambitions_xpKYNf",
+    "about_mission_rKdUBe",
+    "meet_our_team_eHzeJJ"
+  ]
 }
