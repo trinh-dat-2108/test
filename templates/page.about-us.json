@@ -199,6 +199,7 @@
         "member_C7nw4W": {
           "type": "member",
           "settings": {
+            "image": "shopify://shop_images/Savarity_Dr-Julian-Hill_500x500_3d32b068-9431-4cf3-b947-aa2c62e7d058.webp",
             "name": "PROF. JULIAN HILL",
             "title": "BSc, PhD",
             "description": "<p>Leading expert in dermatology with over 20 years of experience...</p>"
@@ -207,6 +208,7 @@
         "member_n6QAPR": {
           "type": "member",
           "settings": {
+            "image": "shopify://shop_images/Savarity_Dr-George-Thouas_500x500_9b74ddd3-e2e6-4f1d-932a-e1f31f2d7ec0.webp",
             "name": "PROF. JULIAN HILL",
             "title": "BSc, PhD",
             "description": "<p>Leading expert in dermatology with over 20 years of experience...</p>"
@@ -215,6 +217,7 @@
         "member_RGXWET": {
           "type": "member",
           "settings": {
+            "image": "shopify://shop_images/Savarity_Dr-Chivukula-Sekar-Subrahmanyam_500x500_9d6c6abc-c6b6-4c54-aaf6-c5f029d1362c.webp",
             "name": "PROF. JULIAN HILL",
             "title": "BSc, PhD",
             "description": "<p>Leading expert in dermatology with over 20 years of experience...</p>"
@@ -223,6 +226,7 @@
         "member_6Uygph": {
           "type": "member",
           "settings": {
+            "image": "shopify://shop_images/Savarity_Dr-Chris-Halkias_500x500_d7c699d0-df4f-4934-9d00-ab3ebf9ae42b.webp",
             "name": "PROF. JULIAN HILL",
             "title": "BSc, PhD",
             "description": "<p>Leading expert in dermatology with over 20 years of experience...</p>"
@@ -231,6 +235,7 @@
         "member_jXWJ7m": {
           "type": "member",
           "settings": {
+            "image": "shopify://shop_images/Savarity_Chidkamon-Tonkan_500x500_38261070-de2e-4b8f-9008-2e898e5e48d5.webp",
             "name": "PROF. JULIAN HILL",
             "title": "BSc, PhD",
             "description": "<p>Leading expert in dermatology with over 20 years of experience...</p>"
@@ -239,6 +244,7 @@
         "member_QULjyN": {
           "type": "member",
           "settings": {
+            "image": "shopify://shop_images/Savarity_Tuan-Nguyen_500x500_57354d68-db76-4dbd-9920-354930bf450d.webp",
             "name": "PROF. JULIAN HILL",
             "title": "BSc, PhD",
             "description": "<p>Leading expert in dermatology with over 20 years of experience...</p>"
@@ -263,8 +269,8 @@
         "padding_top": 100,
         "padding_bottom": 100,
         "top_divider_color": "#000000",
-        "top_divider_thickness": 2,
-        "top_divider_width": 60
+        "top_divider_thickness": 1,
+        "top_divider_width": 100
       }
     }
   },
