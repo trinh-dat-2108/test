@@ -1,0 +1,176 @@
+{% comment %}
+  Section Name: Our Ambitions
+  File: our-ambitions.liquid
+  Description: Section giới thiệu tầm nhìn và tham vọng thương hiệu với ảnh bên trái, text bên phải
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Tham Vọng Của Chúng Tôi",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Tiêu đề chính",
+      "default": "OUR AMBITIONS"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Mô tả",
+      "default": "<p>Our vision goes beyond skincare, with products that nurture teenage skin while protecting the planet for future generations.</p><p>Our Research Park bees play a vital role in supporting plant biodiversity of our local ecosystems. These bees produce our unique MBC Herbal Honey, a key ingredient in Salvarity® products, rich in skin restoring properties. Through the harmony of innovation and nature, we're creating a future where skincare supports both your skin and the planet.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Ảnh bên trái"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Vị trí ảnh",
+      "options": [
+        { "value": "left", "label": "Bên trái (mặc định)" },
+        { "value": "right", "label": "Bên phải" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Bo góc ảnh",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Màu chữ",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Kích thước tiêu đề",
+      "min": 30,
+      "max": 70,
+      "step": 2,
+      "unit": "px",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "desc_size",
+      "label": "Kích thước mô tả",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Màu nền section",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding trên",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding dưới",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tham Vọng Của Chúng Tôi"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="our-ambitions" style="background: {{ section.settings.bg_color }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
+    <div class="ambitions-wrapper" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+      
+      <!-- IMAGE COLUMN -->
+      <div class="ambitions-image" style="order: {% if section.settings.image_position == 'left' %}1{% else %}2{% endif %};">
+        {% if section.settings.image %}
+          <img
+            src="{{ section.settings.image | image_url: width: 800 }}"
+            srcset="{{ section.settings.image | image_url: width: 400 }} 400w,
+                    {{ section.settings.image | image_url: width: 800 }} 800w,
+                    {{ section.settings.image | image_url: width: 1200 }} 1200w"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            alt="{{ section.settings.title | escape }}"
+            loading="lazy"
+            style="width: 100%; height: auto; border-radius: {{ section.settings.image_radius }}px; object-fit: cover; display: block;"
+            width="auto"
+            height="auto">
+        {% endif %}
+      </div>
+
+      <!-- TEXT COLUMN -->
+      <div class="ambitions-text" style="order: {% if section.settings.image_position == 'left' %}2{% else %}1{% endif %}; color: {{ section.settings.text_color }};">
+        {% if section.settings.title != blank %}
+          <h2 style="font-size: {{ section.settings.title_size }}px; margin: 0 0 40px; line-height: 1.2; font-weight: 900; text-transform: uppercase;">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <div style="font-size: {{ section.settings.desc_size }}px; line-height: 1.8; max-width: 600px;">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .our-ambitions h2 {
+    letter-spacing: 1px;
+  }
+
+  /* Mobile: Layout dọc */
+  @media (max-width: 1024px) {
+    .ambitions-wrapper {
+      grid-template-columns: 1fr !important;
+      gap: 50px;
+      text-align: left;
+    }
+    .ambitions-image {
+      order: 1 !important;
+    }
+    .ambitions-text {
+      order: 2 !important;
+    }
+    .ambitions-text > div {
+      max-width: 100% !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ambitions-wrapper h2 {
+      font-size: 40px !important;
+    }
+  }
+</style>

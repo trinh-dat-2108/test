@@ -1,0 +1,399 @@
+<section class="meet-team" style="background: {{ section.settings.bg_color }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
+
+    <!-- THANH NGANG TRÊN ĐẦU -->
+    <div class="top-divider" style="
+      width: {{ section.settings.top_divider_width }}%;
+      height: {{ section.settings.top_divider_thickness }}px;
+      background: {{ section.settings.top_divider_color }};
+      margin: 0 auto 80px;
+    "></div>
+
+    <!-- GRID CHÍNH -->
+    <div class="meet-team__grid">
+
+      <!-- LEFT SIDE -->
+      <div class="meet-team__side meet-team__side--left">
+        {% for block in section.blocks %}
+          {% assign mod = forloop.index0 | modulo: 4 %}
+          {% if mod == 0 or mod == 2 %}
+            <div class="meet-team__person" {{ block.shopify_attributes }}>
+              <div class="meet-team__photo">
+                {% if block.settings.image %}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 800 }}"
+                    alt="{{ block.settings.name | escape }}"
+                    loading="lazy"
+                    width="auto"
+                    height="auto"
+                  >
+                {% endif %}
+              </div>
+              <h3 class="meet-team__name">{{ block.settings.name }}</h3>
+              <p class="meet-team__cred">{{ block.settings.title }}</p>
+              <div class="meet-team__bio rte">{{ block.settings.description }}</div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <!-- CENTER STICKY -->
+      <div class="meet-team__center">
+        {% if section.settings.pre_title != blank %}
+          <p class="meet-team__eyebrow">{{ section.settings.pre_title }}</p>
+        {% endif %}
+
+        {% if section.settings.main_title != blank %}
+          <h2 class="meet-team__heading">{{ section.settings.main_title }}</h2>
+        {% endif %}
+
+        {% if section.settings.description != blank %}
+          <div class="meet-team__desc rte">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.center_logo %}
+          <div class="center-logo" style="margin-top: 40px;">
+            <img
+              src="{{ section.settings.center_logo | image_url: width: 300 }}"
+              alt="Logo"
+              loading="lazy"
+              style="width: {{ section.settings.logo_size }}px; height: auto;"
+              width="auto"
+              height="auto"
+            >
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- RIGHT SIDE -->
+      <div class="meet-team__side meet-team__side--right">
+        {% for block in section.blocks %}
+          {% assign mod = forloop.index0 | modulo: 4 %}
+          {% if mod == 1 or mod == 3 %}
+            <div class="meet-team__person" {{ block.shopify_attributes }}>
+              <div class="meet-team__photo">
+                {% if block.settings.image %}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 800 }}"
+                    alt="{{ block.settings.name | escape }}"
+                    loading="lazy"
+                    width="aotu"
+                    height="auto"
+                  >
+                {% endif %}
+              </div>
+              <h3 class="meet-team__name">{{ block.settings.name }}</h3>
+              <p class="meet-team__cred">{{ block.settings.title }}</p>
+              <div class="meet-team__bio rte">{{ block.settings.description }}</div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Fix overflow để sticky hoạt động */
+  .meet-team,
+  .container,
+  .meet-team__grid {
+    overflow: visible !important;
+  }
+
+  /* GRID CHÍNH */
+  .meet-team__grid {
+    display: grid;
+    grid-template-columns: 1fr minmax(260px, 420px) 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  /* CENTER STICKY */
+  .meet-team__center {
+    position: sticky;
+    top: 200px;
+    align-self: start;
+    text-align: center;
+    padding-top: 8px;
+  }
+
+  /* SIDE COLUMNS - chứa nhiều person card */
+  .meet-team__side {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  /* PERSON CARD */
+  .meet-team__person {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .meet-team__photo {
+    position: relative;
+    width: 100%;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(0,0,0,.06);
+    aspect-ratio: 4 / 3;
+  }
+
+  .meet-team__photo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .meet-team__name {
+    margin: 10px 0 6px;
+    font-size: 28px;
+    line-height: 1.05;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .01em;
+  }
+
+  .meet-team__cred {
+    margin: 0 0 14px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: .9;
+  }
+
+  .meet-team__bio {
+    max-width: 54ch;
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(0,0,0,.78);
+  }
+
+  .meet-team__bio p {
+    margin: 0 0 10px;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .meet-team__bio p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* CENTER TEXT */
+  .meet-team__eyebrow {
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    opacity: .7;
+    margin-bottom: 14px;
+  }
+
+  .meet-team__heading {
+    margin: 0 0 18px;
+    font-size: 62px;
+    line-height: .95;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .meet-team__desc {
+    font-size: 15px;
+    line-height: 1.65;
+    opacity: .9;
+    max-width: 44ch;
+    margin: 0 auto;
+  }
+
+  /* Richtext chung */
+  .meet-team .rte a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    color: inherit;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 990px) {
+    .meet-team__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .meet-team__center {
+      position: static;
+      order: -1;
+      text-align: left;
+      padding-top: 0;
+    }
+
+    .meet-team__heading {
+      font-size: 40px;
+    }
+
+    .meet-team__desc {
+      margin: 0;
+      max-width: none;
+    }
+
+    .meet-team__name {
+      font-size: 22px;
+    }
+
+    .meet-team__bio {
+      max-width: none;
+      font-size: 12.5px;
+      line-height: 1.65;
+    }
+
+    .meet-team__bio p {
+      margin-bottom: 9px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Meet Our Team",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "pre_title",
+      "label": "Dòng chữ nhỏ (eyebrow)",
+      "default": "INSPIRED BY TEENS. DEVELOPED BY EXPERTS. VALIDATED BY SCIENCE."
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Tiêu đề chính",
+      "default": "MEET OUR TEAM"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Mô tả phần giữa",
+      "default": "<p>Our team of scientists, researchers, and formulators bring decades of expertise to every product.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "center_logo",
+      "label": "Logo phần giữa"
+    },
+    {
+      "type": "range",
+      "id": "logo_size",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Kích thước logo",
+      "default": 160
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Màu nền section",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding trên",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding dưới",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Thanh ngang trên đầu"
+    },
+    {
+      "type": "color",
+      "id": "top_divider_color",
+      "label": "Màu thanh ngang",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "top_divider_thickness",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "label": "Độ dày",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "top_divider_width",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Chiều rộng",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "member",
+      "name": "Thành viên team",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Ảnh thành viên"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Tên",
+          "default": "PROF. JULIAN HILL"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Chức danh",
+          "default": "BSc, PhD"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Mô tả / Bio",
+          "default": "<p>Leading expert in dermatology with over 20 years of experience...</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meet Our Team",
+      "blocks": [
+        { "type": "member" },
+        { "type": "member" },
+        { "type": "member" },
+        { "type": "member" },
+        { "type": "member" },
+        { "type": "member" }
+      ]
+    }
+  ]
+}
+{% endschema %}

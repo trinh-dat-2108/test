@@ -1,0 +1,177 @@
+{% comment %}
+  Section Name: About Mission
+  File: about-mission.liquid
+  Description: Section giới thiệu sứ mệnh thương hiệu với text bên trái, ảnh bên phải
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "About-mission",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Tiêu đề chính",
+      "default": "CELEBRATING TEENS' NATURAL BEAUTY"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Mô tả",
+      "default": "<p>We have a simple but personal mission: to create proven safe, effective, planet-conscious products that target teenage specific conditions and nurture skin naturally. We want to empower teens with confidence and resilience to navigate life's challenges and celebrate their natural beauty.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Ảnh bên phải"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Vị trí ảnh",
+      "options": [
+        { "value": "right", "label": "Bên phải (mặc định)" },
+        { "value": "left", "label": "Bên trái" }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Bo góc ảnh",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Màu chữ",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Kích thước tiêu đề",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "desc_size",
+      "label": "Kích thước mô tả",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Màu nền section",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding trên",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding dưới",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "About-mission"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="about-mission" style="background: {{ section.settings.bg_color }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
+    <div class="mission-wrapper" style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+      
+      <!-- TEXT COLUMN -->
+      <div class="mission-text" style="order: {% if section.settings.image_position == 'right' %}1{% else %}2{% endif %}; text-align: {% if section.settings.image_position == 'right' %}left{% else %}right{% endif %}; color: {{ section.settings.text_color }};">
+        {% if section.settings.title != blank %}
+          <h2 style="font-size: {{ section.settings.title_size }}px; margin: 0 0 40px; line-height: 1.2; font-weight: 900; text-transform: uppercase; letter-spacing: 1px;">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+        {% if section.settings.description != blank %}
+          <div style="font-size: {{ section.settings.desc_size }}px; line-height: 1.7; max-width: 600px;">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- IMAGE COLUMN -->
+      <div class="mission-image" style="order: {% if section.settings.image_position == 'right' %}2{% else %}1{% endif %};">
+        {% if section.settings.image %}
+          <img
+            src="{{ section.settings.image | image_url: width: 800 }}"
+            srcset="{{ section.settings.image | image_url: width: 400 }} 400w,
+                    {{ section.settings.image | image_url: width: 800 }} 800w,
+                    {{ section.settings.image | image_url: width: 1200 }} 1200w"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            alt="{{ section.settings.title | escape }}"
+            loading="lazy"
+            style="width: 100%; height: auto; border-radius: {{ section.settings.image_radius }}px; object-fit: cover; display: block;"
+            width="auto"
+            height="auto">
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-mission h2 {
+    letter-spacing: 1px;
+  }
+
+  /* Mobile: Layout dọc */
+  @media (max-width: 1024px) {
+    .mission-wrapper {
+      grid-template-columns: 1fr !important;
+      gap: 40px;
+      text-align: center !important;
+    }
+    .mission-text {
+      order: 1 !important;
+    }
+    .mission-image {
+      order: 2 !important;
+    }
+    .mission-text > div {
+      max-width: 100% !important;
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .mission-wrapper h2 {
+      font-size: 36px !important;
+    }
+  }
+</style>

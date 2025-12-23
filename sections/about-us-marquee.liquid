@@ -1,0 +1,190 @@
+<section
+  class="about-us-marquee"
+  style="background: {{ section.settings.bg_color }};"
+>
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
+
+      {% for i in (1..10) %}
+        {% for block in section.blocks %}
+          <span class="marquee-item" {{ block.shopify_attributes }}>
+            {% if section.settings.logo_icon %}
+              <img
+                src="{{ section.settings.logo_icon | image_url: width: 80 }}"
+                alt="Icon"
+                class="marquee-icon"
+                loading="lazy"
+                width="auto"
+                height="auto"
+              >
+            {% endif %}
+
+            <span
+              class="marquee-text"
+              style="font-size: {{ section.settings.text_size }}px;"
+            >
+              {{ block.settings.text }}
+            </span>
+          </span>
+        {% endfor %}
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+<style>
+.about-us-marquee {
+  width: 100%;
+  overflow: hidden;
+  padding: 28px 0; /* TĂNG PADDING */
+}
+
+.marquee-wrapper {
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee {{ section.settings.speed }}s linear infinite;
+  will-change: transform;
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  padding-right: 72px; /* TĂNG KHOẢNG CÁCH GIỮA CÁC ITEM */
+}
+
+/* ICON LOGO */
+.marquee-icon {
+  width: {{ section.settings.icon_size }}px;
+  height: auto;
+  margin-right: 20px; /* TĂNG KHOẢNG CÁCH ICON – TEXT */
+  flex-shrink: 0;
+}
+
+/* TEXT */
+.marquee-text {
+  color: {{ section.settings.text_color }};
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 2px; /* CHỮ THOÁNG HƠN */
+}
+
+/* ANIMATION */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* HOVER PAUSE */
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .about-us-marquee {
+    padding: 20px 0;
+  }
+
+  .marquee-item {
+    padding-right: 40px;
+  }
+
+  .marquee-text {
+    font-size: calc({{ section.settings.text_size }}px * 0.85);
+  }
+
+  .marquee-icon {
+    width: calc({{ section.settings.icon_size }}px * 0.85);
+    margin-right: 12px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "About-Us-Marquee",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Màu nền",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Màu chữ",
+      "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_icon",
+      "label": "Logo icon (thay cho chấm)"
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "min": 18,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Kích thước chữ",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 16,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "label": "Kích thước logo",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 15,
+      "max": 120,
+      "step": 5,
+      "unit": "s",
+      "label": "Tốc độ chạy (giây)",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Text item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Nội dung",
+          "default": "SAFE ON THE SKIN"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About-Us-Marquee",
+      "blocks": [
+        { "type": "item", "settings": { "text": "SAFE ON THE SKIN" } },
+        { "type": "item", "settings": { "text": "UNIQUE EKS ETHOS" } },
+        { "type": "item", "settings": { "text": "EFFECTIVE FOR YOU" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

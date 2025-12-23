@@ -1,0 +1,444 @@
+{% comment %}
+  Section Name: Our Origin Tabs
+  Description: Tabbed section with image on left, tabs + content on right
+{% endcomment %}
+
+{% schema %}
+{
+  "name": "Our Origin Tabs",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Tiêu đề section (nếu có)",
+      "default": "ABC"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Màu nền section",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Khoảng cách trên",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Khoảng cách dưới",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "tab_number_size",
+      "label": "Kích thước số tab",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "tab_title_size",
+      "label": "Kích thước tiêu đề tab",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "tab_number_color",
+      "label": "Màu số tab",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_title_color",
+      "label": "Màu tiêu đề tab",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_color",
+      "label": "Màu tab khi active",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "tab_hover_color",
+      "label": "Màu tab khi hover",
+      "default": "#777777"
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "Màu chữ nội dung",
+      "default": "#555555"
+    },
+    {
+      "type": "range",
+      "id": "content_font_size",
+      "label": "Cỡ chữ nội dung",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "content_line_height",
+      "label": "Giãn dòng nội dung",
+      "min": 1.2,
+      "max": 2.0,
+      "step": 0.1,
+      "default": 1.7
+    },
+    {
+      "type": "select",
+      "id": "image_fit",
+      "label": "Cách hiển thị ảnh",
+      "options": [
+        { "value": "cover", "label": "Cover (cắt vừa khung)" },
+        { "value": "contain", "label": "Contain (hiển thị đầy đủ)" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Bo góc ảnh",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "image_opacity",
+      "label": "Độ mờ ảnh",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Cài đặt thanh ngang"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Màu thanh ngang",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "divider_thickness",
+      "label": "Độ dày thanh ngang",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "divider_width",
+      "label": "Chiều dài thanh ngang",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "divider_margin",
+      "label": "Khoảng cách dưới thanh ngang",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_number",
+          "label": "Số tab",
+          "default": "1."
+        },
+        {
+          "type": "text",
+          "id": "tab_title",
+          "label": "Tiêu đề tab",
+          "default": "OUR ORIGIN"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Ảnh bên trái"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Nội dung",
+          "default": "<p>Content here</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Origin Tabs",
+      "blocks": [
+        { "type": "tab" },
+        { "type": "tab" },
+        { "type": "tab" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<section
+  class="our-origin-tabs"
+  style="background: {{ section.settings.bg_color }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+>
+  <div class="container" style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
+
+    {% if section.settings.section_title != blank %}
+      <h2 style="text-align:center; font-size:2.5rem; margin-bottom:20px;">
+        {{ section.settings.section_title }}
+      </h2>
+    {% endif %}
+
+    <div class="divider" style="
+      background: {{ section.settings.divider_color }};
+      height: {{ section.settings.divider_thickness }}px;
+      width: {{ section.settings.divider_width }}%;
+      margin: 0 auto {{ section.settings.divider_margin }}px;
+    "></div>
+
+    <div class="tabs-wrapper">
+
+      <!-- LEFT IMAGE COLUMN -->
+      <div class="tabs-content">
+        {% for block in section.blocks %}
+          <div
+            class="tab-panel tab-image-panel {% if forloop.first %}active{% endif %}"
+            data-tab="{{ forloop.index }}"
+          >
+            <div class="tab-image">
+              {% if block.settings.image %}
+                <img
+                  src="{{ block.settings.image | image_url: width: 800 }}"
+                  srcset="
+                    {{ block.settings.image | image_url: width: 400 }} 400w,
+                    {{ block.settings.image | image_url: width: 800 }} 800w,
+                    {{ block.settings.image | image_url: width: 1200 }} 1200w
+                  "
+                  sizes="(max-width: 992px) 100vw, 50vw"
+                  alt="{{ block.settings.tab_title | escape }}"
+                  loading="lazy"
+                  width="800"
+                  height="{{ 800 | divided_by: block.settings.image.aspect_ratio | round }}"
+                  style="object-fit: {{ section.settings.image_fit }}; border-radius: {{ section.settings.image_radius }}px; opacity: {{ section.settings.image_opacity | divided_by: 100 }};"
+                >
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- RIGHT CONTENT COLUMN -->
+      <div class="tabs-right">
+        <div class="tabs-nav">
+          {% for block in section.blocks %}
+            <button
+              class="tab-button {% if forloop.first %}active{% endif %}"
+              data-tab="{{ forloop.index }}"
+              {{ block.shopify_attributes }}
+            >
+              <span class="tab-number" style="font-size: {{ section.settings.tab_number_size }}px; color: {{ section.settings.tab_number_color }};">
+                {{ block.settings.tab_number }}
+              </span>
+              <span class="tab-title" style="font-size: {{ section.settings.tab_title_size }}px; color: {{ section.settings.tab_title_color }};">
+                {{ block.settings.tab_title }}
+              </span>
+            </button>
+          {% endfor %}
+        </div>
+
+        <div class="tabs-content-text">
+          {% for block in section.blocks %}
+            <div
+              class="tab-text {% if forloop.first %}active{% endif %}"
+              data-tab="{{ forloop.index }}"
+              style="color: {{ section.settings.content_color }}; font-size: {{ section.settings.content_font_size }}px; line-height: {{ section.settings.content_line_height }};"
+            >
+              {{ block.settings.content }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.our-origin-tabs {
+  color: #000;
+}
+
+/* GRID */
+.tabs-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* IMAGE PANEL */
+.tab-image-panel {
+  display: none;
+  opacity: 0;
+  transform: translateX(100px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.tab-image-panel.active {
+  display: block;
+  opacity: 1;
+  transform: translateX(0);
+}
+.tab-image img {
+  width: 100%;
+  border-radius: {{ section.settings.image_radius }}px;
+}
+
+/* CONTENT TEXT */
+.tabs-content-text {
+  position: relative;
+}
+.tab-text {
+  display: none;
+  opacity: 0;
+  transform: translateX(100px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.tab-text.active {
+  display: block;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* RIGHT */
+.tabs-right {
+  display: flex;
+  flex-direction: column;
+}
+
+/* TAB LIST */
+.tabs-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.tab-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  gap: 16px;
+  font-weight: 700;
+  text-align: left;
+  color: {{ section.settings.tab_number_color }};
+  transition: color 0.3s ease;
+}
+
+.tab-button:hover {
+  color: {{ section.settings.tab_hover_color }} !important;
+}
+
+.tab-button.active {
+  color: {{ section.settings.tab_active_color }} !important;
+}
+
+/* Đảm bảo số và tiêu đề cũng theo hover/active */
+.tab-button .tab-number,
+.tab-button .tab-title {
+  transition: color 0.3s ease;
+}
+
+.tab-button:hover .tab-number,
+.tab-button:hover .tab-title {
+  color: {{ section.settings.tab_hover_color }} !important;
+}
+
+.tab-button.active .tab-number,
+.tab-button.active .tab-title {
+  color: {{ section.settings.tab_active_color }} !important;
+}
+
+/* MOBILE */
+@media (max-width: 1024px) {
+  .tabs-wrapper {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .tab-image-panel,
+  .tab-text {
+    transform: translateY(30px); /* Mobile dùng hiệu ứng từ dưới lên cho đẹp */
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.our-origin-tabs').forEach(section => {
+    const tabs = section.querySelectorAll('.tab-button');
+    const imagePanels = section.querySelectorAll('.tab-image-panel');
+    const textPanels = section.querySelectorAll('.tab-text');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const index = tab.dataset.tab;
+
+        tabs.forEach(t => t.classList.remove('active'));
+        imagePanels.forEach(p => p.classList.remove('active'));
+        textPanels.forEach(p => p.classList.remove('active'));
+
+        tab.classList.add('active');
+        section.querySelector(`.tab-image-panel[data-tab="${index}"]`)?.classList.add('active');
+        section.querySelector(`.tab-text[data-tab="${index}"]`)?.classList.add('active');
+      });
+    });
+  });
+});
+</script>
