@@ -14,7 +14,8 @@
       "type": "about-us",
       "name": "About Us Hero Banner",
       "settings": {
-        "bg_image": "shopify://shop_images/download_1.png",
+        "bg_video": "shopify://files/videos/7d10a8c84dce48bda9c2e9ae75551f6d.mp4",
+        "bg_video_url": "",
         "heading": "",
         "subheading": "",
         "bg_color": "#e8e8e8",
