@@ -235,6 +235,29 @@
 .btn-slide-hover:hover span {
   color: #ffffff;
 }
+/* ===============================
+   FIX SECTION ĐÈ HEADER
+================================ */
+
+.product-tabs {
+  position: relative;
+  z-index: 1;
+}
+
+/* ép toàn bộ content bên trong xuống */
+.product-tabs * {
+  z-index: auto;
+}
+
+/* tab content tuyệt đối không được vượt header */
+.product-tabs .tab-content {
+  z-index: 1 !important;
+}
+
+/* wrapper cũng không được tạo context cao */
+.product-tabs .tabs_panels_collection {
+  z-index: 1;
+}
 
 </style>
 

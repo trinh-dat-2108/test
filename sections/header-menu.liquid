@@ -1,4 +1,4 @@
-<div class="section_header py-8
+<div class="section_header header-menu py-8 
   {% if page.handle == 'about-us' %}
     header--transparent
   {% else %}
@@ -158,6 +158,21 @@ ul ul a {
   display: block;
   transition: transform 0.35s ease;
 }
+/* ===============================
+   FIX HEADER TRANSPARENT KHÔNG ĐÈ CONTENT
+================================ */
+
+/* MẶC ĐỊNH: header transparent KHÔNG đè */
+.header--transparent {
+  position: relative;
+  top: 0;
+}
+
+/* CHỈ KHI scroll lên mới fixed + đè */
+body.header-float .header--transparent {
+  position: fixed;
+  top: 0;
+}
 
 /* ===============================
    ABOUT US – TRANSPARENT HEADER
@@ -244,6 +259,36 @@ ul ul a {
     float: right;
   }
 }
+/* ===============================
+   SCROLL UP → FIXED HEADER
+   KHÔNG ẢNH HƯỞNG LAYOUT GỐC
+================================ */
+
+body.header-float .header-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+}
+
+/* nếu đang transparent page (about-us) */
+body.header-float .header--transparent {
+  background: rgba(0,0,0,0.6);
+}
+
+/* animation */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
 </style>
 
 {% schema %}
@@ -326,6 +371,25 @@ document.querySelectorAll('ul ul a').forEach(link => {
     bottom.style.transform = 'translateY(0)';
   });
 });
+(function () {
+  let lastScroll = window.scrollY;
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.scrollY;
+
+    // cuộn lên + đã scroll xuống một đoạn
+    if (currentScroll < lastScroll && currentScroll > 160) {
+      document.body.classList.add('header-float');
+    }
+
+    // về gần đầu trang → trả header về bình thường
+    if (currentScroll <= 80) {
+      document.body.classList.remove('header-float');
+    }
+
+    lastScroll = currentScroll;
+  });
+})();
 </script>
 
 
