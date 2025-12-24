@@ -377,12 +377,17 @@ document.querySelectorAll('ul ul a').forEach(link => {
   window.addEventListener('scroll', () => {
     const currentScroll = window.scrollY;
 
-    // cuộn lên + đã scroll xuống một đoạn
+    /* ===== CUỘN LÊN → HIỆN MENU ===== */
     if (currentScroll < lastScroll && currentScroll > 160) {
       document.body.classList.add('header-float');
     }
 
-    // về gần đầu trang → trả header về bình thường
+    /* ===== CUỘN XUỐNG → ẨN MENU ===== */
+    if (currentScroll > lastScroll) {
+      document.body.classList.remove('header-float');
+    }
+
+    /* ===== GẦN ĐẦU TRANG → RESET ===== */
     if (currentScroll <= 80) {
       document.body.classList.remove('header-float');
     }
