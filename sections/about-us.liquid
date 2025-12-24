@@ -1,3 +1,7 @@
+{% comment %}
+  About Us Hero Banner - Header Transparent Fix Final
+{% endcomment %}
+
 <section
   class="about-us-wrapper about-us-hero position-relative"
   style="
@@ -5,17 +9,37 @@
     {% if section.settings.bg_image != blank %}
       background-image: url({{ section.settings.bg_image | image_url: width: 1920 }});
     {% endif %}
+    background-size: cover;
+    background-position: center;
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
   "
 >
-  <div class="hero-overlay"></div>
 
-  {% if section.settings.bg_video != blank %}
-    <video class="hero-video" autoplay muted loop playsinline>
-      <source src="{{ section.settings.bg_video | file_url }}" type="video/mp4">
+  {%- if section.settings.bg_video != blank -%}
+    {{
+      section.settings.bg_video
+      | video_tag:
+        class: 'hero-video',
+        autoplay: true,
+        loop: true,
+        muted: true,
+        playsinline: true,
+        controls: false
+    }}
+  {%- elsif section.settings.bg_video_url != blank -%}
+    <video
+      class="hero-video"
+      autoplay
+      muted
+      loop
+      playsinline
+    >
+      <source src="{{ section.settings.bg_video_url }}" type="video/mp4">
     </video>
-  {% endif %}
+  {%- endif -%}
+
+  <div class="hero-overlay"></div>
 
   <div class="page-width page-width--narrow hero-content position-relative">
     {% if section.settings.heading != blank %}
@@ -26,44 +50,47 @@
       <p>{{ section.settings.subheading }}</p>
     {% endif %}
   </div>
+
 </section>
 
 <style>
 .about-us-hero {
-  background-size: cover;
-  background-position: center;
   min-height: 60vh;
   display: flex;
   align-items: center;
   color: #fff;
   position: relative;
+  overflow: hidden;
 }
 
-.about-us-hero .hero-overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 0, 0.3); 
-  z-index: 1;
-  pointer-events: none;
-}
-
+/* ===== MEDIA ===== */
 .about-us-hero .hero-video {
   position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   z-index: 0;
 }
 
+/* ===== OVERLAY ===== */
+.about-us-hero .hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ===== CONTENT ===== */
 .about-us-hero .hero-content {
-  text-align: center;
-  z-index: 2;
   position: relative;
+  z-index: 2;
+  text-align: center;
 }
 
 .about-us-hero h1 {
-  font-size: 56px;
+  font-size: clamp(36px, 5vw, 56px);
   font-weight: 800;
   margin: 0 0 20px;
   text-shadow: 0 4px 15px rgba(0,0,0,0.6);
@@ -78,21 +105,19 @@
   color: #fff;
 }
 
-/* =============== HEADER TRANSPARENT - FIX MẠNH HƠN =============== */
+/* ===== HEADER TRANSPARENT ===== */
 .header-transparent-active .header,
 .header-transparent-active header,
 .header-transparent-active #shopify-section-header,
 .header-transparent-active .site-header,
 .header-transparent-active .header-wrapper,
-.header-transparent-active .shopify-section-header { /* Thêm cái này cho theme có section header riêng */
+.header-transparent-active .shopify-section-header {
   background-color: transparent !important;
-  backdrop-filter: none !important;
   box-shadow: none !important;
   border-bottom: none !important;
   transition: all 0.4s ease;
 }
 
-/* Announcement bar (phần xanh lá trên cùng) cũng transparent + chữ trắng */
 .header-transparent-active .announcement-bar,
 .header-transparent-active .shopify-section-announcement-bar,
 .header-transparent-active #shopify-section-announcement-bar {
@@ -100,57 +125,36 @@
   color: #fff !important;
 }
 
-.header-transparent-active .announcement-bar a,
-.header-transparent-active .announcement-bar p {
-  color: #fff !important;
-  opacity: 0.9;
-}
-
-/* Menu chính: chữ trắng, logo trắng */
 .header-transparent-active .header__menu-item,
 .header-transparent-active .list-menu__item,
-.header-transparent-active .header__inline-menu a,
-.header-transparent-active .site-nav__link,
-.header-transparent-active a.header__heading-link {
+.header-transparent-active a {
   color: #fff !important;
 }
 
-/* Logo sáng lên (nếu logo tối bình thường) */
-.header-transparent-active .header__heading-logo,
 .header-transparent-active .header__heading-link img {
-  filter: brightness(0) invert(1); /* Làm logo trắng */
+  filter: brightness(0) invert(1);
 }
 
-/* Khi scroll xuống: header trở lại nền trắng + chữ đen */
+/* ===== SCROLLED ===== */
 .header-transparent-active.scrolled .header,
-.header-transparent-active.scrolled header,
 .header-transparent-active.scrolled #shopify-section-header {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+  background-color: rgba(255,255,255,.95) !important;
+  box-shadow: 0 2px 15px rgba(0,0,0,.1);
 }
 
-.header-transparent-active.scrolled .announcement-bar {
-  background-color: #155724 !important; /* Màu xanh lá gốc của announcement nếu cần */
-  color: #fff !important;
-}
-
-.header-transparent-active.scrolled .header__menu-item,
-.header-transparent-active.scrolled .list-menu__item,
 .header-transparent-active.scrolled a {
   color: #000 !important;
 }
 
-.header-transparent-active.scrolled .header__heading-logo,
 .header-transparent-active.scrolled .header__heading-link img {
   filter: none;
 }
 
-/* Mobile */
+/* ===== MOBILE ===== */
 @media (max-width: 768px) {
   .about-us-hero {
     min-height: 70vh;
-    padding-top: 140px; /* Tăng thêm nếu header cao trên mobile */
+    padding-top: 140px;
   }
   .about-us-hero h1 { font-size: 40px; }
   .about-us-hero p { font-size: 18px; }
@@ -158,17 +162,13 @@
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   if (document.querySelector('.about-us-hero')) {
     document.body.classList.add('header-transparent-active');
   }
 
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 80) {
-      document.body.classList.add('scrolled');
-    } else {
-      document.body.classList.remove('scrolled');
-    }
+  window.addEventListener('scroll', function () {
+    document.body.classList.toggle('scrolled', window.scrollY > 80);
   });
 });
 </script>
@@ -177,34 +177,12 @@ document.addEventListener('DOMContentLoaded', function() {
 {
   "name": "About Us Hero Banner",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "bg_image",
-      "label": "Ảnh banner"
-    },
-    {
-      "type": "video",
-      "id": "bg_video",
-      "label": "Video banner (MP4)"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Tiêu đề",
-      "default": "ABOUT SALVARITY®"
-    },
-    {
-      "type": "text",
-      "id": "subheading",
-      "label": "Mô tả",
-      "default": "Science-backed Australian Skincare"
-    },
-    {
-      "type": "color",
-      "id": "bg_color",
-      "label": "Màu nền fallback",
-      "default": "#e8e8e8"
-    },
+    { "type": "image_picker", "id": "bg_image", "label": "Ảnh banner" },
+    { "type": "video", "id": "bg_video", "label": "Video banner (MP4)" },
+    { "type": "text", "id": "bg_video_url", "label": "Video banner URL (MP4 từ Files)" },
+    { "type": "text", "id": "heading", "label": "Tiêu đề", "default": "ABOUT SALVARITY®" },
+    { "type": "text", "id": "subheading", "label": "Mô tả", "default": "Science-backed Australian Skincare" },
+    { "type": "color", "id": "bg_color", "label": "Màu nền fallback", "default": "#e8e8e8" },
     {
       "type": "range",
       "id": "padding_top",
@@ -227,12 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   ],
   "presets": [
-    {
-      "name": "About Us Hero Banner",
-      "settings": {
-        "padding_top": 180
-      }
-    }
+    { "name": "About Us Hero Banner" }
   ]
 }
 {% endschema %}
