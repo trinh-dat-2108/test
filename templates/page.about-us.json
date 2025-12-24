@@ -10,15 +10,6 @@
 {
   "layout": "page-only",
   "sections": {
-    "main": {
-      "type": "about-us",
-      "settings": {
-        "bg_color": "#ffffff",
-        "text_color": "#333333",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
     "about_us_hero_jrp6gj": {
       "type": "about-us-hero",
       "name": "About Us Hero Text",
@@ -272,10 +263,21 @@
         "top_divider_thickness": 1,
         "top_divider_width": 100
       }
+    },
+    "about_us_UxBtJp": {
+      "type": "about-us",
+      "name": "About Us Hero Banner",
+      "settings": {
+        "heading": "ABOUT SALVARITY®",
+        "subheading": "Science-backed Australian Skincare",
+        "bg_color": "#e8e8e8",
+        "padding_top": 180,
+        "padding_bottom": 100
+      }
     }
   },
   "order": [
-    "main",
+    "about_us_UxBtJp",
     "about_us_hero_jrp6gj",
     "our_origin_tabs_NyNDmR",
     "about_us_marquee_kDbpFi",
