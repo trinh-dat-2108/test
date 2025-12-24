@@ -79,7 +79,7 @@
                     src="{{ block.settings.image | image_url: width: 800 }}"
                     alt="{{ block.settings.name | escape }}"
                     loading="lazy"
-                    width="aotu"
+                    width="autu"
                     height="auto"
                   >
                 {% endif %}
@@ -97,162 +97,192 @@
 </section>
 
 <style>
-  /* Fix overflow để sticky hoạt động */
-  .meet-team,
-  .container,
+/* ===============================
+   ENSURE STICKY WORKS PROPERLY
+=============================== */
+
+.meet-team,
+.container,
+.meet-team__grid {
+  overflow: visible !important;
+}
+
+/* ===============================
+   GRID
+=============================== */
+.meet-team__grid {
+  display: grid;
+  grid-template-columns: 1fr minmax(260px, 420px) 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+/* ===============================
+   CENTER STICKY
+=============================== */
+.meet-team__center {
+  position: sticky;
+  top: 140px;
+  align-self: start;
+  text-align: center;
+  padding-top: 8px;
+  z-index: 10;
+}
+
+/* ===============================
+   SIDE COLUMNS
+=============================== */
+.meet-team__side {
+  position: sticky;
+  top: 140px;
+  align-self: start;
+
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ===============================
+   PERSON CARD — FIX HEIGHT
+=============================== */
+.meet-team__person {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  height: 680px;          /* 🔥 FIX CHIỀU CAO */
+}
+
+/* ===============================
+   IMAGE
+=============================== */
+.meet-team__photo {
+  position: relative;
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(0,0,0,.06);
+  aspect-ratio: 4 / 3;
+  flex-shrink: 0;         /* 🔒 KHÓA ẢNH */
+}
+
+.meet-team__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+
+.meet-team__photo img:hover {
+  transform: scale(1.05);
+}
+
+/* ===============================
+   TEXT
+=============================== */
+.meet-team__name {
+  margin: 10px 0 6px;
+  font-size: 28px;
+  line-height: 1.05;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.meet-team__cred {
+  margin: 0 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  opacity: .9;
+}
+
+.meet-team__bio {
+  flex-grow: 1;           /* 🔥 GIÃN NỘI DUNG */
+  max-width: 54ch;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(0,0,0,.78);
+}
+
+.meet-team__bio p {
+  margin: 0 0 10px;
+}
+
+.meet-team__bio p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===============================
+   CENTER TEXT
+=============================== */
+.meet-team__eyebrow {
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: .7;
+  margin-bottom: 14px;
+}
+
+.meet-team__heading {
+  margin: 0 0 18px;
+  font-size: 62px;
+  line-height: .95;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.meet-team__desc {
+  font-size: 15px;
+  line-height: 1.65;
+  opacity: .9;
+  max-width: 44ch;
+  margin: 0 auto;
+}
+
+/* ===============================
+   MOBILE – RESET HEIGHT
+=============================== */
+@media (max-width: 990px) {
   .meet-team__grid {
-    overflow: visible !important;
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 
-  /* GRID CHÍNH */
-  .meet-team__grid {
-    display: grid;
-    grid-template-columns: 1fr minmax(260px, 420px) 1fr;
-    gap: 56px;
-    align-items: start;
-  }
-
-  /* CENTER STICKY */
-  .meet-team__center {
-    position: sticky;
-    top: 200px;
-    align-self: start;
-    text-align: center;
-    padding-top: 8px;
-  }
-
-  /* SIDE COLUMNS - chứa nhiều person card */
+  .meet-team__center,
   .meet-team__side {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
+    position: static;
+    top: auto;
   }
 
-  /* PERSON CARD */
-  .meet-team__person {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .meet-team__photo {
-    position: relative;
-    width: 100%;
-    border-radius: 18px;
-    overflow: hidden;
-    background: rgba(0,0,0,.06);
-    aspect-ratio: 4 / 3;
-  }
-
-  .meet-team__photo img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .meet-team__name {
-    margin: 10px 0 6px;
-    font-size: 28px;
-    line-height: 1.05;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: .01em;
-  }
-
-  .meet-team__cred {
-    margin: 0 0 14px;
-    font-size: 13px;
-    font-weight: 600;
-    opacity: .9;
-  }
-
-  .meet-team__bio {
-    max-width: 54ch;
-    font-size: 13px;
-    line-height: 1.6;
-    color: rgba(0,0,0,.78);
-  }
-
-  .meet-team__bio p {
-    margin: 0 0 10px;
-    font-size: inherit;
-    line-height: inherit;
-  }
-
-  .meet-team__bio p:last-child {
-    margin-bottom: 0;
-  }
-
-  /* CENTER TEXT */
-  .meet-team__eyebrow {
-    font-size: 12px;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    opacity: .7;
-    margin-bottom: 14px;
+  .meet-team__center {
+    order: -1;
+    text-align: left;
+    padding-top: 0;
   }
 
   .meet-team__heading {
-    margin: 0 0 18px;
-    font-size: 62px;
-    line-height: .95;
-    font-weight: 900;
-    text-transform: uppercase;
+    font-size: 40px;
   }
 
   .meet-team__desc {
-    font-size: 15px;
-    line-height: 1.65;
-    opacity: .9;
-    max-width: 44ch;
-    margin: 0 auto;
+    margin: 0;
+    max-width: none;
   }
 
-  /* Richtext chung */
-  .meet-team .rte a {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    color: inherit;
+  .meet-team__name {
+    font-size: 22px;
   }
 
-  /* RESPONSIVE */
-  @media (max-width: 990px) {
-    .meet-team__grid {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
-
-    .meet-team__center {
-      position: static;
-      order: -1;
-      text-align: left;
-      padding-top: 0;
-    }
-
-    .meet-team__heading {
-      font-size: 40px;
-    }
-
-    .meet-team__desc {
-      margin: 0;
-      max-width: none;
-    }
-
-    .meet-team__name {
-      font-size: 22px;
-    }
-
-    .meet-team__bio {
-      max-width: none;
-      font-size: 12.5px;
-      line-height: 1.65;
-    }
-
-    .meet-team__bio p {
-      margin-bottom: 9px;
-    }
+  .meet-team__bio {
+    max-width: none;
+    font-size: 12.5px;
   }
+
+  .meet-team__person {
+    height: auto;         /* 🔄 MOBILE TỰ NHIÊN */
+  }
+}
+
 </style>
 
 {% schema %}
