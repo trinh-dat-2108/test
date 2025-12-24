@@ -1,9 +1,11 @@
-* {
-  box-sizing: border-box; 
+/* ===== CRITICAL: STICKY FIX ===== */
+html, body{
+  overflow-x: visible !important;
 }
 
-body, html {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+.meet-team,
+.meet-team__inner,
+.meet-team__grid,
+.page-width{
+  overflow: visible !important;
 }

@@ -1,4 +1,10 @@
-<div class="section_header py-8 bg-gray-50">
+<div class="section_header py-8
+  {% if page.handle == 'about-us' %}
+    header--transparent
+  {% else %}
+    bg-gray-50
+  {% endif %}
+">
   {% assign menu = linklists[section.settings.header_menu].links %}
 
   {% if section.settings.menu_title != blank %}
@@ -153,6 +159,41 @@ ul ul a {
   transition: transform 0.35s ease;
 }
 
+/* ===============================
+   ABOUT US – TRANSPARENT HEADER
+================================ */
+
+.header--transparent {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: transparent;
+}
+
+/* chữ menu màu trắng */
+.header--transparent nav ul li a,
+.header--transparent .menu-level-1,
+.header--transparent .menu-arrow {
+  color: #fff;
+}
+
+/* submenu dạng glass */
+.header--transparent nav ul > li > ul {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 40px rgba(0,0,0,.15);
+}
+.page-about-us .about-hero,
+.page-about-us .about-hero-banner {
+  padding-top: 120px;
+}
+
+/* hover */
+.header--transparent nav ul li a:hover {
+  opacity: 0.85;
+}
 
 /* ===== MOBILE ONLY ===== */
 @media (max-width: 768px) {
