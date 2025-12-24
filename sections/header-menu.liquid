@@ -288,6 +288,41 @@ body.header-float .header--transparent {
     transform: translateY(0);
   }
 }
+/* ===============================
+   SUBMENU – KHI HEADER FLOAT (SCROLL UP)
+================================ */
+
+/* menu cấp 2 có nền trắng khi header hiện lại */
+body.header-float .section_header nav ul > li > ul {
+  background: #ffffff;
+  backdrop-filter: none; /* bỏ glass */
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* chữ submenu màu đen cho dễ đọc */
+body.header-float .section_header nav ul > li > ul a {
+  color: #333;
+}
+
+/* hover submenu */
+body.header-float .section_header nav ul > li > ul a:hover {
+  background: rgba(0,0,0,0.04);
+}
+/* ===============================
+   ARROW MENU CẤP 1 – KHI SCROLL UP
+   CHỈ ĐỔI MÀU – KHÔNG ĐỔI KIỂU
+================================ */
+
+body.header-float .menu-level-1 .menu-arrow {
+  color: #000;
+}
+
+/* đảm bảo svg ăn màu theo color */
+.menu-arrow svg,
+.menu-arrow svg * {
+  fill: currentColor;
+  stroke: currentColor;
+}
 
 </style>
 
