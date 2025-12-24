@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <section
   class="about-us-wrapper about-us-hero position-relative"
   style="
@@ -11,6 +12,25 @@
 >
   <div class="hero-overlay"></div>
 
+=======
+{% comment %}
+  About Us Hero Banner - Header Transparent Fix Final
+{% endcomment %}
+
+<section
+  class="about-us-wrapper about-us-hero position-relative"
+  style="
+    background-color: {{ section.settings.bg_color }};
+    {% if section.settings.bg_image != blank %}
+      background-image: url({{ section.settings.bg_image | image_url: width: 1920 }});
+    {% endif %}
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  "
+>
+  <div class="hero-overlay"></div>
+
+>>>>>>> a0f8923d1c89a5d4fe6327d591f97ef6fe3b0033
   {% if section.settings.bg_video != blank %}
     <video class="hero-video" autoplay muted loop playsinline>
       <source src="{{ section.settings.bg_video | file_url }}" type="video/mp4">
@@ -43,7 +63,11 @@
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
+<<<<<<< HEAD
   background: rgba(0, 0, 0, 0.3); 
+=======
+  background: rgba(0, 0, 0, 0.3); /* Tăng overlay chút để chữ và menu dễ đọc hơn */
+>>>>>>> a0f8923d1c89a5d4fe6327d591f97ef6fe3b0033
   z-index: 1;
   pointer-events: none;
 }
