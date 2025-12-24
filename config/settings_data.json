@@ -91,50 +91,6 @@
       "banner-combo": {
         "type": "banner-combo",
         "blocks": {
-          "slider_NKqYDg": {
-            "type": "slider",
-            "settings": {
-              "banner_image": "shopify://shop_images/Garden-of-wellness-shop-little-etoile-1000x1000-MilkFormula4_70a92c91-4035-4b69-9803-7741ab63fcc5.webp",
-              "banner_heading": "",
-              "button_label": "",
-              "button_url": "",
-              "content_position": "bottom",
-              "button_style": "underline"
-            }
-          },
-          "slider_JmNYxt": {
-            "type": "slider",
-            "settings": {
-              "banner_image": "shopify://shop_images/Garden-of-wellness-shop-max-biocare-1000x1000-Maxucosa.webp",
-              "banner_heading": "",
-              "button_label": "",
-              "button_url": "",
-              "content_position": "center",
-              "button_style": "underline"
-            }
-          },
-          "slider_mxPC6d": {
-            "type": "slider",
-            "settings": {
-              "banner_image": "shopify://shop_images/gow-shop-boy-in-his-bath-tub.webp",
-              "banner_heading": "",
-              "button_label": "",
-              "button_url": "",
-              "content_position": "center",
-              "button_style": "underline"
-            }
-          },
-          "slider_APTpUd": {
-            "type": "slider",
-            "settings": {
-              "banner_image": "shopify://shop_images/gow-shop-mid-age-couple.webp",
-              "banner_heading": "",
-              "button_label": "",
-              "button_url": "",
-              "content_position": "center",
-              "button_style": "underline"
-            }
-          },
           "grid_9nbf7w": {
             "type": "grid",
             "settings": {
@@ -170,10 +126,6 @@
           }
         },
         "block_order": [
-          "slider_NKqYDg",
-          "slider_JmNYxt",
-          "slider_mxPC6d",
-          "slider_APTpUd",
           "grid_9nbf7w",
           "grid_VRyCGE",
           "slider_mVwWww"
