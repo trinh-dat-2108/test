@@ -223,7 +223,7 @@
           "bg_color": "#d75d99",
           "text_color": "#ffffff",
           "text_size": 14,
-          "speed": 120
+          "speed": 60
         }
       }
     },
