@@ -31,8 +31,8 @@
         "
       >
         <img
-          src="{{ article.image | img_url: 'master' }}"
-          srcset="{{ article.image | img_url: 'master' }} 1x, {{ article.image | image_url: '1024x' }} 2x"
+          src="{{ article.image | image_url: 'master' }}"
+          srcset="{{ article.image | image_url: 'master' }} 1x, {{ article.image | image_url: '1024x' }} 2x"
           alt="{{ article.image.alt | escape }}"
           width="{{ img_w }}"
           height="{% if section.settings.image_height > 0 %}{{ section.settings.image_height }}{% else %}{{ img_h }}{% endif %}"
