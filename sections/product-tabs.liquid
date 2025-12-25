@@ -4,74 +4,65 @@
       <div class="section_product_wapper">
         <div class="section_content tabs_panels">
           <div class="section_header text-center mb-10">
-              {% if section.settings.heading %}
-                  <h2 style="color: {{ section.settings.heading_color }}; font-size: {{ section.settings.heading_size }}px;">
-                        {{ section.settings.heading }}
-                  </h2>
-              {% endif %}
+            {% if section.settings.heading %}
+              <h2 style="color: {{ section.settings.heading_color }}; font-size: {{ section.settings.heading_size }}px;">
+                {{ section.settings.heading }}
+              </h2>
+            {% endif %}
 
-              {% if section.settings.subheading %}
-                <p style="color: {{ section.settings.subheading_color }}; font-size: {{ section.settings.subheading_size }}px;">
-                   {{ section.settings.subheading }}
-                </p>
-              {% endif %}
+            {% if section.settings.subheading %}
+              <p style="color: {{ section.settings.subheading_color }}; font-size: {{ section.settings.subheading_size }}px;">
+                {{ section.settings.subheading }}
+              </p>
+            {% endif %}
           </div>
 
-          <!-- Tabs navigation - ĐẸP HƠN, KHÔNG THANH NGANG -->
           {% if section.blocks.size > 1 %}
             <div class="tabs-navigation flex gap-10 justify-center overflow-x-auto scrollbar-hidden">
               {% for block in section.blocks %}
-                <button 
-                  class="tab-button relative px-5 py-3 text-xl font-medium whitespace-nowrap transition-all duration-300 {% if forloop.first %}active{% endif %}" 
-                  data-tab-index="{{ forloop.index0 }}"
-                >
+                <button
+                  class="tab-button relative px-5 py-3 text-xl font-medium whitespace-nowrap transition-all duration-300 {% if forloop.first %}active{% endif %}"
+                  data-tab-index="{{ forloop.index0 }}">
                   {{ collections[block.settings.collection].title | default: "Collection" }}
                 </button>
               {% endfor %}
             </div>
           {% endif %}
 
-          <!-- Wrapper cho hiệu ứng chuyển tab mượt -->
           <div class="tabs_panels_collection relative">
             {% for block in section.blocks %}
               <featured-collection
-                 class="tab-content absolute inset-0 transition-all duration-500 ease-in-out {% if forloop.first == false %}opacity-0 -translate-x-10 pointer-events-none{% else %}opacity-100 translate-x-0{% endif %}"
-                 data-collection-block
-                 data-tab-index="{{ forloop.index0 }}"
-                 {{ block.shopify_attributes }}
-              >
+                class="tab-content absolute inset-0 transition-all duration-500 ease-in-out {% unless forloop.first %}opacity-0 -translate-x-10 pointer-events-none{% endunless %}"
+                data-tab-index="{{ forloop.index0 }}"
+                {{ block.shopify_attributes }}>
+
                 <div class="product-collection-wrapper py-3 flex flex-col items-center">
                   <div class="product-collection flex gap-0 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-hidden">
-                    <!-- Banner card -->
-                    <div class="snap-start flex-shrink-0 w-[240px] baner-card m-0 p-0">
+
+                    <div class="snap-start flex-shrink-0 w-[240px] baner-card">
                       {% render 'banner-card',
-                         image: block.settings.banner_image,
-                         show_banner: block.settings.show_banner,
-                         title: block.settings.banner_heading,
-                         button_label: block.settings.button_label,
-                         button_url: block.settings.button_url,
-                         content_position: block.settings.content_position,
-                         button_style: block.settings.button_style
+                        image: block.settings.banner_image,
+                        show_banner: block.settings.show_banner,
+                        title: block.settings.banner_heading,
+                        button_label: block.settings.button_label,
+                        button_url: block.settings.button_url,
+                        content_position: block.settings.content_position,
+                        button_style: block.settings.button_style
                       %}
                     </div>
 
-                    <!-- Product list -->
                     <div class="flex gap-0">
                       {% if block.settings.collection != blank %}
                         {% for product in collections[block.settings.collection].products %}
-                          <div class="snap-start flex-shrink-0 w-[240px] h-[470px] product-card m-0 p-0">
+                          <div class="snap-start flex-shrink-0 w-[240px] h-[470px] product-card">
                             {% render 'card-product', product: product %}
                           </div>
                         {% endfor %}
-                      {% else %}
-                        <p class="text-center text-gray-500 flex-shrink-0 w-[350px] h-[470px] flex items-center justify-center">
-                          Please select a collection.
-                        </p>
                       {% endif %}
                     </div>
+
                   </div>
 
-                  <!-- Thanh scroll thumb -->
                   <div class="scroll-wrapper mt-4 w-full">
                     {% render 'scroll',
                       prev_action: 'scrollProductsLeft()',
@@ -79,6 +70,7 @@
                     %}
                   </div>
                 </div>
+
               </featured-collection>
             {% endfor %}
           </div>
@@ -89,250 +81,83 @@
 </div>
 
 <style>
-  /* Ẩn scrollbar */
-  .scrollbar-hidden { scrollbar-width: none; }
-  .scrollbar-hidden::-webkit-scrollbar { display: none; }
+/* ===== BASIC ===== */
+.scrollbar-hidden { scrollbar-width: none; }
+.scrollbar-hidden::-webkit-scrollbar { display: none; }
 
-  /* Carousel */
-  .product-collection {
-    display: flex;
-    gap: 0;
-    width: fit-content;
-    max-width: calc(240px + {{ section.settings.products_to_show | default: 8 }} * 240px);
-    margin: 0 auto;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-  }
+.product-collection {
+  width: fit-content;
+  max-width: calc(240px + {{ section.settings.products_to_show | default: 4 }} * 240px);
+  margin: 0 auto;
+  overflow-x: auto;
+}
 
-  .scroll-wrapper {
-    width: 100%;
-    max-width: calc(240px + {{ section.settings.products_to_show | default: 8 }} * 240px);
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-  }
+.scroll-wrapper {
+  max-width: calc(240px + {{ section.settings.products_to_show | default: 4 }} * 240px);
+  margin: 0 auto;
+}
 
-  /* Ẩn viền card */
-  .product-card, .card-product, .card, .product-item,
-  .card__media, .card__information, .card__inner, .card__content {
-    border: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
-    outline: none !important;
-  }
+/* ===== TAB ===== */
+.tab-button { color: #6B7280; }
+.tab-button.active,
+.tab-button:hover { color: #000; }
 
-  featured-collection, .product-collection-wrapper {
-    overflow: hidden !important;
-  }
+/* ===== FIX HEADER OVERLAP ===== */
+.product-tabs { position: relative; z-index: 1; }
+.product-tabs .tab-content { z-index: 1 !important; }
 
-  /* Responsive mobile */
-  @media (max-width: 768px) {
-    .product-collection, .scroll-wrapper { max-width: none; width: 100%; }
-    .product-card { width: 285px !important; height: auto !important; }
-    .baner-card { width: 285px !important; }
-    .scroll-wrapper, .scrollLeft, .scrollRight, .btn-slide-hover { display: none !important; }
-
-    /* Tab trên mobile nhỏ hơn chút */
-    .tab-button { font-size: 1.125rem /* 18px */; padding: 0.75rem 1rem; gap: 6px; }
-  }
-
-  @media (min-width: 769px) {
-    .scroll-wrapper, .scrollLeft, .scrollRight, .btn-slide-hover { display: flex !important; }
-  }
-
-  /* ==== STYLE TAB ĐẸP HƠN ==== */
-  .tabs-navigation {
-    /* Không border-bottom */
-  }
-
-  .tab-button {
-    color: #6B7280;
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    overflow: hidden;
-  }
-
-  .tab-button::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 1px;
-    background-color: #000;
-    transition: all 0.4s ease;
-    transform: translateX(-50%);
-  }
-
-  .tab-button:hover {
-    color: #000;
-  }
-
-  .tab-button:hover::after {
-    width: 80%;
-  }
-
-  .tab-button.active {
-    color: #000;
-    font-weight: 400;
-  }
-
-  .tab-button.active::after {
-    width: 100%;
-  }
-
-  /* Wrapper cho hiệu ứng fade + slide */
-  .tabs_panels_collection {
-    height: 600px; 
-    min-height: 500px;
-  }
-
-  .tab-content {
-    /* Đảm bảo content fill đầy wrapper */
-  }
-  /* ===== Hover gradient cho nút Prev / Next ===== */
+/* ===== BUTTON HOVER EFFECT ===== */
 .btn-slide-hover {
   position: relative;
   overflow: hidden;
-  background-color: transparent;
-  transition: color 0.35s ease;
+  background: transparent;
 }
 
-/* lớp gradient chạy */
+/* gradient */
 .btn-slide-hover::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgb(51, 121, 60) 0%,
-    rgb(51, 121, 60) 50%,
-    rgb(51, 121, 60) 100%
-  );
+  background: rgb(51, 121, 60);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.45s ease;
+  transition: transform .4s ease;
   z-index: 0;
 }
 
-/* hover: gradient chạy từ trái sang phải */
 .btn-slide-hover:hover::before {
   transform: scaleX(1);
 }
 
-/* đảm bảo icon / text nổi trên gradient */
-.btn-slide-hover svg,
-.btn-slide-hover span {
+/* FIX: hover text white */
+.btn-slide-hover span,
+.btn-slide-hover svg {
   position: relative;
   z-index: 1;
-  transition: color 0.35s ease;
+  transition: color .3s ease;
 }
 
-/* đổi màu icon/text khi hover */
-.btn-slide-hover:hover svg,
-.btn-slide-hover:hover span {
-  color: #ffffff;
+.btn-slide-hover:hover span,
+.btn-slide-hover:hover svg {
+  color: #ffffff !important;
 }
-/* ===============================
-   FIX SECTION ĐÈ HEADER
-================================ */
-
-.product-tabs {
-  position: relative;
-  z-index: 1;
-}
-
-/* ép toàn bộ content bên trong xuống */
-.product-tabs * {
-  z-index: auto;
-}
-
-/* tab content tuyệt đối không được vượt header */
-.product-tabs .tab-content {
-  z-index: 1 !important;
-}
-
-/* wrapper cũng không được tạo context cao */
-.product-tabs .tabs_panels_collection {
-  z-index: 1;
-}
-
 </style>
 
-
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll("featured-collection").forEach(block => {
-    const scroller = block.querySelector(".product-collection");
-    const thumb = block.querySelector(".scrollThumb");
-    const leftBtn = block.querySelector(".scrollLeft");
-    const rightBtn = block.querySelector(".scrollRight");
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll('.tab-button');
+  const contents = document.querySelectorAll('.tab-content');
 
-    if (!scroller || !thumb) return;
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const index = btn.dataset.tabIndex;
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-    function updateThumb() {
-      const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-      if (maxScroll <= 0) { thumb.style.width = "100%"; return; }
-      const scrolledPercent = (scroller.scrollLeft / maxScroll) * 100;
-      const viewportPercent = (scroller.clientWidth / scroller.scrollWidth) * 100;
-      const filledPercent = Math.min(scrolledPercent + viewportPercent, 100);
-      thumb.style.width = `${filledPercent}%`;
-    }
-
-    leftBtn?.addEventListener("click", () => scroller.scrollBy({ left: -300, behavior: "smooth" }));
-    rightBtn?.addEventListener("click", () => scroller.scrollBy({ left: 300, behavior: "smooth" }));
-
-    scroller.addEventListener("scroll", updateThumb);
-    scroller.scrollLeft = 0;
-    updateThumb();
-    window.addEventListener("resize", updateThumb);
-  });
-});
-</script>
-
-<script>
-document.querySelectorAll('.product-collection').forEach(scroller => {
-  let isDown = false, startX, scrollLeft;
-  scroller.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - scroller.offsetLeft; scrollLeft = scroller.scrollLeft; });
-  scroller.addEventListener('mouseleave', () => isDown = false);
-  scroller.addEventListener('mouseup', () => isDown = false);
-  scroller.addEventListener('mousemove', e => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - scroller.offsetLeft;
-    const walk = (x - startX) * 2;
-    scroller.scrollLeft = scrollLeft - walk;
-  });
-});
-</script>
-
-<!-- Script tab với hiệu ứng mượt -->
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const tabButtons = document.querySelectorAll('.tab-button');
-  const tabContents = document.querySelectorAll('.tab-content');
-
-  if (tabButtons.length === 0) return;
-
-  tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      const index = button.dataset.tabIndex;
-
-      // Active button
-      tabButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-
-      // Hiệu ứng chuyển content
-      tabContents.forEach((content, i) => {
-        if (i == index) {
-          content.classList.remove('opacity-0', '-translate-x-10', 'pointer-events-none');
-          content.classList.add('opacity-100', 'translate-x-0');
-        } else {
-          content.classList.remove('opacity-100', 'translate-x-0');
-          content.classList.add('opacity-0', '-translate-x-10', 'pointer-events-none');
-        }
+      contents.forEach((c, i) => {
+        c.classList.toggle('opacity-0', i != index);
+        c.classList.toggle('-translate-x-10', i != index);
+        c.classList.toggle('pointer-events-none', i != index);
       });
     });
   });
@@ -344,127 +169,28 @@ document.addEventListener("DOMContentLoaded", function () {
   "name": "Product Tabs",
   "max_blocks": 3,
   "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Sản phẩm nổi bật"
-    },
-    {
-      "type": "text",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Các sản phẩm mới nhất"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Màu chữ Heading",
-      "default": "#111827"
-    },
-    {
-      "type": "color",
-      "id": "subheading_color",
-      "label": "Màu chữ Subheading",
-      "default": "#6B7280"
-    },
-    {
-      "type": "range",
-      "id": "heading_size",
-      "label": "Kích thước Heading (px)",
-      "min": 16,
-      "max": 80,
-      "step": 1,
-      "default": 32
-    },
-    {
-      "type": "range",
-      "id": "subheading_size",
-      "label": "Kích thước Subheading (px)",
-      "min": 12,
-      "max": 60,
-      "step": 1,
-      "default": 18
-    },
-    {
-      "type": "range",
-      "id": "products_to_show",
-      "label": "Number of products to show (All tabs)",
-      "min": 1,
-      "max": 20,
-      "step": 1,
-      "default": 4
-    }
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Sản phẩm nổi bật" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Các sản phẩm mới nhất" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#111827" },
+    { "type": "color", "id": "subheading_color", "label": "Subheading color", "default": "#6B7280" },
+    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 16, "max": 80, "step": 1, "default": 32 },
+    { "type": "range", "id": "subheading_size", "label": "Subheading size", "min": 12, "max": 60, "step": 1, "default": 18 },
+    { "type": "range", "id": "products_to_show", "label": "Products to show", "min": 1, "max": 20, "step": 1, "default": 4 }
   ],
   "blocks": [
     {
       "type": "collection_block",
-      "name": "Collection block",
+      "name": "Collection",
       "settings": [
-        {
-          "type": "collection",
-          "id": "collection",
-          "label": "Select collection"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_banner",
-          "label": "Show banner",
-          "default": true
-        },
-        {
-          "type": "image_picker",
-          "id": "banner_image",
-          "label": "Banner image"
-        },
-        {
-          "type": "text",
-          "id": "banner_heading",
-          "label": "Banner heading",
-          "default": "Healthy Lifestyle"
-        },
-        {
-          "type": "text",
-          "id": "button_label",
-          "label": "Button text",
-          "default": "Shop Now"
-        },
-        {
-          "type": "url",
-          "id": "button_url",
-          "label": "Button link"
-        },
-        {
-          "type": "select",
-          "id": "content_position",
-          "label": "Content position",
-          "default": "center",
-          "options": [
-            { "label": "Top", "value": "top" },
-            { "label": "Bottom", "value": "bottom" },
-            { "label": "Left", "value": "left" },
-            { "label": "Right", "value": "right" },
-            { "label": "Center", "value": "center" }
-          ]
-        },
-        {
-          "type": "select",
-          "id": "button_style",
-          "label": "Button style",
-          "default": "normal",
-          "options": [
-            { "label": "Normal", "value": "normal" },
-            { "label": "Underline", "value": "underline" },
-            { "label": "Hover effect", "value": "hover" }
-          ]
-        }
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "checkbox", "id": "show_banner", "label": "Show banner", "default": true },
+        { "type": "image_picker", "id": "banner_image", "label": "Banner image" },
+        { "type": "text", "id": "banner_heading", "label": "Banner heading", "default": "Healthy Lifestyle" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "Shop Now" },
+        { "type": "url", "id": "button_url", "label": "Button link" }
       ]
     }
   ],
-  "presets": [
-    {
-      "name": "Product Tabs Section"
-    }
-  ]
+  "presets": [{ "name": "Product Tabs Section" }]
 }
 {% endschema %}
