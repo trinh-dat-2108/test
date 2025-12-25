@@ -258,11 +258,13 @@
 .product-tabs .tabs_panels_collection {
   z-index: 1;
 }
-/* ONLY FIX: đổi màu text trong button khi hover */
-.btn-slide-hover:hover span,
-.btn-slide-hover:hover {
+/* FORCE đổi màu text khi hover button */
+.product-tabs .btn-slide-hover:hover,
+.product-tabs .btn-slide-hover:hover * {
   color: #ffffff !important;
+  fill: #ffffff !important;
 }
+
 
 </style>
 
