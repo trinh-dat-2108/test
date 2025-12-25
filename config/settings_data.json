@@ -29,8 +29,8 @@
               "banner_heading": "Healthy Lifestyle",
               "button_label": "Shop Now",
               "button_url": "",
-              "content_position": "center",
-              "button_style": "normal"
+              "content_position": "bottom",
+              "button_style": "underline"
             }
           },
           "collection_block_YjGxiG": {
