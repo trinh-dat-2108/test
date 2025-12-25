@@ -258,6 +258,21 @@
 .product-tabs .tabs_panels_collection {
   z-index: 1;
 }
+/* =====================================================
+   FIX: PRODUCT CARD BUTTON TEXT TURN WHITE ON HOVER
+   (chỉ ảnh hưởng button trong card-product)
+===================================================== */
+
+/* ép màu chữ khi hover vào button */
+.card-product a:hover {
+  color: #ffffff !important;
+}
+
+/* đảm bảo span text luôn nổi trên nền */
+.card-product a > span:first-child {
+  position: relative;
+  z-index: 2;
+}
 
 </style>
 
